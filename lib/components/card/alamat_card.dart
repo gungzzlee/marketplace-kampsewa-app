@@ -1,3 +1,4 @@
+﻿// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,10 +63,10 @@ class _AlamatCardState extends State<AlamatCard> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
-          border: Border.all(color: Colors.black.withOpacity(0.25), width: 1.5),
+          border: Border.all(color: Colors.black.withValues(alpha: 0.25), width: 1.5),
           boxShadow: [
             BoxShadow(
-                color: const Color(0xFF494949).withOpacity(0.3),
+                color: const Color(0xFF494949).withValues(alpha: 0.3),
                 offset: const Offset(3.0, 3.0),
                 blurRadius: 5.0)
           ]),
@@ -180,3 +181,4 @@ class _AlamatCardState extends State<AlamatCard> {
     );
   }
 }
+

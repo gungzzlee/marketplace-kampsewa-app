@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -65,7 +65,7 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
         color: Colors.white,
         border: Border.symmetric(
             horizontal:
-                BorderSide(color: Colors.black.withOpacity(0.3), width: 0.8)),
+                BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 0.8)),
       ),
       child: Row(
         children: [
@@ -268,3 +268,4 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
     );
   }
 }
+

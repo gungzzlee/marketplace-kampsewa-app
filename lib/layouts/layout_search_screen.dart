@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -152,7 +152,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                 style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black.withOpacity(0.5)),
+                    color: Colors.black.withValues(alpha: 0.5)),
               ),
             ),
             Container(
@@ -224,7 +224,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: Colors.black.withOpacity(0.6),
+                            color: Colors.black.withValues(alpha: 0.6),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -256,7 +256,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Colors.red.shade800.withOpacity(0.8),
+                          color: Colors.red.shade800.withValues(alpha: 0.8),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -272,7 +272,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                 style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black.withOpacity(0.5)),
+                    color: Colors.black.withValues(alpha: 0.5)),
               ),
             ),
             Padding(
@@ -317,3 +317,4 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
     );
   }
 }
+

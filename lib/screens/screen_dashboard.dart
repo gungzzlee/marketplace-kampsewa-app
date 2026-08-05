@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:project_camp_sewa/layouts/layout_dashboard.dart';
@@ -26,7 +26,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
             color: Colors.white,
             border: Border(
                 top: BorderSide(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withValues(alpha: 0.5),
                     strokeAlign: BorderSide.strokeAlignOutside,
                     width: 2.4)),
             borderRadius: const BorderRadius.only(
@@ -76,3 +76,4 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
     );
   }
 }
+

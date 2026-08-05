@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -49,7 +49,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-                color: const Color(0xFF494949).withOpacity(0.45),
+                color: const Color(0xFF494949).withValues(alpha: 0.45),
                 offset: const Offset(0, 2),
                 blurRadius: 3.5)
           ],
@@ -103,7 +103,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
                             image: AssetImage(widget.fotoProduk)),
                         boxShadow: [
                           BoxShadow(
-                              color: const Color(0xFF494949).withOpacity(0.2),
+                              color: const Color(0xFF494949).withValues(alpha: 0.2),
                               offset: const Offset(0, 0),
                               blurRadius: 3)
                         ],
@@ -340,3 +340,4 @@ class _RiwayatCardState extends State<RiwayatCard> {
     );
   }
 }
+

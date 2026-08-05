@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/input/input_versi1.dart';
-import 'package:project_camp_sewa/layouts/layout_lupa_password_otp.dart';
 import 'package:project_camp_sewa/services/api_lupa_password.dart';
 
 class LayoutLupaPassword extends StatefulWidget {

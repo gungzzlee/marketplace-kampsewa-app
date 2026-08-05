@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
@@ -37,7 +37,7 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
       decoration: BoxDecoration(
           border: Border.symmetric(
               horizontal:
-                  BorderSide(width: 0.6, color: Colors.black.withOpacity(0.5))),
+                  BorderSide(width: 0.6, color: Colors.black.withValues(alpha: 0.5))),
           color: Colors.white),
       child: IntrinsicHeight(
         child: Column(
@@ -59,7 +59,7 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
                               widget.image!)),
                       boxShadow: [
                         BoxShadow(
-                            color: const Color(0xFF494949).withOpacity(0.2),
+                            color: const Color(0xFF494949).withValues(alpha: 0.2),
                             offset: const Offset(0, 0),
                             blurRadius: 3)
                       ],
@@ -159,3 +159,4 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
     );
   }
 }
+

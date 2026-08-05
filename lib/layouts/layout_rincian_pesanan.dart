@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/card/rincian_pesanan_produk_card.dart';
@@ -58,7 +58,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               height: 2,
             ),
             const SizedBox(
@@ -120,7 +120,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                       decoration: BoxDecoration(
                         border: Border.symmetric(
                           horizontal: BorderSide(
-                              color: Colors.black.withOpacity(0.3), width: 1),
+                              color: Colors.black.withValues(alpha: 0.3), width: 1),
                         ),
                         color: Colors.white,
                       ),
@@ -160,7 +160,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                     decoration: BoxDecoration(
                       border: Border.symmetric(
                           horizontal: BorderSide(
-                              color: Colors.black.withOpacity(0.3), width: 1)),
+                              color: Colors.black.withValues(alpha: 0.3), width: 1)),
                       color: Colors.white,
                     ),
                     child: Padding(
@@ -246,7 +246,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                       decoration: BoxDecoration(
                           border: Border.symmetric(
                               horizontal: BorderSide(
-                                  color: Colors.black.withOpacity(0.3),
+                                  color: Colors.black.withValues(alpha: 0.3),
                                   width: 1)),
                           color: Colors.white),
                       child: Column(
@@ -400,7 +400,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                     decoration: BoxDecoration(
                         border: Border.symmetric(
                             horizontal: BorderSide(
-                                color: Colors.black.withOpacity(0.3),
+                                color: Colors.black.withValues(alpha: 0.3),
                                 width: 1)),
                         color: Colors.white),
                     child: Padding(
@@ -440,7 +440,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                       decoration: BoxDecoration(
                           border: Border.symmetric(
                               horizontal: BorderSide(
-                                  color: Colors.black.withOpacity(0.3),
+                                  color: Colors.black.withValues(alpha: 0.3),
                                   width: 1)),
                           color: Colors.white),
                       child: Column(
@@ -529,7 +529,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
               decoration: BoxDecoration(
                 border: Border(
                     top: BorderSide(
-                        color: Colors.black.withOpacity(0.5), width: 1.5)),
+                        color: Colors.black.withValues(alpha: 0.5), width: 1.5)),
                 color: Colors.white,
               ),
               child: Column(
@@ -599,3 +599,4 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
     );
   }
 }
+

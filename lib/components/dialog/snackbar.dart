@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomSnackBar extends StatefulWidget {
@@ -18,10 +17,10 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15), color: Colors.white,
-          border: Border.all(color: Colors.black.withOpacity(0.5), width: 2),
+          border: Border.all(color: Colors.black.withValues(alpha: 0.5), width: 2),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 offset: const Offset(0, 0),
                 blurRadius: 10)
           ]),
@@ -75,3 +74,4 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
     );
   }
 }
+

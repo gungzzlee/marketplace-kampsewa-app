@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:project_camp_sewa/layouts/layout_onboarding.dart';
 import 'package:project_camp_sewa/screens/screen_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';

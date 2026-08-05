@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -120,7 +120,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             InkWell(
@@ -263,7 +263,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             InkWell(
@@ -304,3 +304,4 @@ class _LayoutProfileState extends State<LayoutProfile> {
     );
   }
 }
+

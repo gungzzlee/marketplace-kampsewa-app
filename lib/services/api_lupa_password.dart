@@ -1,3 +1,4 @@
+﻿// ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -258,3 +259,4 @@ class ApiLupaPassword extends GetxController {
     }
   }
 }
+

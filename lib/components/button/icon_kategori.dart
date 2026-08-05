@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class KategoriIcon extends StatelessWidget {
@@ -27,7 +27,7 @@ class KategoriIcon extends StatelessWidget {
             child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: selected ? Colors.transparent :Colors.black.withOpacity(0.3)),
+                  border: Border.all(color: selected ? Colors.transparent :Colors.black.withValues(alpha: 0.3)),
                   color: selected ? const Color(0xFF242569) : const Color(0xFFE3E3E3),
                 ),
                 child: Padding(
@@ -48,3 +48,4 @@ class KategoriIcon extends StatelessWidget {
     );
   }
 }
+

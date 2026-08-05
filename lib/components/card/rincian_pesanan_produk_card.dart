@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RincianPesananProdukCard extends StatefulWidget {
@@ -27,7 +27,7 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.symmetric(horizontal: BorderSide(color: Colors.black.withOpacity(0.3), width: 0.6))
+        border: Border.symmetric(horizontal: BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 0.6))
       ),
       child: Column(
         children: [
@@ -44,7 +44,7 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                     image: DecorationImage(image: AssetImage(widget.image!)),
                     boxShadow: [
                       BoxShadow(
-                          color: const Color(0xFF494949).withOpacity(0.2),
+                          color: const Color(0xFF494949).withValues(alpha: 0.2),
                           offset: const Offset(0, 0),
                           blurRadius: 3)
                     ],
@@ -143,3 +143,4 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
     );
   }
 }
+

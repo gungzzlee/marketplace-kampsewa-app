@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/button/opsi_pembayaran.dart';
@@ -75,7 +75,7 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
               ]),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             Padding(
@@ -106,7 +106,7 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
               height: 20,
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 1.5,
             ),
             InkWell(
@@ -200,13 +200,13 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 1.5,
             ),
             const Spacer(),
             Container(
               height: 2,
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -247,3 +247,4 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
     );
   }
 }
+

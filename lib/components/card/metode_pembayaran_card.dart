@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardMetodePembayaran extends StatefulWidget {
@@ -26,10 +26,10 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.white,
-            border: Border.all(width: 1, color: Colors.black.withOpacity(0.2)),
+            border: Border.all(width: 1, color: Colors.black.withValues(alpha: 0.2)),
             boxShadow: [
               BoxShadow(
-                  color: const Color(0xFF494949).withOpacity(0.3),
+                  color: const Color(0xFF494949).withValues(alpha: 0.3),
                   offset: const Offset(1.5, 1.5),
                   blurRadius: 5.0)
             ]),
@@ -105,3 +105,4 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
     );
   }
 }
+

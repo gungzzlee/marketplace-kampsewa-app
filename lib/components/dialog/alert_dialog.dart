@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -71,8 +71,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                       boxShadow: [
                         BoxShadow(
                             color: widget.sukses
-                                ? const Color(0xFF70C738).withOpacity(0.7)
-                                : const Color(0xFFFF372D).withOpacity(0.7),
+                                ? const Color(0xFF70C738).withValues(alpha: 0.7)
+                                : const Color(0xFFFF372D).withValues(alpha: 0.7),
                             offset: const Offset(0, 0),
                             blurRadius: 5.0)
                       ]),
@@ -97,3 +97,4 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
     );
   }
 }
+

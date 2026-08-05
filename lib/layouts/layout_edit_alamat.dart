@@ -1,3 +1,4 @@
+﻿// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -179,7 +180,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                   ]),
                 ),
                 Container(
-                  color: Colors.black.withOpacity(0.25),
+                  color: Colors.black.withValues(alpha: 0.25),
                   height: 2,
                 ),
                 Padding(
@@ -547,3 +548,4 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
     );
   }
 }
+

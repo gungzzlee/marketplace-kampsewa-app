@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -125,7 +124,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             Expanded(
@@ -351,7 +350,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
               child: Column(
                 children: [
                   Container(
-                    color: Colors.black.withOpacity(0.25),
+                    color: Colors.black.withValues(alpha: 0.25),
                     height: 2,
                   ),
                   Padding(
@@ -421,3 +420,4 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
     );
   }
 }
+

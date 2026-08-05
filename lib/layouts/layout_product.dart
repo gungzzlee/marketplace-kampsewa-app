@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -128,7 +128,7 @@ class _LayoutProductState extends State<LayoutProduct> {
                 ),
               ),
               Container(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 height: 2,
               ),
               Padding(
@@ -240,3 +240,4 @@ class _LayoutProductState extends State<LayoutProduct> {
     );
   }
 }
+

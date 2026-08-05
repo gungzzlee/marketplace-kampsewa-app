@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -84,7 +85,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
             teks: "Tidak bisa Mengkonversi koordinat alamat anda",
           ));
 
-      // ignore: use_build_context_synchronously
+
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(snackBar);
@@ -129,7 +130,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
               ]),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             Padding(
@@ -233,12 +234,12 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
             ),),
             Container(
               height: 1.2,
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
             ),
             const Spacer(),
             Container(
               height: 2,
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -298,3 +299,4 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
     );
   }
 }
+

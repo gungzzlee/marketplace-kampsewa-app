@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart' hide CarouselController;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -9,7 +9,6 @@ import 'package:project_camp_sewa/components/card/produk_terlaris_card.dart';
 import 'package:project_camp_sewa/components/card/wisata_dash_card.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
-import 'package:project_camp_sewa/constants/database_helper.dart';
 import 'package:project_camp_sewa/layouts/layout_detail_product.dart';
 import 'package:project_camp_sewa/layouts/layout_keranjang.dart';
 import 'package:project_camp_sewa/layouts/layout_search_screen.dart';
@@ -163,7 +162,7 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                         ),
                         child: const Center(
                           child: Icon(
@@ -186,7 +185,7 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                         ),
                         child: const Center(
                           child: Icon(
@@ -216,10 +215,10 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                             height: 50,
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withValues(alpha: 0.5),
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(
-                                  color: Colors.black.withOpacity(0.4)),
+                                  color: Colors.black.withValues(alpha: 0.4)),
                             ),
                             child: Row(
                               children: [
@@ -228,7 +227,7 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                                 ),
                                 Icon(
                                   Icons.search_rounded,
-                                  color: Colors.black.withOpacity(0.45),
+                                  color: Colors.black.withValues(alpha: 0.45),
                                   size: 35,
                                 ),
                                 const SizedBox(
@@ -239,7 +238,7 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.black.withOpacity(0.45)),
+                                      color: Colors.black.withValues(alpha: 0.45)),
                                 ),
                               ],
                             ),
@@ -396,8 +395,7 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                       InkWell(
                         onTap: () {
                           //lihat semua rating tertinggi
-                          apiProduk.getProduk(
-                                  context, null, "Rekomendasi");
+                          apiProduk.getProduk(context, null, "Rekomendasi");
                           pageController.setPageIndex(1);
                         },
                         child: Text(
@@ -550,3 +548,4 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
     );
   }
 }
+

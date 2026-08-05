@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -31,7 +31,7 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
         children: [
           Container(
             height: 30,
-            color: const Color(0xFF010935).withOpacity(widget.opacity),
+            color: const Color(0xFF010935).withValues(alpha: widget.opacity),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
@@ -39,14 +39,14 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                   Icon(
                     Icons.location_on_outlined,
                     size: 20,
-                    color: Colors.white.withOpacity(widget.opacity),
+                    color: Colors.white.withValues(alpha: widget.opacity),
                   ),
                   Text(
                     widget.opsi!,
                     style: GoogleFonts.poppins(
                         fontSize: 13.5,
                         fontWeight: FontWeight.w700,
-                        color: Colors.white.withOpacity(widget.opacity)),
+                        color: Colors.white.withValues(alpha: widget.opacity)),
                   ),
                   widget.edit! ? const Spacer() : const SizedBox(),
                   widget.edit!
@@ -84,7 +84,7 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                         style: GoogleFonts.poppins(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black.withOpacity(widget.opacity)),
+                            color: Colors.black.withValues(alpha: widget.opacity)),
                       ),
                     ),
                     const SizedBox(height: 5,),
@@ -94,7 +94,7 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                           MdiIcons.packageVariantClosed,
                           size: 20,
                           color: const Color(0xFFCD1B1B)
-                              .withOpacity(widget.opacity),
+                              .withValues(alpha: widget.opacity),
                         ),
                         Text(
                           widget.keteranganKirim!,
@@ -102,7 +102,7 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                               fontSize: 9.5,
                               fontWeight: FontWeight.w500,
                               color: const Color(0xFFCD1B1B)
-                                  .withOpacity(widget.opacity)),
+                                  .withValues(alpha: widget.opacity)),
                         ),
                       ],
                     )
@@ -122,3 +122,4 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
     );
   }
 }
+

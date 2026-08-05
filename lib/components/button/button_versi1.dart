@@ -29,14 +29,14 @@ class _ButtonVersiSatuState extends State<ButtonVersiSatu> {
       child: ElevatedButton(
           onPressed: widget.aksi,
           style: ButtonStyle(
-              elevation: const MaterialStatePropertyAll(10),
-              padding: const MaterialStatePropertyAll(
+              elevation: const WidgetStatePropertyAll(10),
+              padding: const WidgetStatePropertyAll(
                 EdgeInsets.symmetric(vertical: 20, horizontal: 30),
               ),
-              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               )),
-              backgroundColor: MaterialStatePropertyAll(widget.bgTombol)),
+              backgroundColor: WidgetStatePropertyAll(widget.bgTombol)),
           child: Text(
             widget.title,
             style: GoogleFonts.poppins(

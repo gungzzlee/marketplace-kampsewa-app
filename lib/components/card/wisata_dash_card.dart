@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -40,7 +40,7 @@ class _WisataCardState extends State<WisataCard> {
                 image: AssetImage(widget.image), fit: BoxFit.cover),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withValues(alpha: 0.5),
                 blurRadius: 3.0,
                 offset: const Offset(3, 3),
               ),
@@ -54,7 +54,7 @@ class _WisataCardState extends State<WisataCard> {
                   height: 65,
                   width: MediaQuery.of(context).size.width - 30,
                   decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.6),
+                      color: Colors.white.withValues(alpha: 0.6),
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10))),
@@ -112,3 +112,4 @@ class _WisataCardState extends State<WisataCard> {
     );
   }
 }
+

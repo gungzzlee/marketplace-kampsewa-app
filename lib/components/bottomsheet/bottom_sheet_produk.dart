@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:project_camp_sewa/components/card/item_variant.dart';
-import 'package:project_camp_sewa/components/dialog/snackbar.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 import 'package:project_camp_sewa/constants/database_helper.dart';
 import 'package:project_camp_sewa/services/api_produk.dart';
@@ -55,7 +54,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
           decoration: BoxDecoration(
               border: Border(
                   top: BorderSide(
-                      color: Colors.black.withOpacity(0.2), width: 1)),
+                      color: Colors.black.withValues(alpha: 0.2), width: 1)),
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15), topRight: Radius.circular(15)),
               color: Colors.white),
@@ -242,7 +241,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                           style: GoogleFonts.poppins(
                               fontSize: 11,
                               fontWeight: FontWeight.w500,
-                              color: Colors.red.withOpacity(0.8)),
+                              color: Colors.red.withValues(alpha: 0.8)),
                         ),
                       ),
                     ],
@@ -327,7 +326,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 15),
                   child: Container(
-                    color: Colors.black.withOpacity(0.25),
+                    color: Colors.black.withValues(alpha: 0.25),
                     height: 1.2,
                   ),
                 ),
@@ -397,3 +396,4 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
     );
   }
 }
+

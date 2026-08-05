@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -103,7 +103,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               ]),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             const SizedBox(
@@ -148,7 +148,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             const SizedBox(
@@ -158,7 +158,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(
-                        color: Colors.black.withOpacity(0.25), width: 1.2)),
+                        color: Colors.black.withValues(alpha: 0.25), width: 1.2)),
                 color: Colors.white,
               ),
               child: Column(
@@ -268,7 +268,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               height: 10,
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 1.2,
             ),
             Padding(
@@ -298,7 +298,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(
-                        color: Colors.black.withOpacity(0.5), width: 1.2),
+                        color: Colors.black.withValues(alpha: 0.5), width: 1.2),
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white),
                 child: Padding(
@@ -315,7 +315,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: Colors.black.withOpacity(0.2)),
+                              color: Colors.black.withValues(alpha: 0.2)),
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -344,7 +344,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                           style: GoogleFonts.poppins(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(0.6)),
+                              color: Colors.black.withValues(alpha: 0.6)),
                         ),
                       ),
                     ],
@@ -394,7 +394,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(
-                        color: Colors.black.withOpacity(0.5), width: 1.2),
+                        color: Colors.black.withValues(alpha: 0.5), width: 1.2),
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white),
                 child: Padding(
@@ -411,7 +411,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: Colors.black.withOpacity(0.2)),
+                              color: Colors.black.withValues(alpha: 0.2)),
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -440,7 +440,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                           style: GoogleFonts.poppins(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(0.6)),
+                              color: Colors.black.withValues(alpha: 0.6)),
                         ),
                       ),
                     ],
@@ -465,7 +465,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
             ),
             const Spacer(),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             Padding(
@@ -524,3 +524,4 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
     );
   }
 }
+

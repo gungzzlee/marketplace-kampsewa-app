@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/services/api_data_user.dart';
@@ -58,7 +58,7 @@ class _LayoutTambahMetodeTransferState
                 ),
               ),
               Container(
-                color: Colors.black.withOpacity(0.25),
+                color: Colors.black.withValues(alpha: 0.25),
                 height: 2,
               ),
               Padding(
@@ -210,3 +210,4 @@ class _LayoutTambahMetodeTransferState
     );
   }
 }
+

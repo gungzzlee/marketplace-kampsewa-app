@@ -1,5 +1,6 @@
+﻿// ignore_for_file: avoid_print
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -133,7 +134,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                       width: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.white.withOpacity(0.75),
+                        color: Colors.white.withValues(alpha: 0.75),
                       ),
                       child: const Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -156,11 +157,11 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                     topRight: Radius.circular(15)),
                 border: Border(
                     top: BorderSide(
-                        color: Colors.black.withOpacity(0.25), width: 2.5),
+                        color: Colors.black.withValues(alpha: 0.25), width: 2.5),
                     left: BorderSide(
-                        color: Colors.black.withOpacity(0.25), width: 2),
+                        color: Colors.black.withValues(alpha: 0.25), width: 2),
                     right: BorderSide(
-                        color: Colors.black.withOpacity(0.25), width: 2)),
+                        color: Colors.black.withValues(alpha: 0.25), width: 2)),
               ),
               child: Column(
                 children: [
@@ -367,7 +368,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                     decoration: BoxDecoration(
                         border: Border(
                             top: BorderSide(
-                                color: Colors.black.withOpacity(0.25),
+                                color: Colors.black.withValues(alpha: 0.25),
                                 width: 2))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -516,3 +517,4 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
     );
   }
 }
+

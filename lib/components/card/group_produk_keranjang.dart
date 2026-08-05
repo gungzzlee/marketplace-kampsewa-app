@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,10 +46,10 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
               topRight: Radius.circular(15), topLeft: Radius.circular(25)),
           border: Border.symmetric(
               vertical:
-                  BorderSide(color: Colors.black.withOpacity(0.3), width: 1)),
+                  BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 1)),
           boxShadow: [
             BoxShadow(
-                color: const Color(0xFF494949).withOpacity(0.35),
+                color: const Color(0xFF494949).withValues(alpha: 0.35),
                 offset: const Offset(-2.0, 3.0),
                 blurRadius: 2.0)
           ],
@@ -153,3 +153,4 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
     );
   }
 }
+

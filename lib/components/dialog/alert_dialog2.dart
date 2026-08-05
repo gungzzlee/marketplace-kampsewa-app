@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -59,10 +59,10 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withValues(alpha: 0.2),
                                 offset: const Offset(0, 0),
                                 blurRadius: 3.0)
                           ]),
@@ -121,3 +121,4 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
     );
   }
 }
+

@@ -1,3 +1,4 @@
+﻿// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +76,7 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               height: 2.3,
             ),
             const SizedBox(
@@ -111,7 +112,7 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
               ),
             ),
             Container(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               height: 3,
             ),
             Expanded(
@@ -228,3 +229,4 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
     );
   }
 }
+

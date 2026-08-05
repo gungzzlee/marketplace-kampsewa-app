@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -148,7 +148,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
               ]),
             ),
             Container(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               height: 2,
             ),
             Expanded(
@@ -224,7 +224,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       decoration: BoxDecoration(
                         border: Border.symmetric(
                             horizontal: BorderSide(
-                                color: Colors.black.withOpacity(0.3))),
+                                color: Colors.black.withValues(alpha: 0.3))),
                         color: Colors.white,
                       ),
                       child: Padding(
@@ -328,7 +328,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       decoration: BoxDecoration(
                           border: Border.symmetric(
                               horizontal: BorderSide(
-                                  color: Colors.black.withOpacity(0.25))),
+                                  color: Colors.black.withValues(alpha: 0.25))),
                           color: Colors.white),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -415,7 +415,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                     decoration: BoxDecoration(
                         border: Border.symmetric(
                             horizontal: BorderSide(
-                                color: Colors.black.withOpacity(0.25),
+                                color: Colors.black.withValues(alpha: 0.25),
                                 width: 1.2)),
                         color: Colors.white),
                     child: Padding(
@@ -462,7 +462,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                     decoration: BoxDecoration(
                         border: Border.symmetric(
                             horizontal: BorderSide(
-                                color: Colors.black.withOpacity(0.25),
+                                color: Colors.black.withValues(alpha: 0.25),
                                 width: 0.5)),
                         color: Colors.white),
                     child: Padding(
@@ -516,7 +516,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       decoration: BoxDecoration(
                           border: Border.symmetric(
                               horizontal: BorderSide(
-                                  color: Colors.black.withOpacity(0.25),
+                                  color: Colors.black.withValues(alpha: 0.25),
                                   width: 1.2)),
                           color: Colors.white),
                       child: Padding(
@@ -745,7 +745,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                     height: 10,
                   ),
                   Container(
-                    color: Colors.black.withOpacity(0.25),
+                    color: Colors.black.withValues(alpha: 0.25),
                     height: 2,
                   ),
                   const SizedBox(
@@ -812,3 +812,4 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
     );
   }
 }
+

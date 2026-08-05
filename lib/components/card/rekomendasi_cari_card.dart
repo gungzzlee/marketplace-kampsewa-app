@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 
@@ -40,7 +40,7 @@ class _RekomendasiCariCardState extends State<RekomendasiCariCard> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: const Color(0xFF494949).withOpacity(0.3),
+                    color: const Color(0xFF494949).withValues(alpha: 0.3),
                     offset: const Offset(3.0, 3.0),
                     blurRadius: 5.0)
               ]),
@@ -113,3 +113,4 @@ class _RekomendasiCariCardState extends State<RekomendasiCariCard> {
     );
   }
 }
+

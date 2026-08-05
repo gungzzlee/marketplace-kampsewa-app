@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,12 +28,12 @@ class _BeritaCardState extends State<BeritaCard> {
           width: 370,
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.black.withOpacity(0.2)),
+              border: Border.all(color: Colors.black.withValues(alpha: 0.2)),
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: const Color(0xFF494949).withOpacity(0.3),
+                    color: const Color(0xFF494949).withValues(alpha: 0.3),
                     offset: const Offset(3.0, 3.0),
                     blurRadius: 5.0)
               ]),
@@ -94,3 +94,4 @@ class _BeritaCardState extends State<BeritaCard> {
     );
   }
 }
+
