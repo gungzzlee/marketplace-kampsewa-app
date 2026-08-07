@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -76,8 +77,7 @@ class _SplashScreen extends State<SplashScreen>
           ),
           Text(
             "DEVELOP BY :",
-            style: GoogleFonts.poppins(
-                color: Colors.white,
+            style: AppColors.fontStyle(color: Colors.white,
                 fontSize: 12,
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w700),
@@ -85,9 +85,8 @@ class _SplashScreen extends State<SplashScreen>
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 4, 10, 25),
             child: Text(
-              "TEAM PRODUKTIF4",
-              style: GoogleFonts.poppins(
-                  color: Colors.white,
+              "@ABBMA TEAM",
+              style: AppColors.fontStyle(color: Colors.white,
                   fontSize: 16,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.w800),

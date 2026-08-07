@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
@@ -29,7 +30,7 @@ class _ButtonSwipeRightState extends State<ButtonSwipeRight> {
   Widget build(BuildContext context) {
     return SwipeableButtonView(
       buttonText: widget.title,
-      buttontextstyle: GoogleFonts.poppins(color: widget.titleColor, fontSize: 17, fontWeight: FontWeight.w600),
+      buttontextstyle: AppColors.fontStyle(color: widget.titleColor, fontSize: 17, fontWeight: FontWeight.w600),
       buttonWidget: Icon(
         Icons.arrow_forward_ios_rounded,
         color: widget.iconColor,
@@ -44,14 +45,14 @@ class _ButtonSwipeRightState extends State<ButtonSwipeRight> {
       isFinished: isFinished,
       onFinish: () async {
         //ini buat parameter fungsi keseluruhan swipe button
-        widget.fungsi!();
-        // - - - Navigate to confirmation page - - -
-        // await Navigator.push(
-        //     context,
-        //     PageTransition(
-        //         type: PageTransitionType.fade, child: widget.tujuan));
+        if (widget.fungsi != null) {
+          await widget.fungsi!();
+        }
+        
         // - - - Reset isFinished variable  - - -
-        setState(() => isFinished = false);
+        if (mounted) {
+          setState(() => isFinished = false);
+        }
       },
     );
   }

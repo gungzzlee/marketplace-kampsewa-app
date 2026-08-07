@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,16 +34,14 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
             ),
             Text(
               "Hapus Produk?",
-              style: GoogleFonts.poppins(
-                  fontSize: 15.5,
+              style: AppColors.fontStyle(fontSize: 15.5,
                   fontWeight: FontWeight.w600,
                   color: Colors.blue),
             ),
             Text(
               widget.teks!,
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  fontSize: 12.5,
+              style: AppColors.fontStyle(fontSize: 12.5,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
@@ -72,8 +71,7 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
                               vertical: 8, horizontal: 18),
                           child: Text(
                             "Batal",
-                            style: GoogleFonts.poppins(
-                                fontSize: 15,
+                            style: AppColors.fontStyle(fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -90,10 +88,10 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: const Color(0xFFFF372D),
+                          color: const Color(0xFFEE2737),
                           boxShadow: const [
                             BoxShadow(
-                                color: Color(0xFFFF372D),
+                                color: Color(0xFFEE2737),
                                 offset: Offset(0, 0),
                                 blurRadius: 3.0)
                           ]),
@@ -103,8 +101,7 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
                               vertical: 8, horizontal: 15),
                           child: Text(
                             "Hapus",
-                            style: GoogleFonts.poppins(
-                                fontSize: 15,
+                            style: AppColors.fontStyle(fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),

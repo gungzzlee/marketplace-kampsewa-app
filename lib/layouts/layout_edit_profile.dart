@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -71,8 +72,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           padding: const EdgeInsets.only(right: 50),
                           child: Text(
                             "Edit Profile",
-                            style: GoogleFonts.poppins(
-                                fontSize: 21,
+                            style: AppColors.fontStyle(fontSize: 21,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -109,7 +109,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                                 width: 35,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
-                                    color: const Color(0xFF010935)),
+                                    color: const Color(0xFF2F2828)),
                                 child: Center(
                                   child: Icon(
                                     MdiIcons.pencilOutline,
@@ -142,8 +142,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                       padding: const EdgeInsets.only(left: 3, bottom: 5),
                       child: Text(
                         "Nama",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                     ),
                     InputVersiSatu(
@@ -159,8 +158,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           const EdgeInsets.only(left: 3, bottom: 5, top: 10),
                       child: Text(
                         "Email",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                     ),
                     InputVersiSatu(
@@ -176,8 +174,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           const EdgeInsets.only(left: 3, bottom: 5, top: 10),
                       child: Text(
                         "Nomor Telephone",
-                        style: GoogleFonts.poppins(
-                            fontSize: 15, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                     ),
                     InputVersiSatu(
@@ -193,8 +190,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           const EdgeInsets.only(left: 3, bottom: 5, top: 10),
                       child: Text(
                         "Tanggal Lahir",
-                        style: GoogleFonts.poppins(
-                            fontSize: 15, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Container(
@@ -214,8 +210,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                             hintText: "Tanggal Lahir",
                             border: const OutlineInputBorder(
                                 borderSide: BorderSide.none),
-                            hintStyle: GoogleFonts.poppins(
-                                color: Colors.grey, fontSize: 14),
+                            hintStyle: AppColors.fontStyle(color: Colors.grey, fontSize: 14),
                           ),
                         )),
                   ],
@@ -232,13 +227,12 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                     width: 300,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xFF010935),
+                      color: const Color(0xFF2F2828),
                     ),
                     child: Center(
                       child: Text(
                         "Simpan",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
+                        style: AppColors.fontStyle(fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),

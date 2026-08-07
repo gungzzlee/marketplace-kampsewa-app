@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/card/rincian_pesanan_produk_card.dart';
@@ -46,8 +47,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                         padding: const EdgeInsets.only(right: 50),
                         child: Text(
                           "Rincian Pesanan",
-                          style: GoogleFonts.poppins(
-                              fontSize: 21,
+                          style: AppColors.fontStyle(fontSize: 21,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -70,8 +70,8 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                   statusPesanan
                       ? Container(
                           color: statusBar == "dibatalkan"
-                              ? const Color(0xFFCD1B1B)
-                              : const Color(0xFF13AC10),
+                              ? const Color(0xFFEE2737)
+                              : const Color(0xFF1AB783),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 15),
@@ -87,15 +87,13 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                                           : statusBar == "berlangsung"
                                               ? "Sewa Berlangsung"
                                               : "Sewa Selesai",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 17.5,
+                                      style: AppColors.fontStyle(fontSize: 17.5,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white),
                                     ),
                                     Text(
                                       "20-05-2024", //tanggal status bar
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 13,
+                                      style: AppColors.fontStyle(fontSize: 13,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white),
                                     ),
@@ -138,16 +136,14 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                             ),
                             Text(
                               "Tanggal Sewa : ",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12,
+                              style: AppColors.fontStyle(fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
                             const Spacer(),
                             Text(
                               "20/05/2024 - 25/05/2024", //tanggal sewa
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12,
+                              style: AppColors.fontStyle(fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
@@ -171,8 +167,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                         children: [
                           Text(
                             "Opsi Pengiriman",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
+                            style: AppColors.fontStyle(fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
@@ -181,8 +176,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                           ),
                           Text(
                             "Ambil Ditempat", //opsi pengiriman
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
+                            style: AppColors.fontStyle(fontSize: 12,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -192,8 +186,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                           Text(
                             //alamat pengiriman
                             "Rumah Outdoor  Jl. Sumatra XIII No.20, Tegal Boto Lor, Sumbersari, Kec. Sumbersari, Kabupaten Jember",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
+                            style: AppColors.fontStyle(fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
@@ -202,7 +195,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                     ),
                   ),
                   Container(
-                    color: const Color(0xFF010935),
+                    color: const Color(0xFF2F2828),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 8),
@@ -217,8 +210,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                           ),
                           Text(
                             "Abayhq Shop", //nama toko
-                            style: GoogleFonts.poppins(
-                                fontSize: 15.5,
+                            style: AppColors.fontStyle(fontSize: 15.5,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
@@ -258,23 +250,20 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                               children: [
                                 Text(
                                   "Durasi Sewa",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "2", //durasi sewa
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   " hari",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -288,30 +277,26 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                               children: [
                                 Text(
                                   "Sub Total Produk",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "IDR. ",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   "60.000", //sub total
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   ",00",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -325,30 +310,26 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                               children: [
                                 Text(
                                   "Biaya Layanan",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "IDR. ",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   "1.000", //biaya layanan
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   ",00",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12.5,
+                                  style: AppColors.fontStyle(fontSize: 12.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -362,30 +343,26 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                               children: [
                                 Text(
                                   "Total Pembayaran",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
+                                  style: AppColors.fontStyle(fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "IDR. ",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
+                                  style: AppColors.fontStyle(fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   "61.000", //total pembayaran
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
+                                  style: AppColors.fontStyle(fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   ",00",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
+                                  style: AppColors.fontStyle(fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black),
                                 ),
@@ -417,16 +394,14 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                           ),
                           Text(
                             "Metode Pembayaran",
-                            style: GoogleFonts.poppins(
-                                fontSize: 13,
+                            style: AppColors.fontStyle(fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
                           const Spacer(),
                           Text(
                             "Bayar Ditempat", //metode pembayaran
-                            style: GoogleFonts.poppins(
-                                fontSize: 13,
+                            style: AppColors.fontStyle(fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
@@ -452,16 +427,14 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                               children: [
                                 Text(
                                   "Diminta Oleh",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "Customer",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -477,16 +450,14 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                                   statusBar == "dibatalkan"
                                       ? "Di Batalkan Pada"
                                       : "Waktu Pemesanan",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "21-05-2024", //tanggal dibatalkan / pemesanan
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -502,16 +473,14 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                                   statusBar == "dibatalkan"
                                       ? "Alasan"
                                       : "Waktu Pesanan Selesai",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "22-05-2024", //alasan atau waktu pesanan selesai
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -544,7 +513,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: const Color(0xFF010935)),
+                                  color: const Color(0xFF2F2828)),
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
@@ -552,8 +521,7 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                                     statusBar == "selesai"
                                         ? "Sewa Lagi"
                                         : "Bayar Sekarang",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 17,
+                                    style: AppColors.fontStyle(fontSize: 17,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
                                   ),
@@ -573,14 +541,13 @@ class _LayoutRincianPesananState extends State<LayoutRincianPesanan> {
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: const Color(0xFFCD1B1B)),
+                                  color: const Color(0xFFEE2737)),
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
                                   child: Text(
                                     "Batalkan Pesanan",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 17,
+                                    style: AppColors.fontStyle(fontSize: 17,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
                                   ),

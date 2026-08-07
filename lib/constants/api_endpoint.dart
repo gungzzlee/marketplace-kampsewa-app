@@ -1,5 +1,5 @@
 class ApiEndpoints {
-  static const String baseUrl = "http://192.168.10.14:8000";
+  static const String baseUrl = "http://192.168.0.2:8000";
   static AuthEndPoints authendpoints = AuthEndPoints();
 }
 
@@ -22,7 +22,8 @@ class AuthEndPoints {
   final String deleteAlamatUser = "/api/user/delete-alamat/";
   final String tambahBankMetodeTransfer = "/api/user/tambah-bank/";
   final String getIklan = "/api/iklan";
-  final String getProdukRatingTertinggi = "/api/produk/produk-rating-tertinggi-limit6";
+  final String getProdukRatingTertinggi =
+      "/api/produk/produk-rating-tertinggi-limit6";
   final String getProduk = "/api/produk/";
   final String getProdukBottomSheet = "/api/produk/detail-keranjang-produk/";
   final String getDetailProduk = "/api/produk/detail-produk/";

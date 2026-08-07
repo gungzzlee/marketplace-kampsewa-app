@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -87,8 +88,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                             child: Text(
                               widget.namaProduk!,
                               maxLines: null,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 15.5,
+                              style: AppColors.fontStyle(fontSize: 15.5,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
@@ -97,8 +97,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                             children: [
                               Text(
                                 "IDR. ",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                style: AppColors.fontStyle(fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
@@ -106,15 +105,13 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                                 harga != null
                                     ? formatCurrency(harga!)
                                     : formatCurrency(widget.harga!),
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                style: AppColors.fontStyle(fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
                               Text(
                                 ",00/hari",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                style: AppColors.fontStyle(fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
@@ -126,15 +123,13 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                               children: [
                                 Text(
                                   "Stok : ",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   stok != null ? stok! : "",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -151,8 +146,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                 ),
                 Text(
                   "Warna",
-                  style: GoogleFonts.poppins(
-                      fontSize: 15,
+                  style: AppColors.fontStyle(fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
@@ -186,8 +180,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                 ),
                 Text(
                   "Ukuran",
-                  style: GoogleFonts.poppins(
-                      fontSize: 15,
+                  style: AppColors.fontStyle(fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
@@ -238,8 +231,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                         padding: const EdgeInsets.only(bottom: 3.5),
                         child: Text(
                           pemberitahuan!,
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
+                          style: AppColors.fontStyle(fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: Colors.red.withValues(alpha: 0.8)),
                         ),
@@ -252,8 +244,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                   children: [
                     Text(
                       "Jumlah",
-                      style: GoogleFonts.poppins(
-                          fontSize: 16.5,
+                      style: AppColors.fontStyle(fontSize: 16.5,
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
@@ -296,8 +287,7 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                             ),
                             Text(
                               qty.toString(),
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12, fontWeight: FontWeight.w700),
+                              style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
                             ),
                             InkWell(
                               onTap: () {
@@ -359,15 +349,14 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: const Color(0xFF010935)),
+                          color: const Color(0xFF2F2828)),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 15),
                           child: Text(
                             "Tambahkan ke Keranjang",
-                            style: GoogleFonts.poppins(
-                                fontSize: 17.5,
+                            style: AppColors.fontStyle(fontSize: 17.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),

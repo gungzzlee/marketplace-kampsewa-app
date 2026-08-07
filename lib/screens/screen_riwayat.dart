@@ -1,7 +1,8 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:project_camp_sewa/layouts/layout_riwayat.dart';
 import 'package:project_camp_sewa/models/api_response.dart';
 
@@ -16,7 +17,6 @@ class _RiwayatScreenState extends State<RiwayatScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  /// Tab Titles
   final List<Tab> _tabs = const [
     Tab(text: 'Belum Bayar'),
     Tab(text: 'Pengambilan'),
@@ -26,11 +26,11 @@ class _RiwayatScreenState extends State<RiwayatScreen>
   ];
 
   final List<Widget> _bodyTabs = [
-     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatBelumBayar(),),
-     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatPengambilanData(),),
-     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatBerlangsung(),),
-     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatSelesai()),
-     const LayoutRiwayat(riwayatData: []),
+    LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatBelumBayar()),
+    LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatPengambilanData()),
+    LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatBerlangsung()),
+    LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatSelesai()),
+    const LayoutRiwayat(riwayatData: []),
   ];
 
   @override
@@ -47,67 +47,186 @@ class _RiwayatScreenState extends State<RiwayatScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 25),
-                  child: IconButton(
-                      onPressed: () {
-                        navigator?.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_rounded,
-                          size: 30, color: Colors.black)),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFFFFFF),
+        body: Column(
+          children: [
+            // Premium Header extending under system bar
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(32),
+                  bottomRight: Radius.circular(32),
                 ),
-                Text(
-                  "Riwayat",
-                  style: GoogleFonts.poppins(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1AB783).withValues(alpha: 0.05),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                bottom: false,
+                child: Column(
+                  children: [
+                    // App Bar Row
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 16, 16, 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                size: 18,
+                                color: Color(0xFF1AB783),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "Riwayat",
+                            style: AppColors.fontStyle(fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                              color: const Color(0xFF2F2828),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                MdiIcons.magnify,
+                                size: 20,
+                                color: const Color(0xFF1AB783),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    // Banner Text/Info
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF1AB783), Color(0xFF12825D)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(18),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF1AB783).withValues(alpha: 0.3),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 6),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.receipt_long_rounded,
+                              color: Colors.white,
+                              size: 26,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Pesanan Anda",
+                                  style: AppColors.fontStyle(color: const Color(0xFF2F2828),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  "Pantau status pesanan dan transaksi",
+                                  style: AppColors.fontStyle(color: const Color(0xFFBDBDBD),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        MdiIcons.magnify,
-                        size: 30,
-                        color: Colors.black,
-                      )),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-              flex: 1,
-              child: DefaultTabController(
-                  length: 5,
-                  child: TabBar(
-                    controller: _tabController,
-                    tabs: _tabs,
-                    labelColor: const Color(0xFF010935),
-                    indicatorColor: const Color(0xFF010935),
-                    unselectedLabelColor: Colors.black,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    isScrollable: true,
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 25),
-                  ))),
-          Expanded(
-            flex: 16,
-            child: TabBarView(
+              ), // end SafeArea
+            ), // end Container
+
+            const SizedBox(height: 16),
+
+            // Custom TabBar - separate scrollable chips
+            TabBar(
               controller: _tabController,
-              children: _bodyTabs,
+              tabs: _tabs,
+              labelColor: Colors.white,
+              unselectedLabelColor: const Color(0xFFBDBDBD),
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicator: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1AB783), Color(0xFF12825D)],
+                ),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1AB783).withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              dividerColor: Colors.transparent,
+              isScrollable: true,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+              labelStyle: AppColors.fontStyle(fontWeight: FontWeight.w700,
+                fontSize: 13,
+              ),
+              unselectedLabelStyle: AppColors.fontStyle(fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
             ),
-          ),
-        ],
-      )),
+            
+            const SizedBox(height: 12),
+            
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: _bodyTabs,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
@@ -16,7 +17,7 @@ class ProdukTerlarisDashboard extends StatefulWidget {
       required this.namaProduk,
       required this.harga,
       required this.rating,
-      required this.aksi, 
+      required this.aksi,
       required this.aksiKeranjang});
 
   @override
@@ -24,11 +25,14 @@ class ProdukTerlarisDashboard extends StatefulWidget {
       _ProdukTerlarisDashboardState();
 }
 
-class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard> {
+class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pressController;
+  late Animation<double> _scaleAnim;
+
   String formatCurrency(String numberString) {
     final number = int.parse(numberString);
-    final formatter =
-        NumberFormat.decimalPattern('id'); // Use 'id' for Indonesian locale
+    final formatter = NumberFormat.decimalPattern('id');
     return formatter.format(number);
   }
 
@@ -38,125 +42,259 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _pressController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+    );
+    _scaleAnim = Tween<double>(begin: 1.0, end: 0.96).animate(
+      CurvedAnimation(parent: _pressController, curve: Curves.easeOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pressController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: InkWell(
-        onTap: widget.aksi,
+    return GestureDetector(
+      onTapDown: (_) {
+        _pressController.forward();
+      },
+      onTapUp: (_) {
+        _pressController.reverse();
+        widget.aksi();
+      },
+      onTapCancel: () {
+        _pressController.reverse();
+      },
+      child: ScaleTransition(
+        scale: _scaleAnim,
         child: Container(
-          width: 180,
-          height: 240,
+          width: 170, // Required for horizontal list view
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(15),
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF1AB783).withValues(alpha: 0.10),
+                offset: const Offset(0, 8),
+                blurRadius: 24,
+                spreadRadius: -2,
               ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: const Color(0xFF494949).withValues(alpha: 0.3),
-                    offset: const Offset(3.0, 3.0),
-                    blurRadius: 5.0)
-              ]),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04),
+                offset: const Offset(0, 2),
+                blurRadius: 6,
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 175,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(ApiEndpoints.baseUrl +
-                              ApiEndpoints.authendpoints.getImageProduk +
-                              widget.image))),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2 - 50,
-                  height: 35,
-                  child: Text(
-                    widget.namaProduk,
-                    style: GoogleFonts.poppins(
-                        fontSize: 11, fontWeight: FontWeight.w600),
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          //Ini ku pisah pisah supaya ketika ambil harga di database ngga usah nambahin IDR dulu
-                          children: [
-                            Text(
-                              "IDR. ",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11.5, fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              formatCurrency(widget.harga),
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11.5, fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              "/hari",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11.5, fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.star_rate_rounded,
-                              size: 16.5,
-                              color: Color(0xFFEAB308),
-                            ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            Text(
-                              formatRating(widget.rating),
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xFFEAB308)),
+                // ── Image Section ──────────────────────────────────────
+                Expanded(
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      // Product image
+                      widget.image.startsWith('assets/')
+                          ? Image.asset(
+                              widget.image,
+                              fit: BoxFit.cover,
                             )
-                          ],
-                        )
-                      ],
-                    ),
-                    InkWell(
-                      //button keranjangnya
-                      onTap: widget.aksiKeranjang,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: const Color(0xFF000E54)),
-                        child: Center(
-                          child: Image.asset(
-                            "assets/icons/icon-keranjang.png",
-                            scale: 2,
+                          : Image.network(
+                              ApiEndpoints.baseUrl +
+                                  ApiEndpoints.authendpoints.getImageProduk +
+                                  widget.image,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => Container(
+                                color: const Color(0xFFFFFFFF),
+                                child: const Icon(
+                                  Icons.image_rounded,
+                                  color: Color(0xFFFFFFFF),
+                                  size: 40,
+                                ),
+                              ),
+                            ),
+
+                      // Gradient overlay (bottom-to-mid)
+                      Positioned.fill(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.black.withValues(alpha: 0.38),
+                              ],
+                              stops: const [0.5, 1.0],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )
+
+                      // Rating badge (top-right)
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.92),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.10),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.star_rounded,
+                                size: 13,
+                                color: Color(0xFFED6723),
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                formatRating(widget.rating),
+                                style: AppColors.fontStyle(fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF2F2828),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // "Sewa" label (top-left)
+                      Positioned(
+                        top: 10,
+                        left: 10,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF1AB783), Color(0xFF12825D)],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            'SEWA',
+                            style: AppColors.fontStyle(fontSize: 9,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 0.8,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // ── Content Section ────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        widget.namaProduk,
+                        style: AppColors.fontStyle(fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF2F2828),
+                          height: 1.3,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          // Price block
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ShaderMask(
+                                  shaderCallback: (bounds) =>
+                                      const LinearGradient(
+                                    colors: [
+                                      Color(0xFF1AB783), Color(0xFF12825D)
+                                    ],
+                                  ).createShader(bounds),
+                                  child: Text(
+                                    "Rp ${formatCurrency(widget.harga)}",
+                                    style: AppColors.fontStyle(fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "/hari",
+                                  style: AppColors.fontStyle(fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xFFBDBDBD),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Add to cart button
+                          GestureDetector(
+                            onTap: widget.aksiKeranjang,
+                            child: Container(
+                              height: 36,
+                              width: 36,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color(0xFF1AB783), Color(0xFF12825D),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF1AB783)
+                                        .withValues(alpha: 0.4),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.add_shopping_cart_rounded,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -165,4 +303,3 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard> {
     );
   }
 }
-

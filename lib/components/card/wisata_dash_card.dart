@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -68,16 +69,14 @@ class _WisataCardState extends State<WisataCard> {
                   children: [
                     Text(
                       widget.title,
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w700),
+                      style: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(height: 3),
                     SizedBox(
                       width: 200,
                       child: Text(
                         widget.deskripsi,
-                        style: GoogleFonts.poppins(
-                            fontSize: 8, fontWeight: FontWeight.w600),
+                        style: AppColors.fontStyle(fontSize: 8, fontWeight: FontWeight.w600),
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -99,8 +98,7 @@ class _WisataCardState extends State<WisataCard> {
                     ),
                     Text(
                       widget.lokasi,
-                      style: GoogleFonts.poppins(
-                          fontSize: 9, fontWeight: FontWeight.w600),
+                      style: AppColors.fontStyle(fontSize: 9, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),

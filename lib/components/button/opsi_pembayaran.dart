@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,8 +37,7 @@ class _OpsiPembayaranState extends State<OpsiPembayaran> {
                 const SizedBox(width: 2,),
                 Text(
                   widget.opsiBayar!,
-                  style: GoogleFonts.poppins(
-                      fontSize: 13.5,
+                  style: AppColors.fontStyle(fontSize: 13.5,
                       fontWeight: FontWeight.w700,
                       color: widget.teksColor),
                 ),
@@ -52,8 +52,7 @@ class _OpsiPembayaranState extends State<OpsiPembayaran> {
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: Text(
                     widget.keterangan!,
-                    style: GoogleFonts.poppins(
-                        fontSize: 10.5,
+                    style: AppColors.fontStyle(fontSize: 10.5,
                         fontWeight: FontWeight.w500,
                         color: widget.teksColor),
                   ),

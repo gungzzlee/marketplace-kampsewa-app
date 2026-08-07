@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -24,7 +25,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
   String defaultImageAntar = "assets/icons/default-opsi-antar.png";
   String selectedImageAmbil = "assets/icons/selected-opsi-ambil.png";
   String defaultImageAmbil = "assets/icons/default-opsi-ambil.png";
-  Color selectedBgColor = const Color(0xFF010935);
+  Color selectedBgColor = const Color(0xFF2F2828);
   Color defaultBgColor = Colors.white;
   Color selectedTextColor = Colors.white;
   Color defaultTextColor = Colors.black;
@@ -122,8 +123,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                 ),
                 Text(
                   "Opsi Pengiriman",
-                  style: GoogleFonts.poppins(
-                      fontSize: 21,
+                  style: AppColors.fontStyle(fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -138,8 +138,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                   left: 15, right: 15, top: 20, bottom: 5),
               child: Text(
                 "Pilih Jasa Pengiriman",
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
+                style: AppColors.fontStyle(fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
@@ -150,8 +149,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                 width: MediaQuery.of(context).size.width / 1.3,
                 child: Text(
                   "Barang akan dikirim sesuai dengan alamat yang anda tentukan atau barang anda ambil di store penyewa",
-                  style: GoogleFonts.poppins(
-                      fontSize: 11,
+                  style: AppColors.fontStyle(fontSize: 11,
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
@@ -276,15 +274,14 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xFF010935),
+                    color: const Color(0xFF2F2828),
                   ),
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Text(
                         "Konfirmasi",
-                        style: GoogleFonts.poppins(
-                            fontSize: 17,
+                        style: AppColors.fontStyle(fontSize: 17,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),

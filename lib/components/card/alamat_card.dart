@@ -1,4 +1,5 @@
-﻿// ignore_for_file: use_build_context_synchronously
+import 'package:project_camp_sewa/theme_colors.dart';
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -66,7 +67,7 @@ class _AlamatCardState extends State<AlamatCard> {
           border: Border.all(color: Colors.black.withValues(alpha: 0.25), width: 1.5),
           boxShadow: [
             BoxShadow(
-                color: const Color(0xFF494949).withValues(alpha: 0.3),
+                color: const Color(0xFF646363).withValues(alpha: 0.3),
                 offset: const Offset(3.0, 3.0),
                 blurRadius: 5.0)
           ]),
@@ -78,7 +79,7 @@ class _AlamatCardState extends State<AlamatCard> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)),
-                color: Color(0xFF010935)),
+                color: Color(0xFF2F2828)),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Row(
@@ -88,8 +89,7 @@ class _AlamatCardState extends State<AlamatCard> {
                     onTap: widget.editAlamat,
                     child: Text(
                       "Edit Alamat",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.5,
+                      style: AppColors.fontStyle(fontSize: 15.5,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
@@ -102,8 +102,7 @@ class _AlamatCardState extends State<AlamatCard> {
             padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
             child: Text(
               widget.namaUser!,
-              style: GoogleFonts.poppins(
-                  fontSize: 15,
+              style: AppColors.fontStyle(fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: Colors.black),
             ),
@@ -112,8 +111,7 @@ class _AlamatCardState extends State<AlamatCard> {
             padding: const EdgeInsets.only(left: 10, right: 10, top: 3),
             child: Text(
               widget.noTeleponUser!,
-              style: GoogleFonts.poppins(
-                  fontSize: 14,
+              style: AppColors.fontStyle(fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Colors.black),
             ),
@@ -126,16 +124,14 @@ class _AlamatCardState extends State<AlamatCard> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Text(
                     "Loading...",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12.5,
+                    style: AppColors.fontStyle(fontSize: 12.5,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   );
                 }else {
                   return Text(
                     snapshot.data ?? "Alamat tidak ditemukan",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12.5,
+                    style: AppColors.fontStyle(fontSize: 12.5,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   );
@@ -161,15 +157,13 @@ class _AlamatCardState extends State<AlamatCard> {
                 widget.tipeAlamat == "Rumah"
                     ? Text(
                         "Rumah",
-                        style: GoogleFonts.poppins(
-                            fontSize: 12,
+                        style: AppColors.fontStyle(fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       )
                     : Text(
                         "Kantor",
-                        style: GoogleFonts.poppins(
-                            fontSize: 12,
+                        style: AppColors.fontStyle(fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),

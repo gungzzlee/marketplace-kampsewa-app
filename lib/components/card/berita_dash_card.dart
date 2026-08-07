@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,7 +34,7 @@ class _BeritaCardState extends State<BeritaCard> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: const Color(0xFF494949).withValues(alpha: 0.3),
+                    color: const Color(0xFF646363).withValues(alpha: 0.3),
                     offset: const Offset(3.0, 3.0),
                     blurRadius: 5.0)
               ]),
@@ -59,8 +60,7 @@ class _BeritaCardState extends State<BeritaCard> {
                       padding: const EdgeInsets.only(left: 5, top: 6),
                       child: Text(
                         widget.title,
-                        style: GoogleFonts.poppins(
-                            fontSize: 14,
+                        style: AppColors.fontStyle(fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
                         softWrap: true,
@@ -77,10 +77,9 @@ class _BeritaCardState extends State<BeritaCard> {
                       children: [
                         Text(
                           widget.source,
-                          style: GoogleFonts.poppins(
-                              fontSize: 10.5,
+                          style: AppColors.fontStyle(fontSize: 10.5,
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xFF7C7C7C)),
+                              color: const Color(0xFF646363)),
                         ),
                       ],
                     ),

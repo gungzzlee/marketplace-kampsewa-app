@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -51,8 +52,7 @@ class _LayoutAlamatState extends State<LayoutAlamat> {
                 ),
                 Text(
                   "Alamat Saya",
-                  style: GoogleFonts.poppins(
-                      fontSize: 21,
+                  style: AppColors.fontStyle(fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -125,8 +125,7 @@ class _LayoutAlamatState extends State<LayoutAlamat> {
                         ),
                         Text(
                           "Tambah Alamat baru",
-                          style: GoogleFonts.poppins(
-                              fontSize: 17.5,
+                          style: AppColors.fontStyle(fontSize: 17.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),

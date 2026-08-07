@@ -1,16 +1,19 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class KategoriIcon extends StatelessWidget {
   final Function()? aksi;
   final String title;
   final bool selected;
+  final Color? activeColor;
 
   const KategoriIcon(
       {super.key,
       this.aksi,
       required this.title,
-      this.selected = false});
+      this.selected = false,
+      this.activeColor});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class KategoriIcon extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: selected ? Colors.transparent :Colors.black.withValues(alpha: 0.3)),
-                  color: selected ? const Color(0xFF242569) : const Color(0xFFE3E3E3),
+                  color: selected ? (activeColor ?? const Color(0xFF00ADD6)) : const Color(0xFFBDBDBD),
                 ),
                 child: Padding(
                   padding:
@@ -36,8 +39,7 @@ class KategoriIcon extends StatelessWidget {
                   child: Center(
                       child: Text(
                     title,
-                    style: GoogleFonts.poppins(
-                        fontSize: 11.5,
+                    style: AppColors.fontStyle(fontSize: 11.5,
                         fontWeight: FontWeight.w700,
                         color: selected ? Colors.white : Colors.black),
                   )),

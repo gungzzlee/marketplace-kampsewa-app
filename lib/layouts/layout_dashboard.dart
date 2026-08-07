@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart' hide CarouselController;
+import 'package:flutter/material.dart' hide CarouselController;
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -8,20 +9,14 @@ import 'package:project_camp_sewa/components/button/icon_kategori.dart';
 import 'package:project_camp_sewa/components/card/produk_terlaris_card.dart';
 import 'package:project_camp_sewa/components/card/wisata_dash_card.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
-import 'package:project_camp_sewa/constants/api_endpoint.dart';
 import 'package:project_camp_sewa/layouts/layout_detail_product.dart';
 import 'package:project_camp_sewa/layouts/layout_keranjang.dart';
 import 'package:project_camp_sewa/layouts/layout_search_screen.dart';
 import 'package:project_camp_sewa/models/api_response.dart';
 import 'package:project_camp_sewa/models/berita_model.dart';
-import 'package:project_camp_sewa/models/iklan_model.dart';
-import 'package:project_camp_sewa/models/produk_model.dart';
-import 'package:project_camp_sewa/models/user.dart';
 import 'package:project_camp_sewa/models/wisata_model.dart';
-import 'package:project_camp_sewa/services/api_data_user.dart';
-import 'package:project_camp_sewa/services/api_iklan.dart';
-import 'package:project_camp_sewa/services/api_produk.dart';
 import 'package:project_camp_sewa/services/controller_dashboard.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
 
 class LayoutDashboard extends StatefulWidget {
   const LayoutDashboard({super.key});
@@ -31,119 +26,202 @@ class LayoutDashboard extends StatefulWidget {
 }
 
 class _LayoutDashboardState extends State<LayoutDashboard> {
-  ApiDataUser apiDataUser = Get.put(ApiDataUser());
-  ApiIklan apiIklan = Get.put(ApiIklan());
-  ApiProduk apiProduk = Get.put(ApiProduk());
   DashboardController pageController = Get.put(DashboardController());
+
+  // Dummy data
+  final String dummyUserName = 'Agung Pratama';
+  final String dummyUserLocation = 'Sumbersari, Jember';
+
+  final List<Map<String, dynamic>> dummyProduk = [
+    {'namaProduk': 'Tenda Dome Coleman', 'harga': '75000', 'rating': 4.8, 'image': 'assets/images/tenda-dome-coleman.jpg'},
+    {'namaProduk': 'Sleeping Bag', 'harga': '35000', 'rating': 4.5, 'image': 'assets/images/slepping-bag.jpg'},
+    {'namaProduk': 'Kompor Portable', 'harga': '25000', 'rating': 4.7, 'image': 'assets/images/kompor-portable.jpg'},
+    {'namaProduk': 'Set Alat Masak', 'harga': '40000', 'rating': 4.6, 'image': 'assets/images/set-alat-masak.jpg'},
+    {'namaProduk': 'Kursi Lipat', 'harga': '20000', 'rating': 4.3, 'image': 'assets/images/kursi-lipat.jpg'},
+  ];
+
+  final List<String> dummyIklan = [
+    'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800',
+    'https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=800',
+    'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=800',
+  ];
 
   late List<WisataModel> wisataList;
   late List<BeritaModel> beritaList;
   List kategoriIcon = ["Tenda", "Pakaian", "Tas & Sepatu", "Perlengkapan"];
-  final CarouselController carouselController = CarouselController();
+  final CarouselSliderController carouselController = CarouselSliderController();
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    apiDataUser.getDataUser(context);
-    apiIklan.getIklan(context);
-    apiProduk.getProdukRatingTertinggi(context);
     wisataList = DummyProductApiResponse.getDataWisata();
     beritaList = DummyProductApiResponse.getDataBerita();
   }
 
+  Widget _buildSectionLabel(String title, {Widget? trailing}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 4,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1AB783),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                margin: const EdgeInsets.only(right: 8),
+              ),
+              Text(
+                title,
+                style: AppColors.fontStyle(fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: const Color(0xFF1AB783),
+                ),
+              ),
+            ],
+          ),
+          if (trailing != null) trailing,
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            padding:
-                const EdgeInsets.only(left: 10, right: 10, top: 70, bottom: 25),
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/dash-header-img.jpeg"),
-                    fit: BoxFit.fill,
-                    opacity: 0.7),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20))),
-            child: Column(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFFFFFF), // Light gray background
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+            // Header Section with Gradient & Decorations
+            Stack(
               children: [
-                Row(
-                  children: [
-                    Obx(() {
-                      final User? dataUser = apiDataUser.dataUser.value;
-                      if (dataUser != null) {
-                        return CircleAvatar(
-                          //photo profile
-                          radius: 30,
-                          backgroundImage: NetworkImage(ApiEndpoints.baseUrl +
-                              ApiEndpoints.authendpoints.getFotoProfile +
-                              dataUser.image!),
-                        );
-                      } else {
-                        return const CircleAvatar(
-                          //photo profile
-                          radius: 30,
-                          backgroundImage:
-                              AssetImage("assets/images/error-pp.jpg"),
-                        );
-                      }
-                    }),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          //nama user
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Obx(() {
-                            final User? dataUser = apiDataUser.dataUser.value;
-                            if (dataUser != null) {
-                              return Text(
-                                dataUser.name!,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              );
-                            } else {
-                              return Text(
-                                "Unknown",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              );
-                            }
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                //icon lokasi dibawah nama
-                                Icons.location_pin,
-                                color: Colors.black,
-                                size: 16,
-                              ),
-                              Text(
-                                //lokasi user
-                                "Sumbersari, Jember",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12, fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                // Abstract decorative background
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF1AB783),
+                          Color(0xFF1AB783),
+                          Color(0xFF1AB783),
+                        ],
+                        stops: [0.0, 0.4, 1.0],
+                      ),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(32),
+                        bottomRight: Radius.circular(32),
+                      ),
                     ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () async {
-                        //fungsi klik notification
-                        //DatabaseHelper.instance.deleteAllKeranjang(context);
-                        const snackBar = SnackBar(
+                  ),
+                ),
+                // Decorative shape 1 (Top Right)
+                Positioned(
+                  top: -40,
+                  right: -20,
+                  child: Transform.rotate(
+                    angle: 0.5,
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                  ),
+                ),
+                // Decorative shape 2 (Bottom Left)
+                Positioned(
+                  bottom: -20,
+                  left: -50,
+                  child: Transform.rotate(
+                    angle: -0.2,
+                    child: Container(
+                      width: 180,
+                      height: 180,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.04),
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                    ),
+                  ),
+                ),
+                // Decorative shape 3 (Top Left)
+                Positioned(
+                  top: 20,
+                  left: 40,
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withValues(alpha: 0.06),
+                    ),
+                  ),
+                ),
+                // Header Content
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 60, bottom: 25),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 28,
+                        backgroundImage: AssetImage("assets/images/error-pp.jpg"),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              dummyUserName,
+                              style: AppColors.fontStyle(fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.location_on_rounded,
+                                  color: Colors.white70,
+                                  size: 16,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  dummyUserLocation,
+                                  style: AppColors.fontStyle(fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      _buildHeaderIcon(
+                        icon: Icons.notifications_none_rounded,
+                        onTap: () {
+                          const snackBar = SnackBar(
                             elevation: 0,
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
@@ -151,401 +229,289 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                               sukses: false,
                               title: "Coming Soon",
                               teks: "Fitur Notification Akan Tersedia Segera",
-                            ));
-
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withValues(alpha: 0.5),
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.notifications_rounded,
-                            color: Colors.black,
-                            size: 26,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.to(const LayoutKeranjang());
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withValues(alpha: 0.5),
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.shopping_cart_rounded,
-                            color: Colors.black,
-                            size: 26,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        // field cari peralatan
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(const LayoutSearchScreen());
-                          },
-                          child: Container(
-                            height: 50,
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                  color: Colors.black.withValues(alpha: 0.4)),
                             ),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.search_rounded,
-                                  color: Colors.black.withValues(alpha: 0.45),
-                                  size: 35,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Cari Peralatan...",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black.withValues(alpha: 0.45)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Rekomendasi",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Stack(children: [
-                    InkWell(
-                      onTap: () {
-                        //tap iklannya maka akan menampilkan barang/toko pengiklan
-                      },
-                      child: Obx(() {
-                        List<IklanModel> iklan = apiIklan.listIklan;
-                        return CarouselSlider(
-                          //iklannya disini
-                          items: iklan.map((item) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  20), // Atur radius lengkungan iklannya
-                              child: Image.network(
-                                ApiEndpoints.baseUrl +
-                                    ApiEndpoints.authendpoints.getImageIklan +
-                                    item.poster,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            );
-                          }).toList(),
-                          carouselController: carouselController,
-                          options: CarouselOptions(
-                            scrollPhysics: const BouncingScrollPhysics(),
-                            autoPlay: true,
-                            aspectRatio: 2,
-                            viewportFraction: 1,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                currentIndex = index;
-                              });
-                            },
-                          ),
-                        );
-                      }),
-                    ),
-                    Positioned(
-                        bottom: 10,
-                        left: 0,
-                        right: 0,
-                        child: Obx(() {
-                          List<IklanModel> iklan = apiIklan.listIklan;
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: iklan.asMap().entries.map((entry) {
-                              return GestureDetector(
-                                onTap: () =>
-                                    carouselController.animateToPage(entry.key),
-                                child: Container(
-                                  width: currentIndex == entry.key ? 17 : 7,
-                                  height: 7.0,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 3.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: currentIndex == entry.key
-                                          ? Colors.white
-                                          : const Color(0xFF010935)),
-                                ),
-                              );
-                            }).toList(),
                           );
-                        })),
-                  ]),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Kategori",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                  child: SizedBox(
-                    height: 55,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => KategoriIcon(
-                        title: kategoriIcon[index],
-                        selected: true,
-                        aksi: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    'Kategori ${kategoriIcon[index]} diklik')),
-                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
                         },
                       ),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 2,
+                      const SizedBox(width: 10),
+                      _buildHeaderIcon(
+                        icon: Icons.shopping_bag_outlined,
+                        onTap: () => Get.to(const LayoutKeranjang()),
                       ),
-                      itemCount: kategoriIcon.length,
-                    ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Terlaris",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w700),
+                  const SizedBox(height: 25),
+                  // Glassmorphism Search Bar
+                  InkWell(
+                    onTap: () => Get.to(const LayoutSearchScreen()),
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      height: 52,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.2),
+                          width: 1,
+                        ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          //lihat semua rating tertinggi
-                          apiProduk.getProduk(context, null, "Rekomendasi");
-                          pageController.setPageIndex(1);
-                        },
-                        child: Text(
-                          "Lihat Semua",
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.search_rounded,
+                            color: Colors.white.withValues(alpha: 0.8),
+                            size: 26,
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            "Cari Perlengkapan Camping...",
+                            style: AppColors.fontStyle(fontSize: 15,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFFBBBBBB),
-                              decoration: TextDecoration.underline),
+                              color: Colors.white.withValues(alpha: 0.8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+            const SizedBox(height: 20),
+
+            // Banner Carousel
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  CarouselSlider(
+                    items: dummyIklan.map((url) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            )
+                          ],
                         ),
-                      )
-                    ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            url,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    carouselController: carouselController,
+                    options: CarouselOptions(
+                      scrollPhysics: const BouncingScrollPhysics(),
+                      autoPlay: true,
+                      aspectRatio: 2.2,
+                      viewportFraction: 1,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 12,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: dummyIklan.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () => carouselController.animateToPage(entry.key),
+                          child: Container(
+                            width: currentIndex == entry.key ? 20 : 8,
+                            height: 8,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: currentIndex == entry.key
+                                  ? Colors.white
+                                  : Colors.white.withValues(alpha: 0.5),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
+
+            // Kategori
+            _buildSectionLabel("Kategori"),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 55,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) => KategoriIcon(
+                  title: kategoriIcon[index],
+                  selected: true,
+                  activeColor: AppColors.colorfulPalette[index % AppColors.colorfulPalette.length],
+                  aksi: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Kategori ${kategoriIcon[index]} diklik')),
+                    );
+                  },
+                ),
+                separatorBuilder: (context, index) => const SizedBox(width: 8),
+                itemCount: kategoriIcon.length,
+              ),
+            ),
+            const SizedBox(height: 25),
+
+            // Produk Terlaris
+            _buildSectionLabel(
+              "Terlaris",
+              trailing: InkWell(
+                onTap: () => pageController.setPageIndex(1),
+                child: Text(
+                  "Lihat Semua",
+                  style: AppColors.fontStyle(fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF1AB783),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 5, 0, 0),
-                  child: SizedBox(
-                    height: 260,
-                    child: Obx(() {
-                      List<ProdukModel> listProduk =
-                          apiProduk.listProdukRekomendasi;
-                      return ListView.separated(
-                        itemBuilder: (context, index) {
-                          ProdukModel list = listProduk[index];
-                          return ProdukTerlarisDashboard(
-                            image: list.image,
-                            namaProduk: list.namaProduk,
-                            harga: list.harga.toString(),
-                            rating: list.rating,
-                            aksi: () {
-                              apiProduk.getDetailProduk(
-                                  context, list.idProduk.toString());
-                              apiProduk.getProdukBottomSheet(context, null,
-                                  null, list.idProduk.toString());
-                              Get.to(const LayoutDetailProduct(), arguments: {
-                                'idToko': list.idUser,
-                                'idProduk': list.idProduk,
-                                'namaProduk': list.namaProduk,
-                                'fotoProduk': list.image,
-                                'namaToko': list.namaToko
-                              });
-                            },
-                            aksiKeranjang: () {
-                              apiProduk.getProdukBottomSheet(context, null,
-                                  null, list.idProduk.toString());
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return BottomSheetProduk(
-                                      image: list.image,
-                                      namaProduk: list.namaProduk,
-                                      harga: list.harga.toString(),
-                                      idProduk: list.idProduk,
-                                      idToko: list.idUser,
-                                      namaToko: list.namaToko,
-                                    );
-                                  });
-                            },
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 270,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final produk = dummyProduk[index];
+                  return ProdukTerlarisDashboard(
+                    image: produk['image'],
+                    namaProduk: produk['namaProduk'],
+                    harga: produk['harga'],
+                    rating: produk['rating'].toString(),
+                    aksi: () {
+                      Get.to(const LayoutDetailProduct(), arguments: {
+                        'idToko': 1,
+                        'idProduk': index + 1,
+                        'namaProduk': produk['namaProduk'],
+                        'fotoProduk': produk['image'],
+                        'namaToko': 'Toko Camping',
+                      });
+                    },
+                    aksiKeranjang: () {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (BuildContext context) {
+                          return BottomSheetProduk(
+                            image: produk['image'],
+                            namaProduk: produk['namaProduk'],
+                            harga: produk['harga'],
+                            idProduk: index + 1,
+                            idToko: 1,
+                            namaToko: 'Toko Camping',
                           );
                         },
-                        separatorBuilder: (context, index) => const SizedBox(
-                          width: 12,
-                        ),
-                        itemCount: listProduk.length,
-                        scrollDirection: Axis.horizontal,
                       );
-                    }),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 15, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Rekomendasi Wisata",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                  child: SizedBox(
-                    height: 185,
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        WisataModel list = wisataList[index];
-                        return WisataCard(
-                          image: list.image,
-                          title: list.wisata,
-                          deskripsi: list.deskripsi,
-                          lokasi: list.lokasi,
-                          url: list.source,
-                        );
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 8,
-                      ),
-                      itemCount: wisataList.length,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 15, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Berita Terkini",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
-                  child: SizedBox(
-                    height: 110 * 8, //110 dikali item count
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        BeritaModel list = beritaList[index];
-                        return BeritaCard(
-                          image: list.image,
-                          title: list.judul,
-                          source: list.source,
-                          url: list.link,
-                        );
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 10,
-                      ),
-                      itemCount: beritaList.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      //scrollDirection: Axis.vertical
-                    ),
-                  ),
-                ),
-              ], //Batas Scroll Isi kontennya
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(width: 15),
+                itemCount: dummyProduk.length,
+              ),
             ),
+            const SizedBox(height: 25),
+
+            // Rekomendasi Wisata
+            _buildSectionLabel("Rekomendasi Wisata"),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 185,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  WisataModel list = wisataList[index];
+                  return WisataCard(
+                    image: list.image,
+                    title: list.wisata,
+                    deskripsi: list.deskripsi,
+                    lokasi: list.lokasi,
+                    url: list.source,
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(width: 15),
+                itemCount: wisataList.length,
+              ),
+            ),
+            const SizedBox(height: 25),
+
+            // Berita Terkini
+            _buildSectionLabel("Berita Terkini"),
+            const SizedBox(height: 12),
+            ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                BeritaModel list = beritaList[index];
+                return BeritaCard(
+                  image: list.image,
+                  title: list.judul,
+                  source: list.source,
+                  url: list.link,
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemCount: beritaList.length,
+            ),
+            const SizedBox(height: 100), // Bottom padding for nav bar
+          ],
+        ),
+      ),
+    ));
+  }
+
+  Widget _buildHeaderIcon({required IconData icon, required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+        ),
+        child: Center(
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 22,
           ),
-        ],
+        ),
       ),
     );
   }
 }
-

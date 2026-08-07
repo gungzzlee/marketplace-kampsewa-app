@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RincianPesananProdukCard extends StatefulWidget {
@@ -44,7 +45,7 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                     image: DecorationImage(image: AssetImage(widget.image!)),
                     boxShadow: [
                       BoxShadow(
-                          color: const Color(0xFF494949).withValues(alpha: 0.2),
+                          color: const Color(0xFF646363).withValues(alpha: 0.2),
                           offset: const Offset(0, 0),
                           blurRadius: 3)
                     ],
@@ -60,8 +61,7 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                           padding: const EdgeInsets.symmetric(vertical: 6),
                           child: Text(
                             widget.namaProduk!,
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
+                            style: AppColors.fontStyle(fontSize: 16,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -75,23 +75,20 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                                   : widget.variasiUkuran != ""
                                       ? widget.variasiUkuran
                                       : widget.variasiWarna,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11,
+                              style: AppColors.fontStyle(fontSize: 11,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
                             const Spacer(),
                             Text(
                               "X",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11,
+                              style: AppColors.fontStyle(fontSize: 11,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
                             Text(
                               widget.qty!,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11,
+                              style: AppColors.fontStyle(fontSize: 11,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             )
@@ -107,22 +104,19 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                                 children: [
                                   Text(
                                     "IDR. ",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
+                                    style: AppColors.fontStyle(fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
                                   Text(
                                     widget.harga!,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
+                                    style: AppColors.fontStyle(fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
                                   Text(
                                     ",00/hari",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
+                                    style: AppColors.fontStyle(fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),

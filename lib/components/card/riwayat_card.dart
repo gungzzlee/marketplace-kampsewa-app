@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -49,7 +50,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-                color: const Color(0xFF494949).withValues(alpha: 0.45),
+                color: const Color(0xFF646363).withValues(alpha: 0.45),
                 offset: const Offset(0, 2),
                 blurRadius: 3.5)
           ],
@@ -61,7 +62,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
               Expanded(
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Color(0xFF010935),
+                    color: Color(0xFF2F2828),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15)),
@@ -79,8 +80,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.namaToko,
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
+                          style: AppColors.fontStyle(fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.white),
                         )
@@ -103,7 +103,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
                             image: AssetImage(widget.fotoProduk)),
                         boxShadow: [
                           BoxShadow(
-                              color: const Color(0xFF494949).withValues(alpha: 0.2),
+                              color: const Color(0xFF646363).withValues(alpha: 0.2),
                               offset: const Offset(0, 0),
                               blurRadius: 3)
                         ],
@@ -119,8 +119,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
                               padding: const EdgeInsets.symmetric(vertical: 3),
                               child: Text(
                                 widget.namaProduk,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
+                                style: AppColors.fontStyle(fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
@@ -134,23 +133,20 @@ class _RiwayatCardState extends State<RiwayatCard> {
                                       : widget.variasiUkuran != ""
                                           ? widget.variasiUkuran
                                           : widget.variasiWarna,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 11,
+                                  style: AppColors.fontStyle(fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "X",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 11,
+                                  style: AppColors.fontStyle(fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   widget.qty,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 11,
+                                  style: AppColors.fontStyle(fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 )
@@ -169,15 +165,14 @@ class _RiwayatCardState extends State<RiwayatCard> {
                                     children: [
                                       const Icon(
                                         Icons.star,
-                                        color: Color(0xFFEAB308),
+                                        color: Color(0xFFED6723),
                                         size: 15,
                                       ),
                                       Text(
                                         widget.rating,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 10,
+                                        style: AppColors.fontStyle(fontSize: 10,
                                             fontWeight: FontWeight.w600,
-                                            color: const Color(0xFFEAB308)),
+                                            color: const Color(0xFFED6723)),
                                       )
                                     ],
                                   ),
@@ -186,22 +181,19 @@ class _RiwayatCardState extends State<RiwayatCard> {
                                     children: [
                                       Text(
                                         "IDR. ",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12,
+                                        style: AppColors.fontStyle(fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
                                       ),
                                       Text(
                                         widget.harga,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12,
+                                        style: AppColors.fontStyle(fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
                                       ),
                                       Text(
                                         ",00",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12,
+                                        style: AppColors.fontStyle(fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
                                       ),
@@ -232,15 +224,13 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.qtyProdukLain,
-                          style: GoogleFonts.poppins(
-                              fontSize: 10.5,
+                          style: AppColors.fontStyle(fontSize: 10.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
                         Text(
                           " Produk Lainnya",
-                          style: GoogleFonts.poppins(
-                              fontSize: 10.5,
+                          style: AppColors.fontStyle(fontSize: 10.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         )
@@ -250,22 +240,19 @@ class _RiwayatCardState extends State<RiwayatCard> {
                       children: [
                         Text(
                           "Total Pesanan: IDR. ",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           widget.totalPesanan,
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           ",00",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         )
@@ -295,15 +282,13 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.hari,
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
+                          style: AppColors.fontStyle(fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           " ${widget.statusHari!}",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
+                          style: AppColors.fontStyle(fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -321,8 +306,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.statusTransaksi,
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
+                          style: AppColors.fontStyle(fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: widget.statusTransaksi == "Lunas"
                                   ? Colors.green

@@ -1,6 +1,7 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/layouts/layout_dashboard.dart';
 import 'package:project_camp_sewa/layouts/layout_product.dart';
 import 'package:project_camp_sewa/layouts/layout_profile.dart';
@@ -18,62 +19,100 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
   DashboardController pageController = Get.put(DashboardController());
   List pages = const [LayoutDashboard(), LayoutProduct(), RiwayatScreen(), LayoutProfile()];
 
+  final List<_NavItem> _navItems = const [
+    _NavItem(icon: Icons.home_rounded, label: 'Home'),
+    _NavItem(icon: Icons.grid_view_rounded, label: 'Produk'),
+    _NavItem(icon: Icons.receipt_long_rounded, label: 'Riwayat'),
+    _NavItem(icon: Icons.person_rounded, label: 'Profile'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-                top: BorderSide(
-                    color: Colors.black.withValues(alpha: 0.5),
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                    width: 2.4)),
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+      backgroundColor: const Color(0xFFFFFFFF),
+      bottomNavigationBar: _buildBottomNav(),
+      body: Obx(() => pages[pageController.pageIndex.value]),
+    );
+  }
+
+  Widget _buildBottomNav() {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF1AB783),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(28),
+          topRight: Radius.circular(28),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF1AB783).withValues(alpha: 0.4),
+            blurRadius: 20,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           child: Obx(() {
-            return GNav(
-                backgroundColor: Colors.white,
-                color: const Color(0xFF000E54),
-                activeColor: const Color(0xFF000E54),
-                tabBackgroundColor: const Color(0xFFE1E1E1),
-                gap: 4,
-                padding: const EdgeInsets.all(10),
-                selectedIndex: pageController.pageIndex.value,
-                onTabChange: (index) {
-                  setState(() {
-                    pageController.setPageIndex(index);
-                  });
-                },
-                tabs: const [
-                  GButton(
-                    icon: Icons.home_filled,
-                    iconSize: 30,
-                    text: "Home",
+            final selectedIndex = pageController.pageIndex.value;
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(_navItems.length, (index) {
+                final item = _navItems[index];
+                final isSelected = selectedIndex == index;
+                return GestureDetector(
+                  onTap: () => setState(() => pageController.setPageIndex(index)),
+                  behavior: HitTestBehavior.opaque,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeOutCubic,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isSelected ? 16 : 14,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? Colors.white.withValues(alpha: 0.15)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          item.icon,
+                          color: isSelected
+                              ? Colors.white
+                              : Colors.white.withValues(alpha: 0.45),
+                          size: 26,
+                        ),
+                        if (isSelected) ...[
+                          const SizedBox(width: 8),
+                          Text(
+                            item.label,
+                            style: AppColors.fontStyle(color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
-                  GButton(
-                    icon: Icons.dashboard_rounded,
-                    iconSize: 30,
-                    text: "Produk",
-                  ),
-                  GButton(
-                    icon: Icons.assignment,
-                    iconSize: 30,
-                    text: "Riwayat",
-                  ),
-                  GButton(
-                    icon: Icons.account_box,
-                    iconSize: 30,
-                    text: "Profile",
-                  ),
-                ]);
+                );
+              }),
+            );
           }),
         ),
       ),
-      body: Obx(() => pages[pageController.pageIndex.value]),
     );
   }
 }
 
+class _NavItem {
+  final IconData icon;
+  final String label;
+  const _NavItem({required this.icon, required this.label});
+}

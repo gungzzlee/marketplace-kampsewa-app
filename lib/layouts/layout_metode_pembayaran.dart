@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/button/opsi_pembayaran.dart';
@@ -17,7 +18,7 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
   ApiTransaksi apiTransaksi = Get.put(ApiTransaksi());
   String selectedIcon = "assets/icons/selected-opsi-bayar.png";
   String defaultIcon = "assets/icons/default-opsi-bayar.png";
-  Color selectedBgColor = const Color(0xFF010935);
+  Color selectedBgColor = const Color(0xFF2F2828);
   Color defaultBgColor = Colors.white;
   Color selectedTextColor = Colors.white;
   Color defaultTextColor = Colors.black;
@@ -67,8 +68,7 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
                 ),
                 Text(
                   "Metode Pembayaran",
-                  style: GoogleFonts.poppins(
-                      fontSize: 20,
+                  style: AppColors.fontStyle(fontSize: 20,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -83,8 +83,7 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
                   left: 15, right: 15, top: 20, bottom: 5),
               child: Text(
                 "Pilih Metode Pembayaran",
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
+                style: AppColors.fontStyle(fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
@@ -95,8 +94,7 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: Text(
                   "Harap membaca syarat & ketentuan saat memilih metode pembayaran",
-                  style: GoogleFonts.poppins(
-                      fontSize: 11,
+                  style: AppColors.fontStyle(fontSize: 11,
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
@@ -224,15 +222,14 @@ class _LayoutMetodePembayaranState extends State<LayoutMetodePembayaran> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xFF010935),
+                    color: const Color(0xFF2F2828),
                   ),
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Text(
                         "Konfirmasi",
-                        style: GoogleFonts.poppins(
-                            fontSize: 17,
+                        style: AppColors.fontStyle(fontSize: 17,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),

@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -95,8 +96,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 ),
                 Text(
                   "Pembayaran",
-                  style: GoogleFonts.poppins(
-                      fontSize: 21,
+                  style: AppColors.fontStyle(fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -115,16 +115,14 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 children: [
                   Text(
                     "Total Pembayaran",
-                    style: GoogleFonts.poppins(
-                        fontSize: 13.5,
+                    style: AppColors.fontStyle(fontSize: 13.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
                   const Spacer(),
                   Text(
                     "IDR. ",
-                    style: GoogleFonts.poppins(
-                        fontSize: 13.5,
+                    style: AppColors.fontStyle(fontSize: 13.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -132,15 +130,13 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                     totalPembayaran != null
                         ? formatCurrency(totalPembayaran!)
                         : "0", //total pembayaran
-                    style: GoogleFonts.poppins(
-                        fontSize: 13.5,
+                    style: AppColors.fontStyle(fontSize: 13.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
                   Text(
                     ",00",
-                    style: GoogleFonts.poppins(
-                        fontSize: 13.5,
+                    style: AppColors.fontStyle(fontSize: 13.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -165,7 +161,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    color: const Color(0xFF010935),
+                    color: const Color(0xFF2F2828),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 10),
@@ -181,8 +177,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                           ),
                           Text(
                             bank != null ? bank! : "bank - ", //bank
-                            style: GoogleFonts.poppins(
-                                fontSize: 15,
+                            style: AppColors.fontStyle(fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),
@@ -194,8 +189,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                     padding: const EdgeInsets.only(left: 25, right: 15, top: 8),
                     child: Text(
                       "Nomor Rekening",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
+                      style: AppColors.fontStyle(fontSize: 13,
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
@@ -206,8 +200,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                       rekeningBank != null
                           ? rekeningBank!
                           : "000 000 000", //nomor rekening
-                      style: GoogleFonts.poppins(
-                          fontSize: 16.5,
+                      style: AppColors.fontStyle(fontSize: 16.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -217,8 +210,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                         const EdgeInsets.only(left: 25, right: 15, top: 15),
                     child: Text(
                       "Bayar pesanan ke No. Rek di atas yang sudah tertera. Harap menyelesaikan pembayaran untuk melanjutkan pesanan anda",
-                      style: GoogleFonts.poppins(
-                          fontSize: 11,
+                      style: AppColors.fontStyle(fontSize: 11,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
@@ -228,8 +220,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                         left: 25, right: 15, top: 14, bottom: 12),
                     child: Text(
                       "Menerima Transfer Bank Lainnya",
-                      style: GoogleFonts.poppins(
-                          fontSize: 11,
+                      style: AppColors.fontStyle(fontSize: 11,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
@@ -245,8 +236,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                   const EdgeInsets.only(left: 15, right: 10, top: 8, bottom: 5),
               child: Text(
                 "Petunjuk Transfer M-Banking",
-                style: GoogleFonts.poppins(
-                    fontSize: 13.5,
+                style: AppColors.fontStyle(fontSize: 13.5,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
@@ -258,8 +248,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
               ),
               child: Text(
                 "1. Masuk ke menu Mobile Banking \n2. Pilih Menu tranfer \n3. Masukkan No. Rek yang sudah tertera \n4. Masukkan Nominal Pembayaran, lalu klik lanjutkan \n5. Klik konfirmasi, lalu masukkan pin mBanking anda",
-                style: GoogleFonts.poppins(
-                    fontSize: 10.5,
+                style: AppColors.fontStyle(fontSize: 10.5,
                     fontWeight: FontWeight.w500,
                     color: Colors.black),
               ),
@@ -278,15 +267,13 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 children: [
                   Text(
                     "Bukti Pembayaran",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
+                    style: AppColors.fontStyle(fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: Colors.black),
                   ),
                   Text(
                     "*",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
+                    style: AppColors.fontStyle(fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: Colors.red),
                   ),
@@ -322,8 +309,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                                   vertical: 6.5, horizontal: 20),
                               child: Text(
                                 "Pilih File",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                style: AppColors.fontStyle(fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black),
                               ),
@@ -341,8 +327,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                           textAlign: TextAlign.end,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
+                          style: AppColors.fontStyle(fontSize: 11,
                               fontWeight: FontWeight.w600,
                               color: Colors.black.withValues(alpha: 0.6)),
                         ),
@@ -359,10 +344,9 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 children: [
                   Text(
                     "*Wajib Diisi Untuk Melanjutkan",
-                    style: GoogleFonts.poppins(
-                        fontSize: 10,
+                    style: AppColors.fontStyle(fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: const Color(0xFFCD1B1B)),
+                        color: const Color(0xFFEE2737)),
                   ),
                 ],
               ),
@@ -374,15 +358,13 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 children: [
                   Text(
                     "Jaminan KTP/KTM/SIM",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
+                    style: AppColors.fontStyle(fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: Colors.black),
                   ),
                   Text(
                     "*",
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
+                    style: AppColors.fontStyle(fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: Colors.red),
                   ),
@@ -418,8 +400,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                                   vertical: 6.5, horizontal: 20),
                               child: Text(
                                 "Pilih File",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                style: AppColors.fontStyle(fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black),
                               ),
@@ -437,8 +418,7 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                           textAlign: TextAlign.end,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
+                          style: AppColors.fontStyle(fontSize: 11,
                               fontWeight: FontWeight.w600,
                               color: Colors.black.withValues(alpha: 0.6)),
                         ),
@@ -455,10 +435,9 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 children: [
                   Text(
                     "*Wajib Diisi Untuk Melanjutkan",
-                    style: GoogleFonts.poppins(
-                        fontSize: 10,
+                    style: AppColors.fontStyle(fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: const Color(0xFFCD1B1B)),
+                        color: const Color(0xFFEE2737)),
                   ),
                 ],
               ),
@@ -501,15 +480,14 @@ class _LayoutPembayaranState extends State<LayoutPembayaran> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xFF010935)),
+                      color: const Color(0xFF2F2828)),
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 18),
                       child: Text(
                         "Selesaikan Transaksi",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
+                        style: AppColors.fontStyle(fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),

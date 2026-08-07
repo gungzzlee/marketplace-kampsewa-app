@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,8 +53,7 @@ class _LayoutLupaPasswordNewPassState extends State<LayoutLupaPasswordNewPass> {
                   height: 18,
                 ),
                 Text("Password Baru",
-                    style: GoogleFonts.poppins(
-                        fontSize: 24,
+                    style: AppColors.fontStyle(fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color: Colors.black)),
                 const SizedBox(
@@ -63,8 +63,7 @@ class _LayoutLupaPasswordNewPassState extends State<LayoutLupaPasswordNewPass> {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     "Jangan lupa untuk memasukkan kembali password baru Anda pada kolom konfirmasi password.",
-                    style: GoogleFonts.poppins(
-                        fontSize: 14,
+                    style: AppColors.fontStyle(fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                     textAlign: TextAlign.center,
@@ -77,8 +76,7 @@ class _LayoutLupaPasswordNewPassState extends State<LayoutLupaPasswordNewPass> {
                     children: [
                       Text(
                         "Password",
-                        style: GoogleFonts.poppins(
-                            fontSize: 15,
+                        style: AppColors.fontStyle(fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
                       ),
@@ -115,8 +113,7 @@ class _LayoutLupaPasswordNewPassState extends State<LayoutLupaPasswordNewPass> {
                     children: [
                       Text(
                         "Konfirmasi Password",
-                        style: GoogleFonts.poppins(
-                            fontSize: 15,
+                        style: AppColors.fontStyle(fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
                       ),
@@ -152,15 +149,14 @@ class _LayoutLupaPasswordNewPassState extends State<LayoutLupaPasswordNewPass> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFF010935),
+                        color: const Color(0xFF2F2828),
                       ),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Text(
                             "Konfirmasi",
-                            style: GoogleFonts.poppins(
-                                fontSize: 17,
+                            style: AppColors.fontStyle(fontSize: 17,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),

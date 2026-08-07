@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -42,11 +43,56 @@ class OnboardLayout extends StatefulWidget {
   State<OnboardLayout> createState() => _OnboardLayoutState();
 }
 
-class _OnboardLayoutState extends State<OnboardLayout> {
+class _OnboardLayoutState extends State<OnboardLayout>
+    with TickerProviderStateMixin {
   final controller = OnboardingItems();
   final pageController = PageController();
 
   bool isLastPage = false;
+  int _currentPage = 0;
+
+  late AnimationController _textAnimController;
+  late Animation<double> _fadeAnim;
+  late Animation<Offset> _slideAnim;
+
+
+  // Badges removed as requested
+
+  @override
+  void initState() {
+    super.initState();
+    _textAnimController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _fadeAnim = CurvedAnimation(
+      parent: _textAnimController,
+      curve: Curves.easeOut,
+    );
+    _slideAnim = Tween<Offset>(
+      begin: const Offset(0, 0.18),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _textAnimController,
+      curve: Curves.easeOut,
+    ));
+    _textAnimController.forward();
+  }
+
+  @override
+  void dispose() {
+    _textAnimController.dispose();
+    super.dispose();
+  }
+
+  void _onPageChanged(int index) {
+    setState(() {
+      isLastPage = controller.items.length - 1 == index;
+      _currentPage = index;
+    });
+    _textAnimController.reset();
+    _textAnimController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,105 +100,14 @@ class _OnboardLayoutState extends State<OnboardLayout> {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xFF32363F),
+      systemNavigationBarColor: Colors.black,
       systemNavigationBarIconBrightness: Brightness.light,
     ));
     return Scaffold(
-      bottomSheet: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: isLastPage
-            ? getStarted()
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: () =>
-                        pageController.jumpToPage(controller.items.length - 1),
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            20.0), // Mengatur radius lengkungan untuk setiap sudut
-                      ),
-                      side: const BorderSide(
-                          color: Colors.black), // Mengatur warna outline
-                      backgroundColor: Colors.transparent,
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Skip',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Icon(
-                          Icons.skip_next_rounded,
-                          size: 25,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ),
-                  //Indicator
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                    child: SmoothPageIndicator(
-                      controller: pageController,
-                      count: controller.items.length,
-                      onDotClicked: (index) => pageController.animateToPage(
-                          index,
-                          duration: const Duration(milliseconds: 600),
-                          curve: Curves.easeIn),
-                      effect: const WormEffect(
-                        dotHeight: 12,
-                        dotWidth: 12,
-                        activeDotColor: Colors.black,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => pageController.nextPage(
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.easeIn),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 7),
-                      backgroundColor: const Color(0Xff010935),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(left: 6),
-                          child: Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.navigate_next_rounded,
-                          size: 28,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-      ),
+      backgroundColor: Colors.white,
+      bottomSheet: _buildBottomSheet(),
       body: PageView.builder(
-          onPageChanged: (index) =>
-              setState(() => isLastPage = controller.items.length - 1 == index),
+          onPageChanged: _onPageChanged,
           itemCount: controller.items.length,
           controller: pageController,
           itemBuilder: (context, index) {
@@ -181,32 +136,121 @@ class _OnboardLayoutState extends State<OnboardLayout> {
                           height: MediaQuery.of(context).size.height / 1.5,
                         ),
                       ),
+                      // Gradient overlay: bottom fade ke putih
+                      ClipPath(
+                        clipper: MyClipper(),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height / 1.5,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: const [0.0, 0.55, 1.0],
+                              colors: [
+                                Colors.black.withValues(alpha: 0.2),
+                                Colors.transparent,
+                                Colors.white.withValues(alpha: 0.9),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Top dark gradient untuk status bar
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.black.withValues(alpha: 0.4),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Page counter chip
+                      Positioned(
+                        top: MediaQuery.of(context).padding.top + 16,
+                        right: 20,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.35),
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            '${index + 1} / ${controller.items.length}',
+                            style: AppColors.fontStyle(color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  const SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Text(
-                      controller.items[index].title,
-                      style: GoogleFonts.poppins(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                    child: FadeTransition(
+                      opacity: _fadeAnim,
+                      child: SlideTransition(
+                        position: _slideAnim,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Badge chip removed
+                            Text(
+                              controller.items[index].title,
+                              style: AppColors.fontStyle(fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: const Color(0xFF2F2828),
+                                height: 1.2,
+                                letterSpacing: -0.5,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: 12),
+                            // Accent divider
+                            Container(
+                              width: 40,
+                              height: 3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    AppColors.mainColor,
+                                    AppColors.mainColor.withValues(alpha: 0.3),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            Text(
+                              controller.items[index].deskripsi,
+                              style: AppColors.fontStyle(fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54,
+                                height: 1.6,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
                       ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
-                    child: Text(
-                      controller.items[index].deskripsi,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.left,
                     ),
                   ),
                 ],
@@ -216,22 +260,126 @@ class _OnboardLayoutState extends State<OnboardLayout> {
     );
   }
 
+  Widget _buildBottomSheet() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.only(
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: MediaQuery.of(context).padding.bottom > 0
+            ? MediaQuery.of(context).padding.bottom + 10
+            : 20,
+      ),
+      child: isLastPage
+          ? getStarted()
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () =>
+                      pageController.jumpToPage(controller.items.length - 1),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    backgroundColor: Colors.grey.shade100,
+                  ),
+                  child: Text(
+                    'Skip',
+                    style: AppColors.fontStyle(color: Colors.black54,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                //Indicator
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                  child: SmoothPageIndicator(
+                    controller: pageController,
+                    count: controller.items.length,
+                    onDotClicked: (index) => pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 600),
+                        curve: Curves.easeIn),
+                    effect: ExpandingDotsEffect(
+                      dotHeight: 8,
+                      dotWidth: 8,
+                      activeDotColor: AppColors.mainColor,
+                      dotColor: Colors.black12,
+                      expansionFactor: 3,
+                      spacing: 6,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () => pageController.nextPage(
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeIn),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 4,
+                    shadowColor: Colors.black.withValues(alpha: 0.4),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                    backgroundColor: Colors.black,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Next',
+                        style: AppColors.fontStyle(color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(
+                        Icons.navigate_next_rounded,
+                        size: 22,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
   Widget getStarted() {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color(0xFF010935),
-                  Color(0xFF7981C9),
-                ],)
+          color: Colors.black,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         width: MediaQuery.of(context).size.width * .9,
         height: 60,
         child: ButtonSwipeRight(
           title: "Mulai Sekarang!",
+          bgColor: Colors.black,
           fungsi: () async {
             final pres = await SharedPreferences.getInstance();
             pres.setBool("onboarding", true);
@@ -255,32 +403,26 @@ class _OnboardLayoutState extends State<OnboardLayout> {
 class MyClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    // Membuat objek path untuk menentukan area yang akan dipotong
     var path = Path();
-    // Menentukan titik awal path (pojok kiri atas)
-    path.lineTo(0, size.height - 65);
-    // Menentukan titik kontrol pertama untuk kurva Bezier pertama
-    var firstControlPoint = Offset(size.width / 5, size.height);
-    // Menentukan titik akhir kurva Bezier pertama
-    var firstEndPoint = Offset(size.width / 2, size.height - 20);
-    // Menambahkan kurva Bezier pertama ke path
+    // Mulai dari kiri atas ke kiri bawah (sebelum melengkung)
+    path.lineTo(0, size.height - 80);
+    
+    // Gelombang pertama (turun)
+    var firstControlPoint = Offset(size.width / 4, size.height);
+    var firstEndPoint = Offset(size.width / 2, size.height - 40);
     path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
         firstEndPoint.dx, firstEndPoint.dy);
-    // Menentukan titik kontrol kedua untuk kurva Bezier kedua
-    var secondControlPoint =
-        Offset(size.width - (size.width / 100), size.height - 55);
-    // Menentukan titik akhir kurva Bezier kedua
-    var secondEndPoint = Offset(size.width, size.height - 0);
-    // Menambahkan kurva Bezier kedua ke path
+        
+    // Gelombang kedua (naik)
+    var secondControlPoint = Offset(size.width * 0.75, size.height - 80);
+    var secondEndPoint = Offset(size.width, size.height - 40);
     path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
         secondEndPoint.dx, secondEndPoint.dy);
-    // Menambahkan garis lurus ke pojok kanan bawah
-    path.lineTo(size.width, size.height - 350);
-    // Menambahkan garis lurus ke pojok kanan atas
+        
+    // Tarik garis ke kanan atas lalu tutup path
     path.lineTo(size.width, 0);
-    // Menutup path sehingga area yang ditentukan oleh path akan dipotong
     path.close();
-    // Mengembalikan path yang telah dibuat
+    
     return path;
   }
 

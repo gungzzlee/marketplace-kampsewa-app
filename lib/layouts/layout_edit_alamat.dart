@@ -1,4 +1,5 @@
-﻿// ignore_for_file: use_build_context_synchronously
+import 'package:project_camp_sewa/theme_colors.dart';
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -172,8 +173,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                     ),
                     Text(
                       widget.edit ? "Edit Alamat" : "Alamat Baru",
-                      style: GoogleFonts.poppins(
-                          fontSize: 21,
+                      style: AppColors.fontStyle(fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -188,8 +188,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       top: 25, left: 25, right: 20, bottom: 5),
                   child: Text(
                     "Kontak",
-                    style: GoogleFonts.poppins(
-                        fontSize: 15.5,
+                    style: AppColors.fontStyle(fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -208,11 +207,9 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                         decoration: InputDecoration(
                             hintText: "Nama Lengkap",
                             enabled: false,
-                            hintStyle: GoogleFonts.poppins(
-                                fontSize: 14.5, fontWeight: FontWeight.w500),
+                            hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
                             border: InputBorder.none),
-                        style: GoogleFonts.poppins(
-                            fontSize: 14.5,
+                        style: AppColors.fontStyle(fontSize: 14.5,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -235,11 +232,9 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                         decoration: InputDecoration(
                             hintText: "Nomor Telepon Aktif",
                             enabled: false,
-                            hintStyle: GoogleFonts.poppins(
-                                fontSize: 14.5, fontWeight: FontWeight.w500),
+                            hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
                             border: InputBorder.none),
-                        style: GoogleFonts.poppins(
-                            fontSize: 14.5,
+                        style: AppColors.fontStyle(fontSize: 14.5,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -251,8 +246,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       top: 15, left: 25, right: 20, bottom: 5),
                   child: Text(
                     "Alamat",
-                    style: GoogleFonts.poppins(
-                        fontSize: 15.5,
+                    style: AppColors.fontStyle(fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -277,12 +271,10 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                                 decoration: InputDecoration(
                                     hintText:
                                         "Provinsi, Kota, Kecamatan, Kode Pos",
-                                    hintStyle: GoogleFonts.poppins(
-                                        fontSize: 13,
+                                    hintStyle: AppColors.fontStyle(fontSize: 13,
                                         fontWeight: FontWeight.w500),
                                     border: InputBorder.none),
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13,
+                                style: AppColors.fontStyle(fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               )),
@@ -297,7 +289,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: const Color(0xFF010935),
+                                color: const Color(0xFF2F2828),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                               child: Padding(
@@ -307,8 +299,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                                   "Ambil\nLokasimu",
                                   maxLines: 2,
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 10,
+                                  style: AppColors.fontStyle(fontSize: 10,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white),
                                 ),
@@ -337,11 +328,9 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                         decoration: InputDecoration(
                             hintText:
                                 "Detail Lainnya (Contoh: {Nama Jalan, Blok, No Rumah)",
-                            hintStyle: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500),
+                            hintStyle: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w500),
                             border: InputBorder.none),
-                        style: GoogleFonts.poppins(
-                            fontSize: 14,
+                        style: AppColors.fontStyle(fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -353,8 +342,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       top: 15, left: 25, right: 20, bottom: 5),
                   child: Text(
                     "Tandai Sebagai",
-                    style: GoogleFonts.poppins(
-                        fontSize: 15.5,
+                    style: AppColors.fontStyle(fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -378,7 +366,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                           border: Border.all(color: Colors.black, width: 1.5),
                           borderRadius: BorderRadius.circular(15),
                           color: ditandaiSebagai == "Rumah"
-                              ? const Color(0xFF010935)
+                              ? const Color(0xFF2F2828)
                               : Colors.white,
                         ),
                         child: Column(
@@ -392,8 +380,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                             ),
                             Text(
                               "Rumah",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
+                              style: AppColors.fontStyle(fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: ditandaiSebagai == "Rumah"
                                       ? Colors.white
@@ -416,7 +403,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                           border: Border.all(color: Colors.black, width: 1.5),
                           borderRadius: BorderRadius.circular(15),
                           color: ditandaiSebagai == "Kantor"
-                              ? const Color(0xFF010935)
+                              ? const Color(0xFF2F2828)
                               : Colors.white,
                         ),
                         child: Column(
@@ -430,8 +417,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                             ),
                             Text(
                               "Kantor",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
+                              style: AppColors.fontStyle(fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: ditandaiSebagai == "Kantor"
                                       ? Colors.white
@@ -493,15 +479,14 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFF010935),
+                        color: const Color(0xFF2F2828),
                       ),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Text(
                             "Simpan",
-                            style: GoogleFonts.poppins(
-                                fontSize: 19,
+                            style: AppColors.fontStyle(fontSize: 19,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),
@@ -522,15 +507,14 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: const Color(0xFFCD1B1B),
+                          color: const Color(0xFFEE2737),
                         ),
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: Text(
                               "Hapus Alamat",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 19,
+                              style: AppColors.fontStyle(fontSize: 19,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white),
                             ),

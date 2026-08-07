@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -118,8 +119,7 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                     widget.namaProduk, //Nama Produk
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.poppins(
-                        fontSize: 14, fontWeight: FontWeight.w700),
+                    style: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
@@ -127,18 +127,15 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                       children: [
                         Text(
                           widget.variantWarna, //variasi warna
-                          style: GoogleFonts.poppins(
-                              fontSize: 10, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(fontSize: 10, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           " , ",
-                          style: GoogleFonts.poppins(
-                              fontSize: 8, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(fontSize: 8, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           widget.variantUkuran, //variasi ukuran
-                          style: GoogleFonts.poppins(
-                              fontSize: 10, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(fontSize: 10, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -149,19 +146,16 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                       children: [
                         Text(
                           "IDR. ",
-                          style: GoogleFonts.poppins(
-                              fontSize: 12, fontWeight: FontWeight.w700),
+                          style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                         Text(
                           formatCurrency(
                               widget.harga.toString()), //harga produk
-                          style: GoogleFonts.poppins(
-                              fontSize: 12, fontWeight: FontWeight.w700),
+                          style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                         Text(
                           ",00/hari",
-                          style: GoogleFonts.poppins(
-                              fontSize: 12, fontWeight: FontWeight.w700),
+                          style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
@@ -211,8 +205,7 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                                 ),
                                 Text(
                                   qty.toString(),
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 11.5,
+                                  style: AppColors.fontStyle(fontSize: 11.5,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 InkWell(
@@ -255,7 +248,7 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
             onTap: widget.hapus,
             child: Container(
               width: 30,
-              decoration: const BoxDecoration(color: Color(0xFFCD1B1B)),
+              decoration: const BoxDecoration(color: Color(0xFFEE2737)),
               child: Center(
                   child: Image.asset(
                 "assets/icons/trash.png",

@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,8 +35,7 @@ class _OtpInputState extends State<OtpInput> {
           textAlign: TextAlign.center,
           maxLength: 1,
           focusNode: widget.focusNode,
-          style: GoogleFonts.poppins(
-              fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          style: AppColors.fontStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
           decoration:
               const InputDecoration(counterText: '', border: InputBorder.none),
           onChanged: (value) {

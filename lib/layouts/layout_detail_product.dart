@@ -1,4 +1,5 @@
-﻿// ignore_for_file: avoid_print
+import 'package:project_camp_sewa/theme_colors.dart';
+// ignore_for_file: avoid_print
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class LayoutDetailProduct extends StatefulWidget {
 
 class _LayoutDetailProductState extends State<LayoutDetailProduct> {
   ApiProduk apiProduk = Get.put(ApiProduk());
-  final CarouselController carouselController = CarouselController();
+  final CarouselSliderController carouselController = CarouselSliderController();
   int currentIndex = 0;
   String? selectedWarna;
   String? selectedUkuran;
@@ -114,7 +115,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                               borderRadius: BorderRadius.circular(10),
                               color: currentIndex == entry.key
                                   ? const Color(0xFF000000)
-                                  : const Color(0xFFBBBBBB)),
+                                  : const Color(0xFFBDBDBD)),
                         ),
                       );
                     }).toList(),
@@ -176,7 +177,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                             children: [
                               const Icon(
                                 Icons.star,
-                                color: Color(0xFFDD7801),
+                                color: Color(0xFFED6723),
                                 size: 25,
                               ),
                               Obx(() {
@@ -186,10 +187,9 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                   list != null
                                       ? formatRating(list.rating)
                                       : formatRating("5.0"), //rating
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 18,
+                                  style: AppColors.fontStyle(fontSize: 18,
                                       fontWeight: FontWeight.w600,
-                                      color: const Color(0xFFDD7801)),
+                                      color: const Color(0xFFED6723)),
                                 );
                               }),
                               const SizedBox(
@@ -215,15 +215,13 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                           list != null
                                               ? list.totalUlasan.toString()
                                               : "100", //ulasan
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 13,
+                                          style: AppColors.fontStyle(fontSize: 13,
                                               fontWeight: FontWeight.w500),
                                         );
                                       }),
                                       Text(
                                         " Ulasan",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 13,
+                                        style: AppColors.fontStyle(fontSize: 13,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ],
@@ -242,8 +240,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                               list != null
                                   ? list.namaProduk
                                   : "unknown", //Nama Produk
-                              style: GoogleFonts.poppins(
-                                  fontSize: 21.5, fontWeight: FontWeight.w700),
+                              style: AppColors.fontStyle(fontSize: 21.5, fontWeight: FontWeight.w700),
                             );
                           }),
                           const SizedBox(
@@ -256,8 +253,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                               list != null
                                   ? list.deskripsiProduk
                                   : "unknown", //Deskripsi Produk
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12.5, fontWeight: FontWeight.w400),
+                              style: AppColors.fontStyle(fontSize: 12.5, fontWeight: FontWeight.w400),
                             );
                           }),
                           const SizedBox(
@@ -265,8 +261,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                           ),
                           Text(
                             "Warna",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w600),
                           ),
                           SizedBox(
                             height: 35,
@@ -299,8 +294,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                             padding: const EdgeInsets.only(top: 6, bottom: 3),
                             child: Text(
                               "Ukuran",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                              style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w600),
                             ),
                           ),
                           SizedBox(
@@ -347,15 +341,13 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                           ),
                           Text(
                             "Syarat dan Ketentuan",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
+                            style: AppColors.fontStyle(fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black),
                           ),
                           Text(
                             "1. Menjaminkan Kartu identitas saat pengambilan (KTP, KTM, Kartu Pelajar). \n2. Kerusakan, kehilangan dan keterlambatan akan dikenakan denda. \n3. Keterlambatan maksimal 2 jam setelah masa sewa habis.",
-                            style: GoogleFonts.poppins(
-                                fontSize: 11.5,
+                            style: AppColors.fontStyle(fontSize: 11.5,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black),
                           ),
@@ -385,15 +377,13 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                   children: [
                                     Text(
                                       "Stok : ",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 13.5,
+                                      style: AppColors.fontStyle(fontSize: 13.5,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black),
                                     ),
                                     Text(
                                       stok != null ? stok! : "",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 13.5,
+                                      style: AppColors.fontStyle(fontSize: 13.5,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black),
                                     ),
@@ -404,8 +394,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                 children: [
                                   Text(
                                     "IDR. ",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                    style: AppColors.fontStyle(fontSize: 16,
                                         fontWeight: FontWeight.w800,
                                         color: Colors.black),
                                   ),
@@ -419,16 +408,14 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                               ? formatCurrency(
                                                   list.hargaSewa.toString())
                                               : "-", //harga produk
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
+                                      style: AppColors.fontStyle(fontSize: 16,
                                           fontWeight: FontWeight.w800,
                                           color: Colors.black),
                                     );
                                   }),
                                   Text(
                                     ",00/hari",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                    style: AppColors.fontStyle(fontSize: 16,
                                         fontWeight: FontWeight.w800,
                                         color: Colors.black),
                                   ),
@@ -482,7 +469,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                               width: 160,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(18),
-                                  color: const Color(0xFF010935)),
+                                  color: const Color(0xFF2F2828)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -494,8 +481,7 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                     ),
                                     Text(
                                       "Keranjang",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
+                                      style: AppColors.fontStyle(fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white),
                                     ),

@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ class _LoginRegisterState extends State<LoginRegister> {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: Color(0xFFE8E9EC),
+      systemNavigationBarColor: Color(0xFFBDBDBD),
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarDividerColor: Colors.transparent,
     ));
@@ -55,8 +56,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                 children: [
                   Text(
                     "Sewa Alat\nCamping.",
-                    style: GoogleFonts.poppins(
-                        fontSize: 44,
+                    style: AppColors.fontStyle(fontSize: 44,
                         color: Colors.white,
                         shadows: [
                           const Shadow(
@@ -69,8 +69,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                   const SizedBox(height: 10),
                   Text(
                     "Sewa alat camping seluruh wilayah murah dan berkualitas, pergi ke tempat wisata tujuan dan hilangkan stress.",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
+                    style: AppColors.fontStyle(color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       shadows: [

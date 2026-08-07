@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomSnackBar extends StatefulWidget {
@@ -44,8 +45,7 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
                   : widget.sukses
                       ? "Sukses"
                       : "Error",
-                  style: GoogleFonts.poppins(
-                      fontSize: 14,
+                  style: AppColors.fontStyle(fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
@@ -54,7 +54,7 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
                   child: Text(
                     widget.teks!,
                     maxLines: null,
-                    style: GoogleFonts.poppins(fontSize: 12, color: Colors.black),
+                    style: AppColors.fontStyle(fontSize: 12, color: Colors.black),
                   ),
                 ),
               ],

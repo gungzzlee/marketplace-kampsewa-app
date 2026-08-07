@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -140,8 +141,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                 ),
                 Text(
                   "Checkout",
-                  style: GoogleFonts.poppins(
-                      fontSize: 21,
+                  style: AppColors.fontStyle(fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -155,7 +155,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
               child: ListView(
                 children: [
                   Container(
-                    color: const Color(0xFF010935),
+                    color: const Color(0xFF2F2828),
                     child: Padding(
                       padding: const EdgeInsets.all(4),
                       child: Row(
@@ -171,8 +171,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                           ),
                           Obx(() => Text(
                               namaToko.value,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
+                              style: AppColors.fontStyle(fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white),
                             ),) 
@@ -237,8 +236,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                   const EdgeInsets.only(left: 10, bottom: 2),
                               child: Text(
                                 "Tentukan Tanggal Sewa",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13,
+                                style: AppColors.fontStyle(fontSize: 13,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
@@ -261,8 +259,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                       children: [
                                         Text(
                                           "Tanggal Mulai : ",
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 10.5,
+                                          style: AppColors.fontStyle(fontSize: 10.5,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black),
                                         ),
@@ -270,8 +267,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                           tanggalAwal != null
                                               ? formatedTanggalAwal!
                                               : "-", //teks tanggal awal
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 10.5,
+                                          style: AppColors.fontStyle(fontSize: 10.5,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
                                         ),
@@ -281,8 +277,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                       children: [
                                         Text(
                                           "Tanggal Akhir : ",
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 10.5,
+                                          style: AppColors.fontStyle(fontSize: 10.5,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black),
                                         ),
@@ -290,8 +285,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                           tanggalAkhir != null
                                               ? formatedTanggalAkhir!
                                               : "-", //teks tanggal akhir
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 10.5,
+                                          style: AppColors.fontStyle(fontSize: 10.5,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
                                         ),
@@ -340,8 +334,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               padding: const EdgeInsets.only(top: 3, bottom: 4),
                               child: Text(
                                 "Opsi Pengiriman",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                style: AppColors.fontStyle(fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
@@ -351,8 +344,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 Text(
                                   //opsi pengiriman
                                   opsiPengiriman,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black),
                                 ),
@@ -363,8 +355,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 ),
                                 Text(
                                   "IDR. 0,00",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 10.5,
+                                  style: AppColors.fontStyle(fontSize: 10.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -381,8 +372,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 () => Text(
                                   //alamat
                                   alamatPengiriman.value,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
+                                  style: AppColors.fontStyle(fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -399,10 +389,9 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 ),
                                 Text(
                                   "Ambil barang sesuai dengan tanggal yang ditentukan",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 9.5,
+                                  style: AppColors.fontStyle(fontSize: 9.5,
                                       fontWeight: FontWeight.w500,
-                                      color: const Color(0xFFCD1B1B)),
+                                      color: const Color(0xFFEE2737)),
                                 ),
                               ],
                             )
@@ -426,8 +415,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
                               "Pesan : ",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13.5,
+                              style: AppColors.fontStyle(fontSize: 13.5,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
@@ -441,13 +429,11 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               child: TextField(
                                 controller: apiTransaksi.pesanController,
                                 textAlign: TextAlign.end,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 11, fontWeight: FontWeight.w400),
+                                style: AppColors.fontStyle(fontSize: 11, fontWeight: FontWeight.w400),
                                 decoration: InputDecoration(
                                   hintText:
                                       "Silahkan tinggalkan pesan tambahan jika ada",
-                                  hintStyle: GoogleFonts.poppins(
-                                      fontSize: 11,
+                                  hintStyle: AppColors.fontStyle(fontSize: 11,
                                       fontWeight: FontWeight.w400),
                                   border: InputBorder.none,
                                 ),
@@ -472,8 +458,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         children: [
                           Text(
                             "Total Produk : ",
-                            style: GoogleFonts.poppins(
-                                fontSize: 13.5,
+                            style: AppColors.fontStyle(fontSize: 13.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -482,16 +467,14 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             () => Text(
                               keranjangController.totalItemKeranjang.value
                                   .toString(), //total produk
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
+                              style: AppColors.fontStyle(fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
                           ),
                           Text(
                             " Produk",
-                            style: GoogleFonts.poppins(
-                                fontSize: 13,
+                            style: AppColors.fontStyle(fontSize: 13,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -533,8 +516,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             ),
                             Text(
                               "Metode Pembayaran",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13.5,
+                              style: AppColors.fontStyle(fontSize: 13.5,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
@@ -543,8 +525,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               jenisBank != null
                                   ? "$metodeBayar - ${jenisBank!}"
                                   : metodeBayar, //metode pembayaran
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11.5,
+                              style: AppColors.fontStyle(fontSize: 11.5,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
@@ -571,8 +552,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         ),
                         Text(
                           "Rincian Pembayaran",
-                          style: GoogleFonts.poppins(
-                              fontSize: 13.5,
+                          style: AppColors.fontStyle(fontSize: 13.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -585,23 +565,20 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Durasi Sewa",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "${durasiSewa.duration.inDays}", //durasi sewa
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           " Hari",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -614,16 +591,14 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Sub Total Produk",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "IDR. ",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -638,8 +613,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             return Text(
                               formatCurrency(
                                   grandTotal.toString()), //sub total harga
-                              style: GoogleFonts.poppins(
-                                  fontSize: 11.5,
+                              style: AppColors.fontStyle(fontSize: 11.5,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             );
@@ -647,8 +621,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         ),
                         Text(
                           ",00",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -661,30 +634,26 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Biaya Layanan",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "IDR. ",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           "1.000", //sub total harga
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           ",00",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11.5,
+                          style: AppColors.fontStyle(fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -700,16 +669,14 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Total Pembayaran",
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "IDR. ",
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -725,16 +692,14 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             totalPembayaran != null
                                 ? formatCurrency(totalPembayaran.toString())
                                 : "0.00", //total pembayaran
-                            style: GoogleFonts.poppins(
-                                fontSize: 14.5,
+                            style: AppColors.fontStyle(fontSize: 14.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           );
                         }),
                         Text(
                           ",00",
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -793,12 +758,11 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                   width: MediaQuery.of(context).size.width - 30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xFF010935)),
+                      color: const Color(0xFF2F2828)),
                   child: Center(
                     child: Text(
                       "Lanjut Pembayaran",
-                      style: GoogleFonts.poppins(
-                          fontSize: 17.5,
+                      style: AppColors.fontStyle(fontSize: 17.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.white),
                     ),

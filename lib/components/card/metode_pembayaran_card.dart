@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardMetodePembayaran extends StatefulWidget {
@@ -29,7 +30,7 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
             border: Border.all(width: 1, color: Colors.black.withValues(alpha: 0.2)),
             boxShadow: [
               BoxShadow(
-                  color: const Color(0xFF494949).withValues(alpha: 0.3),
+                  color: const Color(0xFF646363).withValues(alpha: 0.3),
                   offset: const Offset(1.5, 1.5),
                   blurRadius: 5.0)
             ]),
@@ -54,8 +55,7 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                         children: [
                           Text(
                             widget.metodePembayaran,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
+                            style: AppColors.fontStyle(fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -65,8 +65,7 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                               onTap: widget.edit,
                               child: Text(
                                 "Edit",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13,
+                                style: AppColors.fontStyle(fontSize: 13,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black),
                               ),
@@ -79,8 +78,7 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                       ),
                       Text(
                         widget.bank,
-                        style: GoogleFonts.poppins(
-                            fontSize: 12.5,
+                        style: AppColors.fontStyle(fontSize: 12.5,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -89,8 +87,7 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                       ),
                       Text(
                         widget.noRek,
-                        style: GoogleFonts.poppins(
-                            fontSize: 12,
+                        style: AppColors.fontStyle(fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: Colors.black),
                       ),

@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
@@ -59,7 +60,7 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
                               widget.image!)),
                       boxShadow: [
                         BoxShadow(
-                            color: const Color(0xFF494949).withValues(alpha: 0.2),
+                            color: const Color(0xFF646363).withValues(alpha: 0.2),
                             offset: const Offset(0, 0),
                             blurRadius: 3)
                       ],
@@ -75,8 +76,7 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
                             padding: const EdgeInsets.symmetric(vertical: 3),
                             child: Text(
                               widget.namaProduk!,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16,
+                              style: AppColors.fontStyle(fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
@@ -88,8 +88,7 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
                                 : widget.variasiUkuran != ""
                                     ? widget.variasiUkuran
                                     : widget.variasiWarna,
-                            style: GoogleFonts.poppins(
-                                fontSize: 11,
+                            style: AppColors.fontStyle(fontSize: 11,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
@@ -104,22 +103,19 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
                                   children: [
                                     Text(
                                       "IDR. ",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12,
+                                      style: AppColors.fontStyle(fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black),
                                     ),
                                     Text(
                                       formatCurrency(widget.hargaProduk!),
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12,
+                                      style: AppColors.fontStyle(fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black),
                                     ),
                                     Text(
                                       ",00",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12,
+                                      style: AppColors.fontStyle(fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black),
                                     ),
@@ -129,15 +125,13 @@ class _CheckoutProdukCardState extends State<CheckoutProdukCard> {
                                   children: [
                                     Text(
                                       "x",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12,
+                                      style: AppColors.fontStyle(fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black),
                                     ),
                                     Text(
                                       widget.qtyProduk!,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12,
+                                      style: AppColors.fontStyle(fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black),
                                     ),

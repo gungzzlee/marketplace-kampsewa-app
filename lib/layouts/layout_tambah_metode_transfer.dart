@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/services/api_data_user.dart';
@@ -46,8 +47,7 @@ class _LayoutTambahMetodeTransferState
                           padding: const EdgeInsets.only(right: 50),
                           child: Text(
                             "Tambah Metode Transfer",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
+                            style: AppColors.fontStyle(fontSize: 18,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -76,8 +76,7 @@ class _LayoutTambahMetodeTransferState
                         top: 15, left: 20, right: 20, bottom: 5),
                     child: Text(
                       "Nama",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.5,
+                      style: AppColors.fontStyle(fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -95,11 +94,9 @@ class _LayoutTambahMetodeTransferState
                           //controller: namaLengkapController,
                           decoration: InputDecoration(
                               hintText: "Atas Nama",
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -111,8 +108,7 @@ class _LayoutTambahMetodeTransferState
                         top: 15, left: 20, right: 20, bottom: 5),
                     child: Text(
                       "No Rekening",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.5,
+                      style: AppColors.fontStyle(fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -130,11 +126,9 @@ class _LayoutTambahMetodeTransferState
                           controller: apiDataUser.noRekController,
                           decoration: InputDecoration(
                               hintText: "Nomor Rekening",
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -146,8 +140,7 @@ class _LayoutTambahMetodeTransferState
                         top: 15, left: 20, right: 20, bottom: 5),
                     child: Text(
                       "Jenis Bank",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.5,
+                      style: AppColors.fontStyle(fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -165,11 +158,9 @@ class _LayoutTambahMetodeTransferState
                           controller: apiDataUser.jenisBankController,
                           decoration: InputDecoration(
                               hintText: "Jenis Bank / Dompet Digital",
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -190,12 +181,11 @@ class _LayoutTambahMetodeTransferState
                     width: MediaQuery.of(context).size.width / 1.5,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFF010935)),
+                        color: const Color(0xFF2F2828)),
                     child: Center(
                       child: Text(
                         "Simpan",
-                        style: GoogleFonts.poppins(
-                            fontSize: 18.5,
+                        style: AppColors.fontStyle(fontSize: 18.5,
                             fontWeight: FontWeight.w800,
                             color: Colors.white),
                       ),

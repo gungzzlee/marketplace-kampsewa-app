@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,8 +62,7 @@ class _MySearchBarState extends State<MySearchBar> {
                     child: Obx(
                       () => Text(
                         widget.teks.value,
-                        style: GoogleFonts.poppins(
-                            fontSize: widget.fontSize,
+                        style: AppColors.fontStyle(fontSize: widget.fontSize,
                             fontWeight: FontWeight.w400,
                             color: widget.fontColor),
                         overflow: TextOverflow.ellipsis,

@@ -14,7 +14,7 @@ class Main extends StatelessWidget {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xFF32363F),
+      systemNavigationBarColor: Color(0xFF2F2828),
       systemNavigationBarIconBrightness: Brightness.light,
     ));
     return const GetMaterialApp(

@@ -1,3 +1,4 @@
+import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -28,46 +29,103 @@ class _LayoutRegisterState extends State<LayoutRegister> {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xFFE8E9EC),
+      systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarDividerColor: Colors.transparent,
     ));
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      decoration: const BoxDecoration(color: Color(0xFFE8E9EC)),
+      decoration: const BoxDecoration(color: Colors.white),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3.2,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/58/bc/c7/senaru-crater-rim-2-days.jpg?w=1200&h=-1&s=1"),
-                    fit: BoxFit.cover,
+            // ── Hero image dengan gradient overlay ──
+            Stack(
+              children: [
+                ClipPath(
+                  clipper: MyClipper(),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 3.2,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/58/bc/c7/senaru-crater-rim-2-days.jpg?w=1200&h=-1&s=1"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                // Gradient overlay
+                ClipPath(
+                  clipper: MyClipper(),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 3.2,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0.0, 0.45, 1.0],
+                        colors: [
+                          Color(0x55010935),
+                          Color(0x11010935),
+                          Colors.white,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
+
+            // ── Title ──
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("REGISTRASI",
-                    style: GoogleFonts.poppins(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black)),
+                Column(
+                  children: [
+                    Text(
+                      "BUAT AKUN BARU",
+                      style: AppColors.fontStyle(fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.mainColor,
+                        letterSpacing: 3.0,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "REGISTRASI",
+                      style: AppColors.fontStyle(fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                        letterSpacing: -0.5,
+                        height: 1.1,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    // Accent divider
+                    Container(
+                      width: 40,
+                      height: 3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: [AppColors.mainColor, AppColors.mainColor.withValues(alpha: 0.3)],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 5),
               child: InputVersiSatu(
+                warnaBgInput: const Color(0xFFF3F4F6),
                 controller: apiRegistrasi.namaController,
                 tipeInput: TextInputType.name,
                 showEyes: false,
@@ -78,6 +136,7 @@ class _LayoutRegisterState extends State<LayoutRegister> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 5),
               child: InputVersiSatu(
+                warnaBgInput: const Color(0xFFF3F4F6),
                 controller: apiRegistrasi.emailController,
                 tipeInput: TextInputType.emailAddress,
                 showEyes: false,
@@ -88,6 +147,7 @@ class _LayoutRegisterState extends State<LayoutRegister> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 5),
               child: InputVersiSatu(
+                warnaBgInput: const Color(0xFFF3F4F6),
                 controller: apiRegistrasi.phoneNumberController,
                 tipeInput: TextInputType.phone,
                 showEyes: false,
@@ -99,27 +159,47 @@ class _LayoutRegisterState extends State<LayoutRegister> {
               padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 5),
               child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
+                      color: const Color(0xFFF3F4F6),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.04),
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                  ),
                   child: TextField(
                     controller: apiRegistrasi.tanggalLahirController,
                     onTap: () {
                       _selectDate(context);
                     },
                     keyboardType: TextInputType.none,
+                    style: AppColors.fontStyle(
+                      fontSize: 16.5,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black87,
+                    ),
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.date_range),
+                      prefixIcon: IconTheme(
+                        data: IconThemeData(
+                          color: Colors.grey.shade400,
+                          size: 22,
+                        ),
+                        child: const Icon(Icons.date_range),
+                      ),
                       hintText: "Tanggal Lahir",
                       border:
                           const OutlineInputBorder(borderSide: BorderSide.none),
                       hintStyle:
-                          GoogleFonts.poppins(color: Colors.grey, fontSize: 14),
+                          AppColors.fontStyle(color: Colors.grey.shade400, fontSize: 14),
                     ),
                   )),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 5),
               child: InputVersiSatu(
+                warnaBgInput: const Color(0xFFF3F4F6),
                 // passwordTipe: true,
                 controller: apiRegistrasi.passwordController,
                 placeHolder: "Password",
@@ -138,7 +218,7 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                   },
                   lebarFull: true,
                   title: "Register",
-                  bgTombol: const Color(0xFF010935)),
+                  bgTombol: AppColors.mainColor),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 25),
@@ -150,14 +230,23 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Sudah punya akun?", style: GoogleFonts.poppins()),
-                      const SizedBox(width: 5),
-                      Text("Login!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.blue)),
+                      Text(
+                        "Sudah punya akun?",
+                        style: AppColors.fontStyle(color: Colors.black54,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        "Login!",
+                        style: AppColors.fontStyle(color: AppColors.mainColor,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 13,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.mainColor,
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -112,8 +113,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         padding: const EdgeInsets.only(right: 50),
                         child: Text(
                           "Store Saya",
-                          style: GoogleFonts.poppins(
-                              fontSize: 21,
+                          style: AppColors.fontStyle(fontSize: 21,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -136,8 +136,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         top: 15, left: 20, right: 20, bottom: 8),
                     child: Text(
                       "Nama Toko",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.5,
+                      style: AppColors.fontStyle(fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -155,11 +154,9 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                           controller: apiDataUser.namaTokoController,
                           decoration: InputDecoration(
                               hintText: "Nama Tokomu",
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: GoogleFonts.poppins(
-                              fontSize: 14.5,
+                          style: AppColors.fontStyle(fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -171,8 +168,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         top: 25, left: 20, right: 20, bottom: 8),
                     child: Text(
                       "Alamat",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.5,
+                      style: AppColors.fontStyle(fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -197,12 +193,10 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                                   decoration: InputDecoration(
                                       hintText:
                                           "Provinsi, Kota, Kecamatan, Kode Pos",
-                                      hintStyle: GoogleFonts.poppins(
-                                          fontSize: 13,
+                                      hintStyle: AppColors.fontStyle(fontSize: 13,
                                           fontWeight: FontWeight.w500),
                                       border: InputBorder.none),
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 13,
+                                  style: AppColors.fontStyle(fontSize: 13,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 )),
@@ -217,7 +211,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color(0xFF010935),
+                                  color: const Color(0xFF2F2828),
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: Padding(
@@ -227,8 +221,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                                     "Ambil\nLokasimu",
                                     maxLines: 2,
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 10,
+                                    style: AppColors.fontStyle(fontSize: 10,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
                                   ),
@@ -257,11 +250,9 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                           decoration: InputDecoration(
                               hintText:
                                   "Detail Lainnya (Contoh: {Nama Jalan, Blok, No Rumah)",
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: GoogleFonts.poppins(
-                              fontSize: 14, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -274,8 +265,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                       children: [
                         Text(
                           "Metode Pembayaran",
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
+                          style: AppColors.fontStyle(fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -287,7 +277,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xFF010935),
+                              color: const Color(0xFF2F2828),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -296,8 +286,7 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                                 children: [
                                   Text(
                                     "Tambah",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
+                                    style: AppColors.fontStyle(fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.white),
                                   ),
@@ -398,12 +387,11 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         width: MediaQuery.of(context).size.width / 1.2,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: const Color(0xFF010935)),
+                            color: const Color(0xFF2F2828)),
                         child: Center(
                           child: Text(
                             "Lanjutkan",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18.5,
+                            style: AppColors.fontStyle(fontSize: 18.5,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white),
                           ),

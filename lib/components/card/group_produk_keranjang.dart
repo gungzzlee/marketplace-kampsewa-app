@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,7 +50,7 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
                   BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 1)),
           boxShadow: [
             BoxShadow(
-                color: const Color(0xFF494949).withValues(alpha: 0.35),
+                color: const Color(0xFF646363).withValues(alpha: 0.35),
                 offset: const Offset(-2.0, 3.0),
                 blurRadius: 2.0)
           ],
@@ -59,7 +60,7 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color(0xFF010935),
+                color: Color(0xFF2F2828),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15)),
@@ -78,8 +79,7 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
                     ),
                     Text(
                       widget.namaToko!,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
+                      style: AppColors.fontStyle(fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     )

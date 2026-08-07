@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:project_camp_sewa/theme_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -56,8 +57,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
               ),
               Text(
                 "KampSewa.",
-                style: GoogleFonts.poppins(
-                    fontSize: 22,
+                style: AppColors.fontStyle(fontSize: 22,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
@@ -78,16 +78,14 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
               "Temukan Peralatan.",
-              style: GoogleFonts.poppins(
-                  fontSize: 23, fontWeight: FontWeight.w500),
+              style: AppColors.fontStyle(fontSize: 23, fontWeight: FontWeight.w500),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               "Cari peralatan untuk bertualang yang anda butuhkan dan anda inginkan.",
-              style: GoogleFonts.poppins(
-                  fontSize: 13, fontWeight: FontWeight.w400),
+              style: AppColors.fontStyle(fontSize: 13, fontWeight: FontWeight.w400),
             ),
           ),
           const SizedBox(
@@ -135,8 +133,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                               });
                             },
                           )),
-                      style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.w400),
+                      style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   )
                 ],
@@ -149,8 +146,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 "Riwayat Pencarian",
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
+                style: AppColors.fontStyle(fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black.withValues(alpha: 0.5)),
               ),
@@ -181,8 +177,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                               child: Row(
                                 children: [
                                   Text(apiRiwayatCari.riwayatCari[index],
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14,
+                                      style: AppColors.fontStyle(fontSize: 14,
                                           fontWeight: FontWeight.w400,
                                           color: Colors.black)),
                                   const Spacer(),
@@ -221,8 +216,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                         padding: const EdgeInsets.only(top: 3),
                         child: Text(
                           'Lihat Semua',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
+                          style: AppColors.fontStyle(fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: Colors.black.withValues(alpha: 0.6),
                           ),
@@ -253,8 +247,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
                       padding: const EdgeInsets.only(top: 3),
                       child: Text(
                         'Hapus semua riwayat',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
+                        style: AppColors.fontStyle(fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.red.shade800.withValues(alpha: 0.8),
                         ),
@@ -269,8 +262,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Text(
                 "Rekomendasi Pencarian",
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
+                style: AppColors.fontStyle(fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black.withValues(alpha: 0.5)),
               ),
