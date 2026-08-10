@@ -1,3 +1,5 @@
+import 'package:project_camp_sewa/constants/constant_api.dart';
+
 class ProdukModel {
   final int idProduk;
   final int idUser;
@@ -19,13 +21,13 @@ class ProdukModel {
 
   factory ProdukModel.fromJson(Map<String, dynamic> json) {
     return ProdukModel(
-      idProduk: json['id_produk'],
-      idUser: json['id_user'],
-      namaToko: json['nama_user'],
-      namaProduk: json['nama_produk'],
-      image: json['foto_depan'],
-      rating: json['rata_rating'],
-      harga: json['harga_sewa'],
+      idProduk: json['id_produk'] is int ? json['id_produk'] : int.tryParse(json['id_produk']?.toString() ?? '0') ?? 0,
+      idUser: json['id_user'] is int ? json['id_user'] : int.tryParse(json['id_user']?.toString() ?? '0') ?? 0,
+      namaToko: json['nama_user']?.toString() ?? '',
+      namaProduk: json['nama_produk']?.toString() ?? '',
+      image: getImageUrl(json['foto_depan']),
+      rating: json['rata_rating']?.toString() ?? '0.0',
+      harga: json['harga_sewa'] is int ? json['harga_sewa'] : int.tryParse(json['harga_sewa']?.toString() ?? '0') ?? 0,
     );
   }
 }

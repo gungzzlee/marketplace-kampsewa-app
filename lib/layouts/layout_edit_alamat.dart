@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
 import 'package:project_camp_sewa/models/user.dart';
 import 'package:project_camp_sewa/services/api_data_user.dart';
@@ -79,12 +78,12 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
     }
 
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high));
     latitude = position.latitude.toString();
     longitude = position.longitude.toString();
 
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+        await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -115,7 +114,7 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
     double latitude = double.parse(strLatitude);
     double longitude = double.parse(strLongitude);
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
+        await Geocoding().placemarkFromCoordinates(latitude, longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -173,7 +172,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                     ),
                     Text(
                       widget.edit ? "Edit Alamat" : "Alamat Baru",
-                      style: AppColors.fontStyle(fontSize: 21,
+                      style: AppColors.fontStyle(
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -188,7 +188,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       top: 25, left: 25, right: 20, bottom: 5),
                   child: Text(
                     "Kontak",
-                    style: AppColors.fontStyle(fontSize: 15.5,
+                    style: AppColors.fontStyle(
+                        fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -207,9 +208,11 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                         decoration: InputDecoration(
                             hintText: "Nama Lengkap",
                             enabled: false,
-                            hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
+                            hintStyle: AppColors.fontStyle(
+                                fontSize: 14.5, fontWeight: FontWeight.w500),
                             border: InputBorder.none),
-                        style: AppColors.fontStyle(fontSize: 14.5,
+                        style: AppColors.fontStyle(
+                            fontSize: 14.5,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -232,9 +235,11 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                         decoration: InputDecoration(
                             hintText: "Nomor Telepon Aktif",
                             enabled: false,
-                            hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
+                            hintStyle: AppColors.fontStyle(
+                                fontSize: 14.5, fontWeight: FontWeight.w500),
                             border: InputBorder.none),
-                        style: AppColors.fontStyle(fontSize: 14.5,
+                        style: AppColors.fontStyle(
+                            fontSize: 14.5,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -246,7 +251,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       top: 15, left: 25, right: 20, bottom: 5),
                   child: Text(
                     "Alamat",
-                    style: AppColors.fontStyle(fontSize: 15.5,
+                    style: AppColors.fontStyle(
+                        fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -271,10 +277,12 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                                 decoration: InputDecoration(
                                     hintText:
                                         "Provinsi, Kota, Kecamatan, Kode Pos",
-                                    hintStyle: AppColors.fontStyle(fontSize: 13,
+                                    hintStyle: AppColors.fontStyle(
+                                        fontSize: 13,
                                         fontWeight: FontWeight.w500),
                                     border: InputBorder.none),
-                                style: AppColors.fontStyle(fontSize: 13,
+                                style: AppColors.fontStyle(
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               )),
@@ -299,7 +307,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                                   "Ambil\nLokasimu",
                                   maxLines: 2,
                                   textAlign: TextAlign.center,
-                                  style: AppColors.fontStyle(fontSize: 10,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 10,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white),
                                 ),
@@ -328,9 +337,11 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                         decoration: InputDecoration(
                             hintText:
                                 "Detail Lainnya (Contoh: {Nama Jalan, Blok, No Rumah)",
-                            hintStyle: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                            hintStyle: AppColors.fontStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500),
                             border: InputBorder.none),
-                        style: AppColors.fontStyle(fontSize: 14,
+                        style: AppColors.fontStyle(
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -342,7 +353,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                       top: 15, left: 25, right: 20, bottom: 5),
                   child: Text(
                     "Tandai Sebagai",
-                    style: AppColors.fontStyle(fontSize: 15.5,
+                    style: AppColors.fontStyle(
+                        fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
@@ -380,7 +392,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                             ),
                             Text(
                               "Rumah",
-                              style: AppColors.fontStyle(fontSize: 13,
+                              style: AppColors.fontStyle(
+                                  fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: ditandaiSebagai == "Rumah"
                                       ? Colors.white
@@ -417,7 +430,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                             ),
                             Text(
                               "Kantor",
-                              style: AppColors.fontStyle(fontSize: 13,
+                              style: AppColors.fontStyle(
+                                  fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: ditandaiSebagai == "Kantor"
                                       ? Colors.white
@@ -486,7 +500,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Text(
                             "Simpan",
-                            style: AppColors.fontStyle(fontSize: 19,
+                            style: AppColors.fontStyle(
+                                fontSize: 19,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),
@@ -514,7 +529,8 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: Text(
                               "Hapus Alamat",
-                              style: AppColors.fontStyle(fontSize: 19,
+                              style: AppColors.fontStyle(
+                                  fontSize: 19,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white),
                             ),
@@ -532,4 +548,3 @@ class _LayoutEditAlamatState extends State<LayoutEditAlamat> {
     );
   }
 }
-

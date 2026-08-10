@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 
 class RiwayatCard extends StatefulWidget {
   final String namaToko;
@@ -80,7 +79,8 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.namaToko,
-                          style: AppColors.fontStyle(fontSize: 16,
+                          style: AppColors.fontStyle(
+                              fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.white),
                         )
@@ -100,10 +100,13 @@ class _RiwayatCardState extends State<RiwayatCard> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: AssetImage(widget.fotoProduk)),
+                            image: widget.fotoProduk.startsWith('http')
+                                ? NetworkImage(widget.fotoProduk) as ImageProvider
+                                : AssetImage(widget.fotoProduk)),
                         boxShadow: [
                           BoxShadow(
-                              color: const Color(0xFF646363).withValues(alpha: 0.2),
+                              color: const Color(0xFF646363)
+                                  .withValues(alpha: 0.2),
                               offset: const Offset(0, 0),
                               blurRadius: 3)
                         ],
@@ -119,7 +122,8 @@ class _RiwayatCardState extends State<RiwayatCard> {
                               padding: const EdgeInsets.symmetric(vertical: 3),
                               child: Text(
                                 widget.namaProduk,
-                                style: AppColors.fontStyle(fontSize: 16,
+                                style: AppColors.fontStyle(
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
@@ -133,20 +137,23 @@ class _RiwayatCardState extends State<RiwayatCard> {
                                       : widget.variasiUkuran != ""
                                           ? widget.variasiUkuran
                                           : widget.variasiWarna,
-                                  style: AppColors.fontStyle(fontSize: 11,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "X",
-                                  style: AppColors.fontStyle(fontSize: 11,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   widget.qty,
-                                  style: AppColors.fontStyle(fontSize: 11,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 )
@@ -170,7 +177,8 @@ class _RiwayatCardState extends State<RiwayatCard> {
                                       ),
                                       Text(
                                         widget.rating,
-                                        style: AppColors.fontStyle(fontSize: 10,
+                                        style: AppColors.fontStyle(
+                                            fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                             color: const Color(0xFFED6723)),
                                       )
@@ -181,19 +189,22 @@ class _RiwayatCardState extends State<RiwayatCard> {
                                     children: [
                                       Text(
                                         "IDR. ",
-                                        style: AppColors.fontStyle(fontSize: 12,
+                                        style: AppColors.fontStyle(
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
                                       ),
                                       Text(
                                         widget.harga,
-                                        style: AppColors.fontStyle(fontSize: 12,
+                                        style: AppColors.fontStyle(
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
                                       ),
                                       Text(
                                         ",00",
-                                        style: AppColors.fontStyle(fontSize: 12,
+                                        style: AppColors.fontStyle(
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
                                       ),
@@ -217,20 +228,22 @@ class _RiwayatCardState extends State<RiwayatCard> {
                   children: [
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           MdiIcons.viewGridPlusOutline,
                           color: Colors.black,
                           size: 18,
                         ),
                         Text(
                           widget.qtyProdukLain,
-                          style: AppColors.fontStyle(fontSize: 10.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 10.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
                         Text(
                           " Produk Lainnya",
-                          style: AppColors.fontStyle(fontSize: 10.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 10.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         )
@@ -240,19 +253,22 @@ class _RiwayatCardState extends State<RiwayatCard> {
                       children: [
                         Text(
                           "Total Pesanan: IDR. ",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           widget.totalPesanan,
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           ",00",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         )
@@ -272,8 +288,8 @@ class _RiwayatCardState extends State<RiwayatCard> {
                   children: [
                     Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 2),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 2),
                           child: Icon(
                             MdiIcons.clock,
                             size: 17,
@@ -282,13 +298,15 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.hari,
-                          style: AppColors.fontStyle(fontSize: 11,
+                          style: AppColors.fontStyle(
+                              fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           " ${widget.statusHari!}",
-                          style: AppColors.fontStyle(fontSize: 11,
+                          style: AppColors.fontStyle(
+                              fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -296,8 +314,8 @@ class _RiwayatCardState extends State<RiwayatCard> {
                     ),
                     Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 2),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 2),
                           child: Icon(
                             MdiIcons.wallet,
                             color: Colors.black,
@@ -306,7 +324,8 @@ class _RiwayatCardState extends State<RiwayatCard> {
                         ),
                         Text(
                           widget.statusTransaksi,
-                          style: AppColors.fontStyle(fontSize: 11,
+                          style: AppColors.fontStyle(
+                              fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: widget.statusTransaksi == "Lunas"
                                   ? Colors.green
@@ -324,4 +343,3 @@ class _RiwayatCardState extends State<RiwayatCard> {
     );
   }
 }
-

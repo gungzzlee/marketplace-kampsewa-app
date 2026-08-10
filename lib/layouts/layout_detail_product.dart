@@ -3,7 +3,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/components/card/item_variant.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
@@ -21,7 +20,8 @@ class LayoutDetailProduct extends StatefulWidget {
 
 class _LayoutDetailProductState extends State<LayoutDetailProduct> {
   ApiProduk apiProduk = Get.put(ApiProduk());
-  final CarouselSliderController carouselController = CarouselSliderController();
+  final CarouselSliderController carouselController =
+      CarouselSliderController();
   int currentIndex = 0;
   String? selectedWarna;
   String? selectedUkuran;
@@ -158,7 +158,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                     topRight: Radius.circular(15)),
                 border: Border(
                     top: BorderSide(
-                        color: Colors.black.withValues(alpha: 0.25), width: 2.5),
+                        color: Colors.black.withValues(alpha: 0.25),
+                        width: 2.5),
                     left: BorderSide(
                         color: Colors.black.withValues(alpha: 0.25), width: 2),
                     right: BorderSide(
@@ -187,7 +188,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                   list != null
                                       ? formatRating(list.rating)
                                       : formatRating("5.0"), //rating
-                                  style: AppColors.fontStyle(fontSize: 18,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: const Color(0xFFED6723)),
                                 );
@@ -215,13 +217,15 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                           list != null
                                               ? list.totalUlasan.toString()
                                               : "100", //ulasan
-                                          style: AppColors.fontStyle(fontSize: 13,
+                                          style: AppColors.fontStyle(
+                                              fontSize: 13,
                                               fontWeight: FontWeight.w500),
                                         );
                                       }),
                                       Text(
                                         " Ulasan",
-                                        style: AppColors.fontStyle(fontSize: 13,
+                                        style: AppColors.fontStyle(
+                                            fontSize: 13,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ],
@@ -240,7 +244,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                               list != null
                                   ? list.namaProduk
                                   : "unknown", //Nama Produk
-                              style: AppColors.fontStyle(fontSize: 21.5, fontWeight: FontWeight.w700),
+                              style: AppColors.fontStyle(
+                                  fontSize: 21.5, fontWeight: FontWeight.w700),
                             );
                           }),
                           const SizedBox(
@@ -253,7 +258,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                               list != null
                                   ? list.deskripsiProduk
                                   : "unknown", //Deskripsi Produk
-                              style: AppColors.fontStyle(fontSize: 12.5, fontWeight: FontWeight.w400),
+                              style: AppColors.fontStyle(
+                                  fontSize: 12.5, fontWeight: FontWeight.w400),
                             );
                           }),
                           const SizedBox(
@@ -261,7 +267,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                           ),
                           Text(
                             "Warna",
-                            style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                            style: AppColors.fontStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
                           ),
                           SizedBox(
                             height: 35,
@@ -294,7 +301,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                             padding: const EdgeInsets.only(top: 6, bottom: 3),
                             child: Text(
                               "Ukuran",
-                              style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                              style: AppColors.fontStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
                             ),
                           ),
                           SizedBox(
@@ -341,13 +349,15 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                           ),
                           Text(
                             "Syarat dan Ketentuan",
-                            style: AppColors.fontStyle(fontSize: 16,
+                            style: AppColors.fontStyle(
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black),
                           ),
                           Text(
                             "1. Menjaminkan Kartu identitas saat pengambilan (KTP, KTM, Kartu Pelajar). \n2. Kerusakan, kehilangan dan keterlambatan akan dikenakan denda. \n3. Keterlambatan maksimal 2 jam setelah masa sewa habis.",
-                            style: AppColors.fontStyle(fontSize: 11.5,
+                            style: AppColors.fontStyle(
+                                fontSize: 11.5,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black),
                           ),
@@ -377,13 +387,15 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                   children: [
                                     Text(
                                       "Stok : ",
-                                      style: AppColors.fontStyle(fontSize: 13.5,
+                                      style: AppColors.fontStyle(
+                                          fontSize: 13.5,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black),
                                     ),
                                     Text(
                                       stok != null ? stok! : "",
-                                      style: AppColors.fontStyle(fontSize: 13.5,
+                                      style: AppColors.fontStyle(
+                                          fontSize: 13.5,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black),
                                     ),
@@ -394,7 +406,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                 children: [
                                   Text(
                                     "IDR. ",
-                                    style: AppColors.fontStyle(fontSize: 16,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w800,
                                         color: Colors.black),
                                   ),
@@ -408,14 +421,16 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                               ? formatCurrency(
                                                   list.hargaSewa.toString())
                                               : "-", //harga produk
-                                      style: AppColors.fontStyle(fontSize: 16,
+                                      style: AppColors.fontStyle(
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w800,
                                           color: Colors.black),
                                     );
                                   }),
                                   Text(
                                     ",00/hari",
-                                    style: AppColors.fontStyle(fontSize: 16,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w800,
                                         color: Colors.black),
                                   ),
@@ -481,7 +496,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                                     ),
                                     Text(
                                       "Keranjang",
-                                      style: AppColors.fontStyle(fontSize: 16,
+                                      style: AppColors.fontStyle(
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white),
                                     ),
@@ -503,4 +519,3 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
     );
   }
 }
-

@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ButtonVersiSatu extends StatefulWidget {
   final String title;
@@ -52,7 +51,8 @@ class _ButtonVersiSatuState extends State<ButtonVersiSatu> {
             ),
             boxShadow: [
               BoxShadow(
-                color: widget.bgTombol.withValues(alpha: _isPressed ? 0.2 : 0.4),
+                color:
+                    widget.bgTombol.withValues(alpha: _isPressed ? 0.2 : 0.4),
                 blurRadius: _isPressed ? 6 : 16,
                 offset: Offset(0, _isPressed ? 2 : 6),
               ),
@@ -61,7 +61,8 @@ class _ButtonVersiSatuState extends State<ButtonVersiSatu> {
           child: Center(
             child: Text(
               widget.title,
-              style: AppColors.fontStyle(fontSize: widget.ukuranTombol + 1,
+              style: AppColors.fontStyle(
+                fontSize: widget.ukuranTombol + 1,
                 color: widget.warnaText,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.4,

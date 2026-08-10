@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/layouts/layout_dashboard.dart';
 import 'package:project_camp_sewa/layouts/layout_product.dart';
 import 'package:project_camp_sewa/layouts/layout_profile.dart';
@@ -17,7 +16,12 @@ class ScreenDashboard extends StatefulWidget {
 
 class _ScreenDashboardState extends State<ScreenDashboard> {
   DashboardController pageController = Get.put(DashboardController());
-  List pages = const [LayoutDashboard(), LayoutProduct(), RiwayatScreen(), LayoutProfile()];
+  List pages = const [
+    LayoutDashboard(),
+    LayoutProduct(),
+    RiwayatScreen(),
+    LayoutProfile()
+  ];
 
   final List<_NavItem> _navItems = const [
     _NavItem(icon: Icons.home_rounded, label: 'Home'),
@@ -38,14 +42,14 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
   Widget _buildBottomNav() {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1AB783),
+        color: const Color(0xFF2C4E40),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(28),
           topRight: Radius.circular(28),
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1AB783).withValues(alpha: 0.4),
+            color: const Color(0xFF2C4E40).withValues(alpha: 0.4),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -63,7 +67,8 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                 final item = _navItems[index];
                 final isSelected = selectedIndex == index;
                 return GestureDetector(
-                  onTap: () => setState(() => pageController.setPageIndex(index)),
+                  onTap: () =>
+                      setState(() => pageController.setPageIndex(index)),
                   behavior: HitTestBehavior.opaque,
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
@@ -92,7 +97,8 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                           const SizedBox(width: 8),
                           Text(
                             item.label,
-                            style: AppColors.fontStyle(color: Colors.white,
+                            style: AppColors.fontStyle(
+                              color: Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                             ),

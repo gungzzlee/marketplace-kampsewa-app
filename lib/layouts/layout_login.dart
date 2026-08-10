@@ -2,7 +2,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/button/button_versi1.dart';
 import 'package:project_camp_sewa/components/input/input_versi1.dart';
 import 'package:project_camp_sewa/layouts/layout_lupa_password.dart';
@@ -80,7 +79,8 @@ class _LayoutLoginState extends State<LayoutLogin> {
               children: [
                 Text(
                   "SELAMAT DATANG",
-                  style: AppColors.fontStyle(fontSize: 11,
+                  style: AppColors.fontStyle(
+                    fontSize: 11,
                     fontWeight: FontWeight.w700,
                     color: AppColors.mainColor,
                     letterSpacing: 3.0,
@@ -89,7 +89,8 @@ class _LayoutLoginState extends State<LayoutLogin> {
                 const SizedBox(height: 4),
                 Text(
                   "Login",
-                  style: AppColors.fontStyle(fontSize: 34,
+                  style: AppColors.fontStyle(
+                    fontSize: 34,
                     fontWeight: FontWeight.w800,
                     color: Colors.black,
                     letterSpacing: -0.5,
@@ -104,7 +105,10 @@ class _LayoutLoginState extends State<LayoutLogin> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     gradient: LinearGradient(
-                      colors: [AppColors.mainColor, AppColors.mainColor.withValues(alpha: 0.3)],
+                      colors: [
+                        AppColors.mainColor,
+                        AppColors.mainColor.withValues(alpha: 0.3)
+                      ],
                     ),
                   ),
                 ),
@@ -150,7 +154,8 @@ class _LayoutLoginState extends State<LayoutLogin> {
                             horizontal: 10, vertical: 6),
                         child: Text(
                           "Lupa Password?",
-                          style: AppColors.fontStyle(fontSize: 12.0,
+                          style: AppColors.fontStyle(
+                            fontSize: 12.0,
                             fontWeight: FontWeight.bold,
                             color: const Color(0xFF2F2828),
                           ),
@@ -180,7 +185,8 @@ class _LayoutLoginState extends State<LayoutLogin> {
                 children: [
                   Text(
                     "Belum punya akun?",
-                    style: AppColors.fontStyle(color: Colors.black54,
+                    style: AppColors.fontStyle(
+                      color: Colors.black54,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
@@ -188,7 +194,8 @@ class _LayoutLoginState extends State<LayoutLogin> {
                   const SizedBox(width: 6),
                   Text(
                     "Daftar Disini!",
-                    style: AppColors.fontStyle(color: AppColors.mainColor,
+                    style: AppColors.fontStyle(
+                      color: AppColors.mainColor,
                       fontWeight: FontWeight.w800,
                       fontSize: 13,
                       decoration: TextDecoration.underline,

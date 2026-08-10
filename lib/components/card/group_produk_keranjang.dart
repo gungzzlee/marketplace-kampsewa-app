@@ -2,7 +2,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/card/keranjang_card.dart';
 import 'package:project_camp_sewa/components/dialog/alert_dialog2.dart';
 import 'package:project_camp_sewa/components/dialog/loading_dialog.dart';
@@ -46,8 +45,8 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(15), topLeft: Radius.circular(25)),
           border: Border.symmetric(
-              vertical:
-                  BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 1)),
+              vertical: BorderSide(
+                  color: Colors.black.withValues(alpha: 0.3), width: 1)),
           boxShadow: [
             BoxShadow(
                 color: const Color(0xFF646363).withValues(alpha: 0.35),
@@ -79,7 +78,8 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
                     ),
                     Text(
                       widget.namaToko!,
-                      style: AppColors.fontStyle(fontSize: 16,
+                      style: AppColors.fontStyle(
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     )
@@ -153,4 +153,3 @@ class _GroupProdukKeranjangState extends State<GroupProdukKeranjang> {
     );
   }
 }
-

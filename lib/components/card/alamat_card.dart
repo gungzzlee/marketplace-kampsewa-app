@@ -2,7 +2,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
 
 class AlamatCard extends StatefulWidget {
@@ -30,7 +29,7 @@ class _AlamatCardState extends State<AlamatCard> {
     double latitude = double.parse(strLatitude);
     double longitude = double.parse(strLongitude);
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
+        await Geocoding().placemarkFromCoordinates(latitude, longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -64,7 +63,8 @@ class _AlamatCardState extends State<AlamatCard> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
-          border: Border.all(color: Colors.black.withValues(alpha: 0.25), width: 1.5),
+          border: Border.all(
+              color: Colors.black.withValues(alpha: 0.25), width: 1.5),
           boxShadow: [
             BoxShadow(
                 color: const Color(0xFF646363).withValues(alpha: 0.3),
@@ -89,7 +89,8 @@ class _AlamatCardState extends State<AlamatCard> {
                     onTap: widget.editAlamat,
                     child: Text(
                       "Edit Alamat",
-                      style: AppColors.fontStyle(fontSize: 15.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 15.5,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
@@ -102,7 +103,8 @@ class _AlamatCardState extends State<AlamatCard> {
             padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
             child: Text(
               widget.namaUser!,
-              style: AppColors.fontStyle(fontSize: 15,
+              style: AppColors.fontStyle(
+                  fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: Colors.black),
             ),
@@ -111,7 +113,8 @@ class _AlamatCardState extends State<AlamatCard> {
             padding: const EdgeInsets.only(left: 10, right: 10, top: 3),
             child: Text(
               widget.noTeleponUser!,
-              style: AppColors.fontStyle(fontSize: 14,
+              style: AppColors.fontStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Colors.black),
             ),
@@ -124,14 +127,16 @@ class _AlamatCardState extends State<AlamatCard> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Text(
                     "Loading...",
-                    style: AppColors.fontStyle(fontSize: 12.5,
+                    style: AppColors.fontStyle(
+                        fontSize: 12.5,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   );
-                }else {
+                } else {
                   return Text(
                     snapshot.data ?? "Alamat tidak ditemukan",
-                    style: AppColors.fontStyle(fontSize: 12.5,
+                    style: AppColors.fontStyle(
+                        fontSize: 12.5,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   );
@@ -153,17 +158,21 @@ class _AlamatCardState extends State<AlamatCard> {
                         "assets/icons/alamat-kantor.png",
                         scale: 4,
                       ),
-                const SizedBox(width: 3,),
+                const SizedBox(
+                  width: 3,
+                ),
                 widget.tipeAlamat == "Rumah"
                     ? Text(
                         "Rumah",
-                        style: AppColors.fontStyle(fontSize: 12,
+                        style: AppColors.fontStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       )
                     : Text(
                         "Kantor",
-                        style: AppColors.fontStyle(fontSize: 12,
+                        style: AppColors.fontStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -175,4 +184,3 @@ class _AlamatCardState extends State<AlamatCard> {
     );
   }
 }
-

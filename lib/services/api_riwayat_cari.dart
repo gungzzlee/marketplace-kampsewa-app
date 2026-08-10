@@ -1,4 +1,4 @@
-﻿// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable
 // ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 
@@ -43,19 +43,10 @@ class ApiRiwayatCari extends GetxController {
         List<dynamic> dataList = data['data'];
         riwayatCari.assignAll(
             dataList.map((item) => item['kata_kunci'] as String).toList());
+      } else if (response.statusCode == 404) {
+        riwayatCari.clear();
       } else {
-        const snackBar = SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: CustomSnackBar(
-              sukses: false,
-              teks: "Gagal Mendapatkan Data Produk",
-            ));
-
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
+        riwayatCari.clear();
       }
     } on DioException catch (dioError) {
       if (context.mounted) {
@@ -151,6 +142,9 @@ class ApiRiwayatCari extends GetxController {
       Map<String, String> queryParams = {};
       if (riwayat != null) {
         queryParams['keyword'] = riwayat;
+        riwayatCari.remove(riwayat); // Optimistic UI update
+      } else {
+        riwayatCari.clear(); // Optimistic UI update
       }
 
       // Tambahkan query parameters ke URL jika ada

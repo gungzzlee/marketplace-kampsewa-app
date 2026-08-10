@@ -1,9 +1,8 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:project_camp_sewa/components/card/item_variant.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 import 'package:project_camp_sewa/constants/database_helper.dart';
@@ -88,7 +87,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                             child: Text(
                               widget.namaProduk!,
                               maxLines: null,
-                              style: AppColors.fontStyle(fontSize: 15.5,
+                              style: AppColors.fontStyle(
+                                  fontSize: 15.5,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
@@ -97,7 +97,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                             children: [
                               Text(
                                 "IDR. ",
-                                style: AppColors.fontStyle(fontSize: 12,
+                                style: AppColors.fontStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
@@ -105,13 +106,15 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                                 harga != null
                                     ? formatCurrency(harga!)
                                     : formatCurrency(widget.harga!),
-                                style: AppColors.fontStyle(fontSize: 12,
+                                style: AppColors.fontStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
                               Text(
                                 ",00/hari",
-                                style: AppColors.fontStyle(fontSize: 12,
+                                style: AppColors.fontStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
@@ -123,13 +126,15 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                               children: [
                                 Text(
                                   "Stok : ",
-                                  style: AppColors.fontStyle(fontSize: 12,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
                                 Text(
                                   stok != null ? stok! : "",
-                                  style: AppColors.fontStyle(fontSize: 12,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -146,7 +151,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                 ),
                 Text(
                   "Warna",
-                  style: AppColors.fontStyle(fontSize: 15,
+                  style: AppColors.fontStyle(
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
@@ -180,7 +186,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                 ),
                 Text(
                   "Ukuran",
-                  style: AppColors.fontStyle(fontSize: 15,
+                  style: AppColors.fontStyle(
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
@@ -231,7 +238,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                         padding: const EdgeInsets.only(bottom: 3.5),
                         child: Text(
                           pemberitahuan!,
-                          style: AppColors.fontStyle(fontSize: 11,
+                          style: AppColors.fontStyle(
+                              fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: Colors.red.withValues(alpha: 0.8)),
                         ),
@@ -244,7 +252,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                   children: [
                     Text(
                       "Jumlah",
-                      style: AppColors.fontStyle(fontSize: 16.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 16.5,
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
@@ -287,7 +296,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                             ),
                             Text(
                               qty.toString(),
-                              style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                              style: AppColors.fontStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w700),
                             ),
                             InkWell(
                               onTap: () {
@@ -298,8 +308,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                                   }
                                 });
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 3),
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 3),
                                 child: Icon(
                                   MdiIcons.minus,
                                   size: 21,
@@ -340,7 +350,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                       Get.back();
                     } else {
                       setState(() {
-                        pemberitahuan = "*Pilih Warna dan Ukuran Terebih Dahulu";
+                        pemberitahuan =
+                            "*Pilih Warna dan Ukuran Terebih Dahulu";
                       });
                     }
                   },
@@ -356,7 +367,8 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
                               horizontal: 20, vertical: 15),
                           child: Text(
                             "Tambahkan ke Keranjang",
-                            style: AppColors.fontStyle(fontSize: 17.5,
+                            style: AppColors.fontStyle(
+                                fontSize: 17.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),
@@ -385,4 +397,3 @@ class _BottomSheetProdukState extends State<BottomSheetProduk> {
     );
   }
 }
-

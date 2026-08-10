@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 
 class AlamatOpsiPengiriman extends StatefulWidget {
   final double opacity;
@@ -44,27 +43,29 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                   ),
                   Text(
                     widget.opsi!,
-                    style: AppColors.fontStyle(fontSize: 13.5,
+                    style: AppColors.fontStyle(
+                        fontSize: 13.5,
                         fontWeight: FontWeight.w700,
                         color: Colors.white.withValues(alpha: widget.opacity)),
                   ),
                   widget.edit! ? const Spacer() : const SizedBox(),
                   widget.edit!
                       ? Padding(
-                        padding: const EdgeInsets.only(right: 5),
-                        child: InkWell(
-                          onTap: (){
-                            //edit
-                          },
-                          child: Text(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: InkWell(
+                            onTap: () {
+                              //edit
+                            },
+                            child: Text(
                               "Edit",
-                              style: AppColors.fontStyle(fontSize: 13.5,
+                              style: AppColors.fontStyle(
+                                fontSize: 13.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
                               ),
                             ),
-                        ),
-                      )
+                          ),
+                        )
                       : const SizedBox(),
                 ],
               ),
@@ -80,12 +81,16 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                       width: MediaQuery.of(context).size.width / 1.3,
                       child: Text(
                         widget.alamat,
-                        style: AppColors.fontStyle(fontSize: 13,
+                        style: AppColors.fontStyle(
+                            fontSize: 13,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black.withValues(alpha: widget.opacity)),
+                            color:
+                                Colors.black.withValues(alpha: widget.opacity)),
                       ),
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       children: [
                         Icon(
@@ -96,7 +101,8 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
                         ),
                         Text(
                           widget.keteranganKirim!,
-                          style: AppColors.fontStyle(fontSize: 9.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 9.5,
                               fontWeight: FontWeight.w500,
                               color: const Color(0xFFEE2737)
                                   .withValues(alpha: widget.opacity)),
@@ -119,4 +125,3 @@ class _AlamatOpsiPengirimanState extends State<AlamatOpsiPengiriman> {
     );
   }
 }
-

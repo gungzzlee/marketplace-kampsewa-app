@@ -1,9 +1,8 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 import 'package:project_camp_sewa/constants/database_helper.dart';
 import 'package:project_camp_sewa/services/controller_keranjang.dart';
@@ -65,8 +64,8 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.symmetric(
-            horizontal:
-                BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 0.8)),
+            horizontal: BorderSide(
+                color: Colors.black.withValues(alpha: 0.3), width: 0.8)),
       ),
       child: Row(
         children: [
@@ -119,7 +118,8 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                     widget.namaProduk, //Nama Produk
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                    style: AppColors.fontStyle(
+                        fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
@@ -127,15 +127,18 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                       children: [
                         Text(
                           widget.variantWarna, //variasi warna
-                          style: AppColors.fontStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(
+                              fontSize: 10, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           " , ",
-                          style: AppColors.fontStyle(fontSize: 8, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(
+                              fontSize: 8, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           widget.variantUkuran, //variasi ukuran
-                          style: AppColors.fontStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(
+                              fontSize: 10, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -146,16 +149,19 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                       children: [
                         Text(
                           "IDR. ",
-                          style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                          style: AppColors.fontStyle(
+                              fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                         Text(
                           formatCurrency(
                               widget.harga.toString()), //harga produk
-                          style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                          style: AppColors.fontStyle(
+                              fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                         Text(
                           ",00/hari",
-                          style: AppColors.fontStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                          style: AppColors.fontStyle(
+                              fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
@@ -205,7 +211,8 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                                 ),
                                 Text(
                                   qty.toString(),
-                                  style: AppColors.fontStyle(fontSize: 11.5,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 11.5,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 InkWell(
@@ -227,7 +234,7 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
                                           .updateTotalItemKeranjang(context);
                                     });
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     MdiIcons.minus,
                                     size: 21,
                                     color: Colors.black,
@@ -261,4 +268,3 @@ class _ItemKeranjangCardState extends State<ItemKeranjangCard> {
     );
   }
 }
-

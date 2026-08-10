@@ -1,4 +1,4 @@
-﻿// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class ApiProduk extends GetxController {
   var colors = <String>[].obs;
   var imageDetailProduk = <String>[].obs;
 
-  Future<void> getProdukRatingTertinggi(BuildContext context) async {
+  Future<void> getProdukRekomendasiPencarian(BuildContext context) async {
     try {
       Authorization auth = Authorization();
       String? token = await auth.getToken();
@@ -30,7 +30,7 @@ class ApiProduk extends GetxController {
         'Authorization': 'Bearer $token',
       };
       var url = ApiEndpoints.baseUrl +
-          ApiEndpoints.authendpoints.getProdukRatingTertinggi;
+          ApiEndpoints.authendpoints.getProdukRekomendasiPencarian;
 
       final response = await dio.get(url,
           options: Options(
@@ -44,22 +44,14 @@ class ApiProduk extends GetxController {
           response.data is String ? jsonDecode(response.data) : response.data;
 
       if (response.statusCode == 200) {
+        var rawData = data['data_rekomendasi'] ?? data['data'] ?? [];
         List<ProdukModel> produkList = List<ProdukModel>.from(
-            data['data_produk'].map((e) => ProdukModel.fromJson(e)).toList());
+            rawData.map((e) => ProdukModel.fromJson(e)).toList());
         listProdukRekomendasi.assignAll(produkList);
+      } else if (response.statusCode == 404) {
+        listProdukRekomendasi.clear();
       } else {
-        const snackBar = SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: CustomSnackBar(
-              sukses: false,
-              teks: "Gagal Mendapatkan Data Produk",
-            ));
-
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
+        listProdukRekomendasi.clear();
       }
     } on DioException catch (dioError) {
       if (context.mounted) {
@@ -116,22 +108,14 @@ class ApiProduk extends GetxController {
           response.data is String ? jsonDecode(response.data) : response.data;
 
       if (response.statusCode == 200) {
+        var rawData = data['data'] ?? data['data_produk'] ?? [];
         List<ProdukModel> produkList = List<ProdukModel>.from(
-            data['data'].map((e) => ProdukModel.fromJson(e)).toList());
+            rawData.map((e) => ProdukModel.fromJson(e)).toList());
         listProduk.assignAll(produkList);
+      } else if (response.statusCode == 404) {
+        listProduk.clear();
       } else {
-        const snackBar = SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: CustomSnackBar(
-              sukses: false,
-              teks: "Data Produk Gagal Dimuat",
-            ));
-
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
+        listProduk.clear();
       }
     } on DioException catch (dioError) {
       if (context.mounted) {

@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WisataCard extends StatefulWidget {
@@ -38,7 +37,10 @@ class _WisataCardState extends State<WisataCard> {
             borderRadius: BorderRadius.circular(15),
             //color: Colors.amber,
             image: DecorationImage(
-                image: AssetImage(widget.image), fit: BoxFit.cover),
+                image: widget.image.startsWith('http')
+                    ? NetworkImage(widget.image) as ImageProvider
+                    : AssetImage(widget.image),
+                fit: BoxFit.cover),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withValues(alpha: 0.5),
@@ -69,14 +71,16 @@ class _WisataCardState extends State<WisataCard> {
                   children: [
                     Text(
                       widget.title,
-                      style: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                      style: AppColors.fontStyle(
+                          fontSize: 14, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(height: 3),
                     SizedBox(
                       width: 200,
                       child: Text(
                         widget.deskripsi,
-                        style: AppColors.fontStyle(fontSize: 8, fontWeight: FontWeight.w600),
+                        style: AppColors.fontStyle(
+                            fontSize: 8, fontWeight: FontWeight.w600),
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -98,7 +102,8 @@ class _WisataCardState extends State<WisataCard> {
                     ),
                     Text(
                       widget.lokasi,
-                      style: AppColors.fontStyle(fontSize: 9, fontWeight: FontWeight.w600),
+                      style: AppColors.fontStyle(
+                          fontSize: 9, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -110,4 +115,3 @@ class _WisataCardState extends State<WisataCard> {
     );
   }
 }
-

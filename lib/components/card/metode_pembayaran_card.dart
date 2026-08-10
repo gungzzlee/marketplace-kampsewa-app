@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CardMetodePembayaran extends StatefulWidget {
   final String metodePembayaran;
@@ -27,7 +26,8 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.white,
-            border: Border.all(width: 1, color: Colors.black.withValues(alpha: 0.2)),
+            border: Border.all(
+                width: 1, color: Colors.black.withValues(alpha: 0.2)),
             boxShadow: [
               BoxShadow(
                   color: const Color(0xFF646363).withValues(alpha: 0.3),
@@ -46,7 +46,8 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,7 +56,8 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                         children: [
                           Text(
                             widget.metodePembayaran,
-                            style: AppColors.fontStyle(fontSize: 14,
+                            style: AppColors.fontStyle(
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -65,7 +67,8 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                               onTap: widget.edit,
                               child: Text(
                                 "Edit",
-                                style: AppColors.fontStyle(fontSize: 13,
+                                style: AppColors.fontStyle(
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black),
                               ),
@@ -78,7 +81,8 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                       ),
                       Text(
                         widget.bank,
-                        style: AppColors.fontStyle(fontSize: 12.5,
+                        style: AppColors.fontStyle(
+                            fontSize: 12.5,
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
@@ -87,7 +91,8 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
                       ),
                       Text(
                         widget.noRek,
-                        style: AppColors.fontStyle(fontSize: 12,
+                        style: AppColors.fontStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: Colors.black),
                       ),
@@ -102,4 +107,3 @@ class _CardMetodePembayaranState extends State<CardMetodePembayaran> {
     );
   }
 }
-

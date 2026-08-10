@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomSnackBar extends StatefulWidget {
   final String? teks;
@@ -17,8 +16,10 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white,
-          border: Border.all(color: Colors.black.withValues(alpha: 0.5), width: 2),
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          border:
+              Border.all(color: Colors.black.withValues(alpha: 0.5), width: 2),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withValues(alpha: 0.5),
@@ -35,26 +36,30 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
                   : "assets/images/error-logo.png",
               scale: widget.sukses ? 10 : 8.5,
             ),
-            const SizedBox(width: 3,),
+            const SizedBox(
+              width: 3,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.title != null
-                  ? widget.title!
-                  : widget.sukses
-                      ? "Sukses"
-                      : "Error",
-                  style: AppColors.fontStyle(fontSize: 14,
+                      ? widget.title!
+                      : widget.sukses
+                          ? "Sukses"
+                          : "Error",
+                  style: AppColors.fontStyle(
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width/1.9,
+                  width: MediaQuery.of(context).size.width / 1.9,
                   child: Text(
                     widget.teks!,
                     maxLines: null,
-                    style: AppColors.fontStyle(fontSize: 12, color: Colors.black),
+                    style:
+                        AppColors.fontStyle(fontSize: 12, color: Colors.black),
                   ),
                 ),
               ],
@@ -74,4 +79,3 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
     );
   }
 }
-

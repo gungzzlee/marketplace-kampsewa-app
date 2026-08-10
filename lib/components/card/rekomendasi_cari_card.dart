@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 
 class RekomendasiCariCard extends StatefulWidget {
@@ -71,7 +70,8 @@ class _RekomendasiCariCardState extends State<RekomendasiCariCard> {
                           height: 37,
                           child: Text(
                             widget.namaProduk,
-                            style: AppColors.fontStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                            style: AppColors.fontStyle(
+                                fontSize: 11, fontWeight: FontWeight.w600),
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
@@ -93,7 +93,8 @@ class _RekomendasiCariCardState extends State<RekomendasiCariCard> {
                             ),
                             Text(
                               formatRating(widget.rating),
-                              style: AppColors.fontStyle(fontSize: 11,
+                              style: AppColors.fontStyle(
+                                fontSize: 11,
                                 fontWeight: FontWeight.w600,
                                 color: const Color(0xFFED6723),
                               ),
@@ -112,4 +113,3 @@ class _RekomendasiCariCardState extends State<RekomendasiCariCard> {
     );
   }
 }
-

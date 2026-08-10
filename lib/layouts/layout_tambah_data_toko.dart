@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/card/metode_pembayaran_card.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
 import 'package:project_camp_sewa/layouts/layout_tambah_metode_transfer.dart';
@@ -50,12 +49,12 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
     }
 
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high));
     latitude = position.latitude.toString();
     longitude = position.longitude.toString();
 
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+        await Geocoding().placemarkFromCoordinates(position.latitude, position.longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -113,7 +112,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         padding: const EdgeInsets.only(right: 50),
                         child: Text(
                           "Store Saya",
-                          style: AppColors.fontStyle(fontSize: 21,
+                          style: AppColors.fontStyle(
+                              fontSize: 21,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -136,7 +136,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         top: 15, left: 20, right: 20, bottom: 8),
                     child: Text(
                       "Nama Toko",
-                      style: AppColors.fontStyle(fontSize: 15.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -154,9 +155,11 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                           controller: apiDataUser.namaTokoController,
                           decoration: InputDecoration(
                               hintText: "Nama Tokomu",
-                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(
+                                  fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -168,7 +171,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         top: 25, left: 20, right: 20, bottom: 8),
                     child: Text(
                       "Alamat",
-                      style: AppColors.fontStyle(fontSize: 15.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -193,10 +197,12 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                                   decoration: InputDecoration(
                                       hintText:
                                           "Provinsi, Kota, Kecamatan, Kode Pos",
-                                      hintStyle: AppColors.fontStyle(fontSize: 13,
+                                      hintStyle: AppColors.fontStyle(
+                                          fontSize: 13,
                                           fontWeight: FontWeight.w500),
                                       border: InputBorder.none),
-                                  style: AppColors.fontStyle(fontSize: 13,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 )),
@@ -221,7 +227,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                                     "Ambil\nLokasimu",
                                     maxLines: 2,
                                     textAlign: TextAlign.center,
-                                    style: AppColors.fontStyle(fontSize: 10,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 10,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
                                   ),
@@ -250,9 +257,11 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                           decoration: InputDecoration(
                               hintText:
                                   "Detail Lainnya (Contoh: {Nama Jalan, Blok, No Rumah)",
-                              hintStyle: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: AppColors.fontStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          style: AppColors.fontStyle(
+                              fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -265,7 +274,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                       children: [
                         Text(
                           "Metode Pembayaran",
-                          style: AppColors.fontStyle(fontSize: 16,
+                          style: AppColors.fontStyle(
+                              fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -286,7 +296,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                                 children: [
                                   Text(
                                     "Tambah",
-                                    style: AppColors.fontStyle(fontSize: 12,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.white),
                                   ),
@@ -391,7 +402,8 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
                         child: Center(
                           child: Text(
                             "Lanjutkan",
-                            style: AppColors.fontStyle(fontSize: 18.5,
+                            style: AppColors.fontStyle(
+                                fontSize: 18.5,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white),
                           ),
@@ -408,4 +420,3 @@ class _LayoutTambahDataTokoState extends State<LayoutTambahDataToko> {
     );
   }
 }
-

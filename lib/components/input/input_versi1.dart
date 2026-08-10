@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class InputVersiSatu extends StatefulWidget {
   final TextInputType tipeInput;
@@ -63,7 +62,8 @@ class _InputVersiSatuState extends State<InputVersiSatu> {
               : widget.border
                   ? Colors.black
                   : Colors.transparent,
-          width: _isFocused ? 1.5 : (widget.border ? widget.ketebalanBorder : 0),
+          width:
+              _isFocused ? 1.5 : (widget.border ? widget.ketebalanBorder : 0),
         ),
         boxShadow: [
           BoxShadow(
@@ -80,14 +80,16 @@ class _InputVersiSatuState extends State<InputVersiSatu> {
         obscureText: widget.passwordTipe ? _obscureText : false,
         keyboardType: widget.tipeInput,
         controller: widget.controller,
-        style: AppColors.fontStyle(fontSize: 16.5,
+        style: AppColors.fontStyle(
+          fontSize: 16.5,
           fontWeight: FontWeight.w500,
           color: Colors.black87,
         ),
         decoration: InputDecoration(
           hintText: widget.placeHolder,
           border: const OutlineInputBorder(borderSide: BorderSide.none),
-          hintStyle: AppColors.fontStyle(color: Colors.grey.shade400,
+          hintStyle: AppColors.fontStyle(
+            color: Colors.grey.shade400,
             fontSize: widget.ukuranFontPlaceHolder,
           ),
           suffixIcon: widget.showEyes
@@ -109,9 +111,8 @@ class _InputVersiSatuState extends State<InputVersiSatu> {
               : null,
           prefixIcon: IconTheme(
             data: IconThemeData(
-              color: _isFocused
-                  ? const Color(0xFF2F2828)
-                  : Colors.grey.shade400,
+              color:
+                  _isFocused ? const Color(0xFF2F2828) : Colors.grey.shade400,
               size: 22,
             ),
             child: widget.iconInput,

@@ -2,9 +2,8 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:project_camp_sewa/components/card/chekout_produk_card.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
 import 'package:project_camp_sewa/layouts/layout_metode_pembayaran.dart';
@@ -76,7 +75,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
 
   Future<String> convertAlamat(double latitude, double longitude) async {
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
+        await Geocoding().placemarkFromCoordinates(latitude, longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -141,7 +140,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                 ),
                 Text(
                   "Checkout",
-                  style: AppColors.fontStyle(fontSize: 21,
+                  style: AppColors.fontStyle(
+                      fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -169,12 +169,15 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               scale: 2,
                             ),
                           ),
-                          Obx(() => Text(
+                          Obx(
+                            () => Text(
                               namaToko.value,
-                              style: AppColors.fontStyle(fontSize: 16,
+                              style: AppColors.fontStyle(
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white),
-                            ),) 
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -236,7 +239,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                   const EdgeInsets.only(left: 10, bottom: 2),
                               child: Text(
                                 "Tentukan Tanggal Sewa",
-                                style: AppColors.fontStyle(fontSize: 13,
+                                style: AppColors.fontStyle(
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black),
                               ),
@@ -259,7 +263,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                       children: [
                                         Text(
                                           "Tanggal Mulai : ",
-                                          style: AppColors.fontStyle(fontSize: 10.5,
+                                          style: AppColors.fontStyle(
+                                              fontSize: 10.5,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black),
                                         ),
@@ -267,7 +272,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                           tanggalAwal != null
                                               ? formatedTanggalAwal!
                                               : "-", //teks tanggal awal
-                                          style: AppColors.fontStyle(fontSize: 10.5,
+                                          style: AppColors.fontStyle(
+                                              fontSize: 10.5,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
                                         ),
@@ -277,7 +283,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                       children: [
                                         Text(
                                           "Tanggal Akhir : ",
-                                          style: AppColors.fontStyle(fontSize: 10.5,
+                                          style: AppColors.fontStyle(
+                                              fontSize: 10.5,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black),
                                         ),
@@ -285,7 +292,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                           tanggalAkhir != null
                                               ? formatedTanggalAkhir!
                                               : "-", //teks tanggal akhir
-                                          style: AppColors.fontStyle(fontSize: 10.5,
+                                          style: AppColors.fontStyle(
+                                              fontSize: 10.5,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
                                         ),
@@ -334,7 +342,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               padding: const EdgeInsets.only(top: 3, bottom: 4),
                               child: Text(
                                 "Opsi Pengiriman",
-                                style: AppColors.fontStyle(fontSize: 12,
+                                style: AppColors.fontStyle(
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
@@ -344,7 +353,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 Text(
                                   //opsi pengiriman
                                   opsiPengiriman,
-                                  style: AppColors.fontStyle(fontSize: 12,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black),
                                 ),
@@ -355,7 +365,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 ),
                                 Text(
                                   "IDR. 0,00",
-                                  style: AppColors.fontStyle(fontSize: 10.5,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 10.5,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -372,7 +383,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 () => Text(
                                   //alamat
                                   alamatPengiriman.value,
-                                  style: AppColors.fontStyle(fontSize: 12,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black),
                                 ),
@@ -389,7 +401,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                                 ),
                                 Text(
                                   "Ambil barang sesuai dengan tanggal yang ditentukan",
-                                  style: AppColors.fontStyle(fontSize: 9.5,
+                                  style: AppColors.fontStyle(
+                                      fontSize: 9.5,
                                       fontWeight: FontWeight.w500,
                                       color: const Color(0xFFEE2737)),
                                 ),
@@ -415,7 +428,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
                               "Pesan : ",
-                              style: AppColors.fontStyle(fontSize: 13.5,
+                              style: AppColors.fontStyle(
+                                  fontSize: 13.5,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
@@ -429,11 +443,13 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               child: TextField(
                                 controller: apiTransaksi.pesanController,
                                 textAlign: TextAlign.end,
-                                style: AppColors.fontStyle(fontSize: 11, fontWeight: FontWeight.w400),
+                                style: AppColors.fontStyle(
+                                    fontSize: 11, fontWeight: FontWeight.w400),
                                 decoration: InputDecoration(
                                   hintText:
                                       "Silahkan tinggalkan pesan tambahan jika ada",
-                                  hintStyle: AppColors.fontStyle(fontSize: 11,
+                                  hintStyle: AppColors.fontStyle(
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w400),
                                   border: InputBorder.none,
                                 ),
@@ -458,7 +474,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         children: [
                           Text(
                             "Total Produk : ",
-                            style: AppColors.fontStyle(fontSize: 13.5,
+                            style: AppColors.fontStyle(
+                                fontSize: 13.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -467,14 +484,16 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             () => Text(
                               keranjangController.totalItemKeranjang.value
                                   .toString(), //total produk
-                              style: AppColors.fontStyle(fontSize: 13,
+                              style: AppColors.fontStyle(
+                                  fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black),
                             ),
                           ),
                           Text(
                             " Produk",
-                            style: AppColors.fontStyle(fontSize: 13,
+                            style: AppColors.fontStyle(
+                                fontSize: 13,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -516,7 +535,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             ),
                             Text(
                               "Metode Pembayaran",
-                              style: AppColors.fontStyle(fontSize: 13.5,
+                              style: AppColors.fontStyle(
+                                  fontSize: 13.5,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
@@ -525,7 +545,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                               jenisBank != null
                                   ? "$metodeBayar - ${jenisBank!}"
                                   : metodeBayar, //metode pembayaran
-                              style: AppColors.fontStyle(fontSize: 11.5,
+                              style: AppColors.fontStyle(
+                                  fontSize: 11.5,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
@@ -543,7 +564,7 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         horizontal: 10, vertical: 15),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           MdiIcons.calendarText,
                           size: 25,
                         ),
@@ -552,7 +573,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         ),
                         Text(
                           "Rincian Pembayaran",
-                          style: AppColors.fontStyle(fontSize: 13.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 13.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -565,20 +587,23 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Durasi Sewa",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "${durasiSewa.duration.inDays}", //durasi sewa
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           " Hari",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -591,14 +616,16 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Sub Total Produk",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "IDR. ",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -613,7 +640,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             return Text(
                               formatCurrency(
                                   grandTotal.toString()), //sub total harga
-                              style: AppColors.fontStyle(fontSize: 11.5,
+                              style: AppColors.fontStyle(
+                                  fontSize: 11.5,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             );
@@ -621,7 +649,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                         ),
                         Text(
                           ",00",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -634,26 +663,30 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Biaya Layanan",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "IDR. ",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           "1.000", //sub total harga
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
                         Text(
                           ",00",
-                          style: AppColors.fontStyle(fontSize: 11.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 11.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -669,14 +702,16 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                       children: [
                         Text(
                           "Total Pembayaran",
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
                         const Spacer(),
                         Text(
                           "IDR. ",
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -692,14 +727,16 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                             totalPembayaran != null
                                 ? formatCurrency(totalPembayaran.toString())
                                 : "0.00", //total pembayaran
-                            style: AppColors.fontStyle(fontSize: 14.5,
+                            style: AppColors.fontStyle(
+                                fontSize: 14.5,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           );
                         }),
                         Text(
                           ",00",
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -762,7 +799,8 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
                   child: Center(
                     child: Text(
                       "Lanjut Pembayaran",
-                      style: AppColors.fontStyle(fontSize: 17.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 17.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.white),
                     ),
@@ -776,4 +814,3 @@ class _LayoutCheckoutState extends State<LayoutCheckout> {
     );
   }
 }
-

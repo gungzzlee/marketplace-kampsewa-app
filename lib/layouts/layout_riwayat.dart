@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/card/riwayat_card.dart';
 import 'package:project_camp_sewa/models/riwayat_model.dart';
 
@@ -45,7 +44,8 @@ class _LayoutRiwayatState extends State<LayoutRiwayat> {
               const SizedBox(height: 24),
               Text(
                 "Belum ada pesanan",
-                style: AppColors.fontStyle(fontSize: 18,
+                style: AppColors.fontStyle(
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xFF2F2828),
                 ),
@@ -53,7 +53,8 @@ class _LayoutRiwayatState extends State<LayoutRiwayat> {
               const SizedBox(height: 8),
               Text(
                 "Pesanan kamu akan muncul di sini",
-                style: AppColors.fontStyle(fontSize: 14,
+                style: AppColors.fontStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey.shade600,
                 ),

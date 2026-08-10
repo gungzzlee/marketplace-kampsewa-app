@@ -1,3 +1,5 @@
+import 'package:project_camp_sewa/constants/constant_api.dart';
+
 class WisataModel{
    final String image;
   final String deskripsi;
@@ -14,12 +16,15 @@ class WisataModel{
   });
 
   factory WisataModel.fromJson(Map<String, dynamic> json) {
+    final rawImage = json['image']?.toString() ?? '';
     return WisataModel(
-      image: json['image'],
-      deskripsi: json['deskripsi'],
-      wisata: json['wisata'],
-      lokasi: json['lokasi'],
-      source: json['source'],
+      image: rawImage.startsWith('assets/')
+          ? rawImage
+          : getImageUrl(rawImage),
+      deskripsi: json['deskripsi']?.toString() ?? '',
+      wisata: json['wisata']?.toString() ?? '',
+      lokasi: json['lokasi']?.toString() ?? '',
+      source: json['source']?.toString() ?? '',
     );
   }
 

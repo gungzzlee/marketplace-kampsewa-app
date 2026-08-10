@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomAlertDialog extends StatefulWidget {
   final String? teks;
@@ -42,7 +41,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                   : widget.sukses
                       ? "Sukses"
                       : "Error",
-              style: AppColors.fontStyle(fontSize: 15.5,
+              style: AppColors.fontStyle(
+                  fontSize: 15.5,
                   fontWeight: FontWeight.w600,
                   color: Colors.black),
               textAlign: TextAlign.center,
@@ -50,7 +50,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
             Text(
               widget.teks!,
               textAlign: TextAlign.center,
-              style: AppColors.fontStyle(fontSize: 12.5,
+              style: AppColors.fontStyle(
+                  fontSize: 12.5,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
@@ -65,13 +66,14 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: widget.sukses
-                          ? const Color(0xFF1AB783)
+                          ? const Color(0xFF2C4E40)
                           : const Color(0xFFEE2737),
                       boxShadow: [
                         BoxShadow(
                             color: widget.sukses
-                                ? const Color(0xFF1AB783).withValues(alpha: 0.7)
-                                : const Color(0xFFEE2737).withValues(alpha: 0.7),
+                                ? const Color(0xFF2C4E40).withValues(alpha: 0.7)
+                                : const Color(0xFFEE2737)
+                                    .withValues(alpha: 0.7),
                             offset: const Offset(0, 0),
                             blurRadius: 5.0)
                       ]),
@@ -80,7 +82,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(
                         "Okey",
-                        style: AppColors.fontStyle(fontSize: 15,
+                        style: AppColors.fontStyle(
+                            fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
                       ),
@@ -95,4 +98,3 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
     );
   }
 }
-

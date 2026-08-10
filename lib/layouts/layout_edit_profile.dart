@@ -2,10 +2,9 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:project_camp_sewa/components/input/input_versi1.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
@@ -72,7 +71,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           padding: const EdgeInsets.only(right: 50),
                           child: Text(
                             "Edit Profile",
-                            style: AppColors.fontStyle(fontSize: 21,
+                            style: AppColors.fontStyle(
+                                fontSize: 21,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -110,7 +110,7 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: const Color(0xFF2F2828)),
-                                child: Center(
+                                child: const Center(
                                   child: Icon(
                                     MdiIcons.pencilOutline,
                                     size: 22,
@@ -142,7 +142,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                       padding: const EdgeInsets.only(left: 3, bottom: 5),
                       child: Text(
                         "Nama",
-                        style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                     ),
                     InputVersiSatu(
@@ -158,7 +159,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           const EdgeInsets.only(left: 3, bottom: 5, top: 10),
                       child: Text(
                         "Email",
-                        style: AppColors.fontStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                     ),
                     InputVersiSatu(
@@ -174,7 +176,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           const EdgeInsets.only(left: 3, bottom: 5, top: 10),
                       child: Text(
                         "Nomor Telephone",
-                        style: AppColors.fontStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(
+                            fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                     ),
                     InputVersiSatu(
@@ -190,7 +193,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                           const EdgeInsets.only(left: 3, bottom: 5, top: 10),
                       child: Text(
                         "Tanggal Lahir",
-                        style: AppColors.fontStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                        style: AppColors.fontStyle(
+                            fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Container(
@@ -210,7 +214,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                             hintText: "Tanggal Lahir",
                             border: const OutlineInputBorder(
                                 borderSide: BorderSide.none),
-                            hintStyle: AppColors.fontStyle(color: Colors.grey, fontSize: 14),
+                            hintStyle: AppColors.fontStyle(
+                                color: Colors.grey, fontSize: 14),
                           ),
                         )),
                   ],
@@ -232,7 +237,8 @@ class _LayoutEditProfileState extends State<LayoutEditProfile> {
                     child: Center(
                       child: Text(
                         "Simpan",
-                        style: AppColors.fontStyle(fontSize: 16,
+                        style: AppColors.fontStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),

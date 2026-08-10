@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomAlertDialog2 extends StatefulWidget {
   final String? teks;
@@ -34,14 +33,16 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
             ),
             Text(
               "Hapus Produk?",
-              style: AppColors.fontStyle(fontSize: 15.5,
+              style: AppColors.fontStyle(
+                  fontSize: 15.5,
                   fontWeight: FontWeight.w600,
                   color: Colors.blue),
             ),
             Text(
               widget.teks!,
               textAlign: TextAlign.center,
-              style: AppColors.fontStyle(fontSize: 12.5,
+              style: AppColors.fontStyle(
+                  fontSize: 12.5,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
@@ -71,7 +72,8 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
                               vertical: 8, horizontal: 18),
                           child: Text(
                             "Batal",
-                            style: AppColors.fontStyle(fontSize: 15,
+                            style: AppColors.fontStyle(
+                                fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -101,7 +103,8 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
                               vertical: 8, horizontal: 15),
                           child: Text(
                             "Hapus",
-                            style: AppColors.fontStyle(fontSize: 15,
+                            style: AppColors.fontStyle(
+                                fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -118,4 +121,3 @@ class _CustomAlertDialog2State extends State<CustomAlertDialog2> {
     );
   }
 }
-

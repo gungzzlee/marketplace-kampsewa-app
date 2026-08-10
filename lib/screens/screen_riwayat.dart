@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter/services.dart';
 import 'package:project_camp_sewa/layouts/layout_riwayat.dart';
 import 'package:project_camp_sewa/models/api_response.dart';
@@ -27,7 +26,8 @@ class _RiwayatScreenState extends State<RiwayatScreen>
 
   final List<Widget> _bodyTabs = [
     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatBelumBayar()),
-    LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatPengambilanData()),
+    LayoutRiwayat(
+        riwayatData: DummyProductApiResponse.getRiwayatPengambilanData()),
     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatBerlangsung()),
     LayoutRiwayat(riwayatData: DummyProductApiResponse.getRiwayatSelesai()),
     const LayoutRiwayat(riwayatData: []),
@@ -67,7 +67,7 @@ class _RiwayatScreenState extends State<RiwayatScreen>
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF1AB783).withValues(alpha: 0.05),
+                    color: const Color(0xFF2C4E40).withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 8),
                   ),
@@ -94,13 +94,14 @@ class _RiwayatScreenState extends State<RiwayatScreen>
                               child: const Icon(
                                 Icons.arrow_back_ios_new_rounded,
                                 size: 18,
-                                color: Color(0xFF1AB783),
+                                color: Color(0xFF2C4E40),
                               ),
                             ),
                           ),
                           Text(
                             "Riwayat",
-                            style: AppColors.fontStyle(fontSize: 20,
+                            style: AppColors.fontStyle(
+                              fontSize: 20,
                               fontWeight: FontWeight.w800,
                               color: const Color(0xFF2F2828),
                             ),
@@ -113,17 +114,17 @@ class _RiwayatScreenState extends State<RiwayatScreen>
                                 color: const Color(0xFFFFFFFF),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 MdiIcons.magnify,
                                 size: 20,
-                                color: const Color(0xFF1AB783),
+                                color: Color(0xFF2C4E40),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    
+
                     // Banner Text/Info
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
@@ -133,14 +134,15 @@ class _RiwayatScreenState extends State<RiwayatScreen>
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [Color(0xFF1AB783), Color(0xFF12825D)],
+                                colors: [Color(0xFF2C4E40), Color(0xFF2C4E40)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
                               borderRadius: BorderRadius.circular(18),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFF1AB783).withValues(alpha: 0.3),
+                                  color: const Color(0xFF2C4E40)
+                                      .withValues(alpha: 0.3),
                                   blurRadius: 12,
                                   offset: const Offset(0, 6),
                                 ),
@@ -159,7 +161,8 @@ class _RiwayatScreenState extends State<RiwayatScreen>
                               children: [
                                 Text(
                                   "Pesanan Anda",
-                                  style: AppColors.fontStyle(color: const Color(0xFF2F2828),
+                                  style: AppColors.fontStyle(
+                                    color: const Color(0xFF2F2828),
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -167,7 +170,8 @@ class _RiwayatScreenState extends State<RiwayatScreen>
                                 const SizedBox(height: 2),
                                 Text(
                                   "Pantau status pesanan dan transaksi",
-                                  style: AppColors.fontStyle(color: const Color(0xFFBDBDBD),
+                                  style: AppColors.fontStyle(
+                                    color: const Color(0xFFBDBDBD),
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -194,12 +198,12 @@ class _RiwayatScreenState extends State<RiwayatScreen>
               indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF1AB783), Color(0xFF12825D)],
+                  colors: [Color(0xFF2C4E40), Color(0xFF2C4E40)],
                 ),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF1AB783).withValues(alpha: 0.3),
+                    color: const Color(0xFF2C4E40).withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -207,17 +211,20 @@ class _RiwayatScreenState extends State<RiwayatScreen>
               ),
               dividerColor: Colors.transparent,
               isScrollable: true,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
-              labelStyle: AppColors.fontStyle(fontWeight: FontWeight.w700,
+              labelPadding:
+                  const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+              labelStyle: AppColors.fontStyle(
+                fontWeight: FontWeight.w700,
                 fontSize: 13,
               ),
-              unselectedLabelStyle: AppColors.fontStyle(fontWeight: FontWeight.w600,
+              unselectedLabelStyle: AppColors.fontStyle(
+                fontWeight: FontWeight.w600,
                 fontSize: 13,
               ),
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             Expanded(
               child: TabBarView(
                 controller: _tabController,

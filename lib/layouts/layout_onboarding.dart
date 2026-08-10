@@ -2,7 +2,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/buttionanimation/swiperight.dart';
 import 'package:project_camp_sewa/screens/screen_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,12 +48,10 @@ class _OnboardLayoutState extends State<OnboardLayout>
   final pageController = PageController();
 
   bool isLastPage = false;
-  int _currentPage = 0;
 
   late AnimationController _textAnimController;
   late Animation<double> _fadeAnim;
   late Animation<Offset> _slideAnim;
-
 
   // Badges removed as requested
 
@@ -88,7 +85,6 @@ class _OnboardLayoutState extends State<OnboardLayout>
   void _onPageChanged(int index) {
     setState(() {
       isLastPage = controller.items.length - 1 == index;
-      _currentPage = index;
     });
     _textAnimController.reset();
     _textAnimController.forward();
@@ -192,7 +188,8 @@ class _OnboardLayoutState extends State<OnboardLayout>
                           ),
                           child: Text(
                             '${index + 1} / ${controller.items.length}',
-                            style: AppColors.fontStyle(color: Colors.white,
+                            style: AppColors.fontStyle(
+                              color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 0.5,
@@ -215,7 +212,8 @@ class _OnboardLayoutState extends State<OnboardLayout>
                             // Badge chip removed
                             Text(
                               controller.items[index].title,
-                              style: AppColors.fontStyle(fontSize: 28,
+                              style: AppColors.fontStyle(
+                                fontSize: 28,
                                 fontWeight: FontWeight.w800,
                                 color: const Color(0xFF2F2828),
                                 height: 1.2,
@@ -241,7 +239,8 @@ class _OnboardLayoutState extends State<OnboardLayout>
                             const SizedBox(height: 14),
                             Text(
                               controller.items[index].deskripsi,
-                              style: AppColors.fontStyle(fontSize: 15,
+                              style: AppColors.fontStyle(
+                                fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54,
                                 height: 1.6,
@@ -298,7 +297,8 @@ class _OnboardLayoutState extends State<OnboardLayout>
                   ),
                   child: Text(
                     'Skip',
-                    style: AppColors.fontStyle(color: Colors.black54,
+                    style: AppColors.fontStyle(
+                      color: Colors.black54,
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                     ),
@@ -310,11 +310,10 @@ class _OnboardLayoutState extends State<OnboardLayout>
                   child: SmoothPageIndicator(
                     controller: pageController,
                     count: controller.items.length,
-                    onDotClicked: (index) => pageController.animateToPage(
-                        index,
+                    onDotClicked: (index) => pageController.animateToPage(index,
                         duration: const Duration(milliseconds: 600),
                         curve: Curves.easeIn),
-                    effect: ExpandingDotsEffect(
+                    effect: const ExpandingDotsEffect(
                       dotHeight: 8,
                       dotWidth: 8,
                       activeDotColor: AppColors.mainColor,
@@ -343,7 +342,8 @@ class _OnboardLayoutState extends State<OnboardLayout>
                     children: <Widget>[
                       Text(
                         'Next',
-                        style: AppColors.fontStyle(color: Colors.white,
+                        style: AppColors.fontStyle(
+                          color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
@@ -391,10 +391,9 @@ class _OnboardLayoutState extends State<OnboardLayout>
             //     context,
             //     PageTransition(
             //         type: PageTransitionType.fade, child: const LoginScreen()));
-            Get.off(
-              const LoginScreen(),
-              transition: Transition.fade,
-              duration: const Duration(milliseconds: 500));
+            Get.off(const LoginScreen(),
+                transition: Transition.fade,
+                duration: const Duration(milliseconds: 500));
           },
         ));
   }
@@ -406,23 +405,23 @@ class MyClipper extends CustomClipper<Path> {
     var path = Path();
     // Mulai dari kiri atas ke kiri bawah (sebelum melengkung)
     path.lineTo(0, size.height - 80);
-    
+
     // Gelombang pertama (turun)
     var firstControlPoint = Offset(size.width / 4, size.height);
     var firstEndPoint = Offset(size.width / 2, size.height - 40);
     path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
         firstEndPoint.dx, firstEndPoint.dy);
-        
+
     // Gelombang kedua (naik)
     var secondControlPoint = Offset(size.width * 0.75, size.height - 80);
     var secondEndPoint = Offset(size.width, size.height - 40);
     path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
         secondEndPoint.dx, secondEndPoint.dy);
-        
+
     // Tarik garis ke kanan atas lalu tutup path
     path.lineTo(size.width, 0);
     path.close();
-    
+
     return path;
   }
 

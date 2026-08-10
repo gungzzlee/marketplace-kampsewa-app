@@ -3,7 +3,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/button/alamat_opsi_pengiriman.dart';
 import 'package:project_camp_sewa/components/button/opsi_pengiriman.dart';
 import 'package:project_camp_sewa/components/dialog/snackbar.dart';
@@ -65,7 +64,7 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
 
   Future<String> convertAlamat(double latitude, double longitude) async {
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
+        await Geocoding().placemarkFromCoordinates(latitude, longitude);
 
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
@@ -85,7 +84,6 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
             sukses: false,
             teks: "Tidak bisa Mengkonversi koordinat alamat anda",
           ));
-
 
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
@@ -123,7 +121,8 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                 ),
                 Text(
                   "Opsi Pengiriman",
-                  style: AppColors.fontStyle(fontSize: 21,
+                  style: AppColors.fontStyle(
+                      fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -138,7 +137,8 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                   left: 15, right: 15, top: 20, bottom: 5),
               child: Text(
                 "Pilih Jasa Pengiriman",
-                style: AppColors.fontStyle(fontSize: 14,
+                style: AppColors.fontStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
               ),
@@ -149,7 +149,8 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                 width: MediaQuery.of(context).size.width / 1.3,
                 child: Text(
                   "Barang akan dikirim sesuai dengan alamat yang anda tentukan atau barang anda ambil di store penyewa",
-                  style: AppColors.fontStyle(fontSize: 11,
+                  style: AppColors.fontStyle(
+                      fontSize: 11,
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
@@ -212,24 +213,28 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
             const SizedBox(
               height: 25,
             ),
-            Obx(() => AlamatOpsiPengiriman(
-              opsi: "Alamat Pengiriman",
-              alamat: alamatUser.value,
-              keteranganKirim:
-                  "Barang akan dikirim sesuai dengan tanggal yang ditentukan",
-              opacity: selectedOption == "antar" ? 1 : 0.5,
-              edit: selectedOption == "antar" ? true : false,
-              checklist: selectedOption == "antar" ? true : false,
-            ),),
-            Obx(() => AlamatOpsiPengiriman(
-              opsi: "Alamat Store",
-              alamat: alamatToko.value,
-              keteranganKirim:
-                  "Barang akan dikirim sesuai dengan tanggal yang ditentukan",
-              opacity: selectedOption == "ambil" ? 1 : 0.5,
-              edit: false,
-              checklist: selectedOption == "ambil" ? true : false,
-            ),),
+            Obx(
+              () => AlamatOpsiPengiriman(
+                opsi: "Alamat Pengiriman",
+                alamat: alamatUser.value,
+                keteranganKirim:
+                    "Barang akan dikirim sesuai dengan tanggal yang ditentukan",
+                opacity: selectedOption == "antar" ? 1 : 0.5,
+                edit: selectedOption == "antar" ? true : false,
+                checklist: selectedOption == "antar" ? true : false,
+              ),
+            ),
+            Obx(
+              () => AlamatOpsiPengiriman(
+                opsi: "Alamat Store",
+                alamat: alamatToko.value,
+                keteranganKirim:
+                    "Barang akan dikirim sesuai dengan tanggal yang ditentukan",
+                opacity: selectedOption == "ambil" ? 1 : 0.5,
+                edit: false,
+                checklist: selectedOption == "ambil" ? true : false,
+              ),
+            ),
             Container(
               height: 1.2,
               color: Colors.black.withValues(alpha: 0.25),
@@ -281,7 +286,8 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Text(
                         "Konfirmasi",
-                        style: AppColors.fontStyle(fontSize: 17,
+                        style: AppColors.fontStyle(
+                            fontSize: 17,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
@@ -296,4 +302,3 @@ class _LayoutOpsiPengirimanState extends State<LayoutOpsiPengiriman> {
     );
   }
 }
-

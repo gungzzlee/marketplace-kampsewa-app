@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 
@@ -81,7 +80,7 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF1AB783).withValues(alpha: 0.10),
+                color: const Color(0xFF2C4E40).withValues(alpha: 0.10),
                 offset: const Offset(0, 8),
                 blurRadius: 24,
                 spreadRadius: -2,
@@ -170,7 +169,8 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                               const SizedBox(width: 3),
                               Text(
                                 formatRating(widget.rating),
-                                style: AppColors.fontStyle(fontSize: 11,
+                                style: AppColors.fontStyle(
+                                  fontSize: 11,
                                   fontWeight: FontWeight.w700,
                                   color: const Color(0xFF2F2828),
                                 ),
@@ -189,13 +189,14 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
-                              colors: [Color(0xFF1AB783), Color(0xFF12825D)],
+                              colors: [Color(0xFF2C4E40), Color(0xFF2C4E40)],
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             'SEWA',
-                            style: AppColors.fontStyle(fontSize: 9,
+                            style: AppColors.fontStyle(
+                              fontSize: 9,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                               letterSpacing: 0.8,
@@ -216,7 +217,8 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                     children: [
                       Text(
                         widget.namaProduk,
-                        style: AppColors.fontStyle(fontSize: 13,
+                        style: AppColors.fontStyle(
+                          fontSize: 13,
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF2F2828),
                           height: 1.3,
@@ -237,12 +239,14 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                                   shaderCallback: (bounds) =>
                                       const LinearGradient(
                                     colors: [
-                                      Color(0xFF1AB783), Color(0xFF12825D)
+                                      Color(0xFF2C4E40),
+                                      Color(0xFF2C4E40)
                                     ],
                                   ).createShader(bounds),
                                   child: Text(
                                     "Rp ${formatCurrency(widget.harga)}",
-                                    style: AppColors.fontStyle(fontSize: 14,
+                                    style: AppColors.fontStyle(
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w800,
                                       color: Colors.white,
                                     ),
@@ -250,7 +254,8 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                                 ),
                                 Text(
                                   "/hari",
-                                  style: AppColors.fontStyle(fontSize: 10,
+                                  style: AppColors.fontStyle(
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w500,
                                     color: const Color(0xFFBDBDBD),
                                   ),
@@ -270,13 +275,14 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   colors: [
-                                    Color(0xFF1AB783), Color(0xFF12825D),
+                                    Color(0xFF2C4E40),
+                                    Color(0xFF2C4E40),
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: const Color(0xFF1AB783)
+                                    color: const Color(0xFF2C4E40)
                                         .withValues(alpha: 0.4),
                                     blurRadius: 10,
                                     offset: const Offset(0, 4),

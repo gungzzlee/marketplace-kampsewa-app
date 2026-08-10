@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/services/api_data_user.dart';
 
 class LayoutTambahMetodeTransfer extends StatefulWidget {
@@ -47,7 +46,8 @@ class _LayoutTambahMetodeTransferState
                           padding: const EdgeInsets.only(right: 50),
                           child: Text(
                             "Tambah Metode Transfer",
-                            style: AppColors.fontStyle(fontSize: 18,
+                            style: AppColors.fontStyle(
+                                fontSize: 18,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -76,7 +76,8 @@ class _LayoutTambahMetodeTransferState
                         top: 15, left: 20, right: 20, bottom: 5),
                     child: Text(
                       "Nama",
-                      style: AppColors.fontStyle(fontSize: 15.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -94,9 +95,11 @@ class _LayoutTambahMetodeTransferState
                           //controller: namaLengkapController,
                           decoration: InputDecoration(
                               hintText: "Atas Nama",
-                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(
+                                  fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -108,7 +111,8 @@ class _LayoutTambahMetodeTransferState
                         top: 15, left: 20, right: 20, bottom: 5),
                     child: Text(
                       "No Rekening",
-                      style: AppColors.fontStyle(fontSize: 15.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -126,9 +130,11 @@ class _LayoutTambahMetodeTransferState
                           controller: apiDataUser.noRekController,
                           decoration: InputDecoration(
                               hintText: "Nomor Rekening",
-                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(
+                                  fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -140,7 +146,8 @@ class _LayoutTambahMetodeTransferState
                         top: 15, left: 20, right: 20, bottom: 5),
                     child: Text(
                       "Jenis Bank",
-                      style: AppColors.fontStyle(fontSize: 15.5,
+                      style: AppColors.fontStyle(
+                          fontSize: 15.5,
                           fontWeight: FontWeight.w700,
                           color: Colors.black),
                     ),
@@ -158,9 +165,11 @@ class _LayoutTambahMetodeTransferState
                           controller: apiDataUser.jenisBankController,
                           decoration: InputDecoration(
                               hintText: "Jenis Bank / Dompet Digital",
-                              hintStyle: AppColors.fontStyle(fontSize: 14.5, fontWeight: FontWeight.w500),
+                              hintStyle: AppColors.fontStyle(
+                                  fontSize: 14.5, fontWeight: FontWeight.w500),
                               border: InputBorder.none),
-                          style: AppColors.fontStyle(fontSize: 14.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 14.5,
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -185,7 +194,8 @@ class _LayoutTambahMetodeTransferState
                     child: Center(
                       child: Text(
                         "Simpan",
-                        style: AppColors.fontStyle(fontSize: 18.5,
+                        style: AppColors.fontStyle(
+                            fontSize: 18.5,
                             fontWeight: FontWeight.w800,
                             color: Colors.white),
                       ),
@@ -200,4 +210,3 @@ class _LayoutTambahMetodeTransferState
     );
   }
 }
-

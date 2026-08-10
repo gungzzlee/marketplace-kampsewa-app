@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginRegister extends StatefulWidget {
   const LoginRegister({Key? key}) : super(key: key);
@@ -56,7 +55,8 @@ class _LoginRegisterState extends State<LoginRegister> {
                 children: [
                   Text(
                     "Sewa Alat\nCamping.",
-                    style: AppColors.fontStyle(fontSize: 44,
+                    style: AppColors.fontStyle(
+                        fontSize: 44,
                         color: Colors.white,
                         shadows: [
                           const Shadow(
@@ -69,7 +69,8 @@ class _LoginRegisterState extends State<LoginRegister> {
                   const SizedBox(height: 10),
                   Text(
                     "Sewa alat camping seluruh wilayah murah dan berkualitas, pergi ke tempat wisata tujuan dan hilangkan stress.",
-                    style: AppColors.fontStyle(color: Colors.white,
+                    style: AppColors.fontStyle(
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       shadows: [

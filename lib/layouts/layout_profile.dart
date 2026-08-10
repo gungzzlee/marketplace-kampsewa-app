@@ -2,8 +2,7 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:project_camp_sewa/layouts/layout_alamat.dart';
 import 'package:project_camp_sewa/layouts/layout_edit_profile.dart';
 import 'package:project_camp_sewa/layouts/layout_lupa_password_new_pass.dart';
@@ -11,6 +10,9 @@ import 'package:project_camp_sewa/layouts/layout_tambah_data_toko.dart';
 import 'package:project_camp_sewa/screens/screen_login.dart';
 import 'package:project_camp_sewa/services/authorization_token.dart';
 import 'package:project_camp_sewa/services/controller_dashboard.dart';
+import 'package:project_camp_sewa/services/api_data_user.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:project_camp_sewa/constants/api_endpoint.dart';
 
 class LayoutProfile extends StatefulWidget {
   const LayoutProfile({super.key});
@@ -21,11 +23,15 @@ class LayoutProfile extends StatefulWidget {
 
 class _LayoutProfileState extends State<LayoutProfile> {
   final DashboardController pageController = Get.put(DashboardController());
+  final ApiDataUser apiDataUser = Get.put(ApiDataUser());
 
-  final String _dummyName = 'Agung Pratama';
-  final String _dummyEmail = 'agung@email.com';
-  final String _dummyPhone = '+62 812-3456-7890';
-  final String _dummyAvatar = 'assets/images/man.png';
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      apiDataUser.getDataUser(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +43,13 @@ class _LayoutProfileState extends State<LayoutProfile> {
       ),
       child: Scaffold(
         backgroundColor: const Color(0xFFFFFFFF),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+        body: Obx(() {
+          final user = apiDataUser.dataUser.value;
+          if (user == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
           child: Stack(
             children: [
               // Hero Background
@@ -50,8 +61,9 @@ class _LayoutProfileState extends State<LayoutProfile> {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Color(0xFF1AB783),
-                      Color(0xFF1AB783), Color(0xFF12825D),
+                      Color(0xFF2C4E40),
+                      Color(0xFF2C4E40),
+                      Color(0xFF2C4E40),
                     ],
                   ),
                   borderRadius: BorderRadius.only(
@@ -60,7 +72,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
                   ),
                 ),
               ),
-              
+
               // Decorative Circles
               Positioned(
                 top: -50,
@@ -91,22 +103,35 @@ class _LayoutProfileState extends State<LayoutProfile> {
               Column(
                 children: [
                   const SizedBox(height: 70),
-                  _buildHeaderInfo(),
+                  _buildHeaderInfo(user),
                   const SizedBox(height: 25),
                   _buildStatsCard(),
                   const SizedBox(height: 25),
-                  _buildMenuSection(),
+                  _buildMenuSection(user),
                   const SizedBox(height: 40),
                 ],
               ),
             ],
           ),
-        ),
+        );
+        }),
       ),
     );
   }
 
-  Widget _buildHeaderInfo() {
+  Widget _buildHeaderInfo(dynamic user) {
+    String name = user.name ?? 'Unknown';
+    String email = user.email ?? '';
+    String phone = user.nomorTelephone ?? '';
+    String avatarUrl = user.image ?? '';
+
+    ImageProvider imageProvider;
+    if (avatarUrl.isNotEmpty && avatarUrl.startsWith('http')) {
+      imageProvider = NetworkImage(avatarUrl);
+    } else {
+      imageProvider = const AssetImage('assets/images/man.png');
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
@@ -118,12 +143,13 @@ class _LayoutProfileState extends State<LayoutProfile> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white.withValues(alpha: 0.2),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.5),
+              border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.5), width: 1.5),
             ),
             child: CircleAvatar(
               radius: 40,
               backgroundColor: Colors.white,
-              backgroundImage: AssetImage(_dummyAvatar),
+              backgroundImage: imageProvider,
               onBackgroundImageError: (_, __) {},
             ),
           ),
@@ -134,8 +160,9 @@ class _LayoutProfileState extends State<LayoutProfile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _dummyName,
-                  style: AppColors.fontStyle(fontSize: 22,
+                  name,
+                  style: AppColors.fontStyle(
+                    fontSize: 22,
                     fontWeight: FontWeight.w800,
                     color: Colors.white,
                     letterSpacing: -0.5,
@@ -143,16 +170,18 @@ class _LayoutProfileState extends State<LayoutProfile> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  _dummyEmail,
-                  style: AppColors.fontStyle(fontSize: 13,
+                  email,
+                  style: AppColors.fontStyle(
+                    fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: Colors.white.withValues(alpha: 0.8),
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  _dummyPhone,
-                  style: AppColors.fontStyle(fontSize: 13,
+                  phone,
+                  style: AppColors.fontStyle(
+                    fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: Colors.white.withValues(alpha: 0.8),
                   ),
@@ -191,7 +220,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1AB783).withValues(alpha: 0.08),
+            color: const Color(0xFF2C4E40).withValues(alpha: 0.08),
             blurRadius: 24,
             offset: const Offset(0, 10),
           ),
@@ -200,17 +229,21 @@ class _LayoutProfileState extends State<LayoutProfile> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildStatItem('12', 'Pesanan', Icons.shopping_bag_rounded, const Color(0xFFFFFFFF)),
+          _buildStatItem('12', 'Pesanan', Icons.shopping_bag_rounded,
+              const Color(0xFFFFFFFF)),
           _buildStatDivider(),
-          _buildStatItem('3', 'Aktif', Icons.local_shipping_rounded, const Color(0xFF10B981)),
+          _buildStatItem('3', 'Aktif', Icons.local_shipping_rounded,
+              const Color(0xFF10B981)),
           _buildStatDivider(),
-          _buildStatItem('4.8', 'Rating', Icons.star_rounded, const Color(0xFFED6723)),
+          _buildStatItem(
+              '4.8', 'Rating', Icons.star_rounded, const Color(0xFFED6723)),
         ],
       ),
     );
   }
 
-  Widget _buildStatItem(String value, String label, IconData icon, Color color) {
+  Widget _buildStatItem(
+      String value, String label, IconData icon, Color color) {
     return Column(
       children: [
         Container(
@@ -224,7 +257,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
         const SizedBox(height: 10),
         Text(
           value,
-          style: AppColors.fontStyle(fontSize: 20,
+          style: AppColors.fontStyle(
+            fontSize: 20,
             fontWeight: FontWeight.w800,
             color: const Color(0xFF2F2828),
           ),
@@ -232,7 +266,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
         const SizedBox(height: 2),
         Text(
           label,
-          style: AppColors.fontStyle(fontSize: 12,
+          style: AppColors.fontStyle(
+            fontSize: 12,
             fontWeight: FontWeight.w600,
             color: const Color(0xFFBDBDBD),
           ),
@@ -249,7 +284,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
     );
   }
 
-  Widget _buildMenuSection() {
+  Widget _buildMenuSection(dynamic user) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -259,7 +294,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
             padding: const EdgeInsets.only(left: 8, bottom: 12),
             child: Text(
               "Pengaturan Akun",
-              style: AppColors.fontStyle(fontSize: 16,
+              style: AppColors.fontStyle(
+                fontSize: 16,
                 fontWeight: FontWeight.w800,
                 color: const Color(0xFF2F2828),
               ),
@@ -306,21 +342,36 @@ class _LayoutProfileState extends State<LayoutProfile> {
                     Get.to(
                       () => const LayoutLupaPasswordNewPass(),
                       arguments: {
-                        'nomor_telephone': _dummyPhone,
+                        'nomor_telephone': user.nomorTelephone ?? '',
                         'lupa_password': false,
                       },
                     );
                   },
                 ),
                 _buildDivider(),
-                _buildMenuItem(
-                  icon: MdiIcons.storefrontOutline,
-                  title: 'Mulai Menyewakan',
-                  subtitle: 'Buka toko perlengkapan',
-                  onTap: () {
-                    Get.to(() => const LayoutTambahDataToko());
-                  },
-                ),
+                if (user.isToko == true)
+                  _buildMenuItem(
+                    icon: MdiIcons.storefrontOutline,
+                    title: 'Manajemen Toko',
+                    subtitle: user.namaStore ?? 'Toko Anda',
+                    onTap: () async {
+                      final Uri url = Uri.parse(ApiEndpoints.baseUrl);
+                      if (!await launchUrl(url)) {
+                        Get.snackbar("Error", "Gagal membuka web browser");
+                      }
+                    },
+                  )
+                else
+                  _buildMenuItem(
+                    icon: MdiIcons.storefrontOutline,
+                    title: 'Mulai Menyewakan',
+                    subtitle: 'Pengguna Biasa (Belum membuka penyewaan)',
+                    onTap: () {
+                      Get.to(() => const LayoutTambahDataToko())?.then((_) {
+                        apiDataUser.getDataUser(context);
+                      });
+                    },
+                  ),
               ],
             ),
           ),
@@ -329,7 +380,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
             padding: const EdgeInsets.only(left: 8, bottom: 12),
             child: Text(
               "Lainnya",
-              style: AppColors.fontStyle(fontSize: 16,
+              style: AppColors.fontStyle(
+                fontSize: 16,
                 fontWeight: FontWeight.w800,
                 color: const Color(0xFF2F2828),
               ),
@@ -376,7 +428,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
     Color? iconColor,
     Color? iconBgColor,
   }) {
-    final Color actualIconColor = iconColor ?? const Color(0xFF1AB783);
+    final Color actualIconColor = iconColor ?? const Color(0xFF2C4E40);
     final Color actualIconBgColor = iconBgColor ?? const Color(0xFFFFFFFF);
     final Color actualTextColor = textColor ?? const Color(0xFF2F2828);
 
@@ -404,7 +456,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
                   children: [
                     Text(
                       title,
-                      style: AppColors.fontStyle(fontSize: 15,
+                      style: AppColors.fontStyle(
+                        fontSize: 15,
                         fontWeight: FontWeight.w700,
                         color: actualTextColor,
                       ),
@@ -412,7 +465,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
                     const SizedBox(height: 2),
                     Text(
                       subtitle,
-                      style: AppColors.fontStyle(fontSize: 12,
+                      style: AppColors.fontStyle(
+                        fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: const Color(0xFFBDBDBD),
                       ),
@@ -420,7 +474,8 @@ class _LayoutProfileState extends State<LayoutProfile> {
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios_rounded, color: Colors.grey.shade400, size: 16),
+              Icon(Icons.arrow_forward_ios_rounded,
+                  color: Colors.grey.shade400, size: 16),
             ],
           ),
         ),
@@ -429,12 +484,12 @@ class _LayoutProfileState extends State<LayoutProfile> {
   }
 
   Widget _buildDivider() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 72, right: 20),
+    return const Padding(
+      padding: EdgeInsets.only(left: 72, right: 20),
       child: Divider(
         height: 1,
         thickness: 1,
-        color: const Color(0xFFBDBDBD),
+        color: Color(0xFFBDBDBD),
       ),
     );
   }

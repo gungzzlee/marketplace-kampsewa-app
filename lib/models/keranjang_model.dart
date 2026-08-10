@@ -1,3 +1,5 @@
+import 'package:project_camp_sewa/constants/constant_api.dart';
+
 class KeranjangModel {
   final int? id;
   final int idToko;
@@ -30,7 +32,7 @@ class KeranjangModel {
     idToko: json['id_toko'],
     namaToko: json['nama_toko'],
     idProduk: json['id_produk'],
-    fotoProduk: json['foto_produk'],
+    fotoProduk: getImageUrl(json['foto_produk']),
     namaProduk: json['nama_produk'],
     variantWarna: json['variant_warna'],
     variantUkuran: json['variant_ukuran'],

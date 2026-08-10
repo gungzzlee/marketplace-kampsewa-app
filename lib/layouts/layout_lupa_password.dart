@@ -1,7 +1,6 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_camp_sewa/components/input/input_versi1.dart';
 import 'package:project_camp_sewa/services/api_lupa_password.dart';
 
@@ -47,7 +46,8 @@ class _LayoutLupaPasswordState extends State<LayoutLupaPassword> {
               height: 18,
             ),
             Text("Lupa Password",
-                style: AppColors.fontStyle(fontSize: 24,
+                style: AppColors.fontStyle(
+                    fontSize: 24,
                     fontWeight: FontWeight.w700,
                     color: Colors.black)),
             const SizedBox(
@@ -57,7 +57,8 @@ class _LayoutLupaPasswordState extends State<LayoutLupaPassword> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 "Kamu harus verifikasi menggunakan nomor hpmu untuk mendapatkan kode OTP",
-                style: AppColors.fontStyle(fontSize: 14,
+                style: AppColors.fontStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: Colors.black),
                 textAlign: TextAlign.center,
@@ -95,7 +96,8 @@ class _LayoutLupaPasswordState extends State<LayoutLupaPassword> {
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       child: Text(
                         "Kirim OTP",
-                        style: AppColors.fontStyle(fontSize: 17,
+                        style: AppColors.fontStyle(
+                            fontSize: 17,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),

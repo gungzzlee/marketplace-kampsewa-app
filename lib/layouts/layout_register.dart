@@ -2,7 +2,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/components/button/button_versi1.dart';
 import 'package:project_camp_sewa/components/input/input_versi1.dart';
@@ -89,7 +88,8 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                   children: [
                     Text(
                       "BUAT AKUN BARU",
-                      style: AppColors.fontStyle(fontSize: 11,
+                      style: AppColors.fontStyle(
+                        fontSize: 11,
                         fontWeight: FontWeight.w700,
                         color: AppColors.mainColor,
                         letterSpacing: 3.0,
@@ -98,7 +98,8 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                     const SizedBox(height: 4),
                     Text(
                       "REGISTRASI",
-                      style: AppColors.fontStyle(fontSize: 26,
+                      style: AppColors.fontStyle(
+                        fontSize: 26,
                         fontWeight: FontWeight.w800,
                         color: Colors.black,
                         letterSpacing: -0.5,
@@ -113,7 +114,10 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
-                          colors: [AppColors.mainColor, AppColors.mainColor.withValues(alpha: 0.3)],
+                          colors: [
+                            AppColors.mainColor,
+                            AppColors.mainColor.withValues(alpha: 0.3)
+                          ],
                         ),
                       ),
                     ),
@@ -159,15 +163,15 @@ class _LayoutRegisterState extends State<LayoutRegister> {
               padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 5),
               child: Container(
                   decoration: BoxDecoration(
-                      color: const Color(0xFFF3F4F6),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.04),
-                          blurRadius: 6,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                    color: const Color(0xFFF3F4F6),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.04),
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
                   child: TextField(
                     controller: apiRegistrasi.tanggalLahirController,
@@ -191,8 +195,8 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                       hintText: "Tanggal Lahir",
                       border:
                           const OutlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle:
-                          AppColors.fontStyle(color: Colors.grey.shade400, fontSize: 14),
+                      hintStyle: AppColors.fontStyle(
+                          color: Colors.grey.shade400, fontSize: 14),
                     ),
                   )),
             ),
@@ -232,7 +236,8 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                     children: [
                       Text(
                         "Sudah punya akun?",
-                        style: AppColors.fontStyle(color: Colors.black54,
+                        style: AppColors.fontStyle(
+                          color: Colors.black54,
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
@@ -240,7 +245,8 @@ class _LayoutRegisterState extends State<LayoutRegister> {
                       const SizedBox(width: 6),
                       Text(
                         "Login!",
-                        style: AppColors.fontStyle(color: AppColors.mainColor,
+                        style: AppColors.fontStyle(
+                          color: AppColors.mainColor,
                           fontWeight: FontWeight.w800,
                           fontSize: 13,
                           decoration: TextDecoration.underline,

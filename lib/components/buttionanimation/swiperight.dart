@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 class ButtonSwipeRight extends StatefulWidget {
@@ -30,7 +29,8 @@ class _ButtonSwipeRightState extends State<ButtonSwipeRight> {
   Widget build(BuildContext context) {
     return SwipeableButtonView(
       buttonText: widget.title,
-      buttontextstyle: AppColors.fontStyle(color: widget.titleColor, fontSize: 17, fontWeight: FontWeight.w600),
+      buttontextstyle: AppColors.fontStyle(
+          color: widget.titleColor, fontSize: 17, fontWeight: FontWeight.w600),
       buttonWidget: Icon(
         Icons.arrow_forward_ios_rounded,
         color: widget.iconColor,
@@ -48,7 +48,7 @@ class _ButtonSwipeRightState extends State<ButtonSwipeRight> {
         if (widget.fungsi != null) {
           await widget.fungsi!();
         }
-        
+
         // - - - Reset isFinished variable  - - -
         if (mounted) {
           setState(() => isFinished = false);

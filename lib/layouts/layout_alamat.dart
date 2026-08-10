@@ -1,8 +1,7 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:project_camp_sewa/components/card/alamat_card.dart';
 import 'package:project_camp_sewa/layouts/layout_edit_alamat.dart';
 import 'package:project_camp_sewa/models/alamat_model.dart';
@@ -52,7 +51,8 @@ class _LayoutAlamatState extends State<LayoutAlamat> {
                 ),
                 Text(
                   "Alamat Saya",
-                  style: AppColors.fontStyle(fontSize: 21,
+                  style: AppColors.fontStyle(
+                      fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
@@ -118,14 +118,15 @@ class _LayoutAlamatState extends State<LayoutAlamat> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           MdiIcons.plusBox,
                           size: 30,
                           color: Colors.black,
                         ),
                         Text(
                           "Tambah Alamat baru",
-                          style: AppColors.fontStyle(fontSize: 17.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 17.5,
                               fontWeight: FontWeight.w700,
                               color: Colors.black),
                         ),
@@ -141,4 +142,3 @@ class _LayoutAlamatState extends State<LayoutAlamat> {
     );
   }
 }
-

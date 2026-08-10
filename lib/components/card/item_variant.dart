@@ -1,12 +1,15 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ItemVariant extends StatefulWidget {
   final String item;
   final bool selected;
   final Function()? aksi;
-  const ItemVariant({super.key, required this.item, required this.aksi, this.selected = false});
+  const ItemVariant(
+      {super.key,
+      required this.item,
+      required this.aksi,
+      this.selected = false});
 
   @override
   State<ItemVariant> createState() => _ItemVariantState();
@@ -29,7 +32,8 @@ class _ItemVariantState extends State<ItemVariant> {
           child: Center(
             child: Text(
               widget.item,
-              style: AppColors.fontStyle(fontSize: 14,
+              style: AppColors.fontStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: widget.selected ? Colors.white : Colors.black),
             ),

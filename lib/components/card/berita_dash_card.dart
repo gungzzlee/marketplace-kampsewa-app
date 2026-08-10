@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BeritaCard extends StatefulWidget {
@@ -8,7 +7,12 @@ class BeritaCard extends StatefulWidget {
   final String title;
   final String source;
   final String url;
-  const BeritaCard({super.key, required this.image, required this.title, required this.source, required this.url});
+  const BeritaCard(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.source,
+      required this.url});
 
   @override
   State<BeritaCard> createState() => _BeritaCardState();
@@ -46,8 +50,7 @@ class _BeritaCardState extends State<BeritaCard> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
-                        image: NetworkImage(widget.image),
-                        fit: BoxFit.fill)),
+                        image: NetworkImage(widget.image), fit: BoxFit.fill)),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +63,8 @@ class _BeritaCardState extends State<BeritaCard> {
                       padding: const EdgeInsets.only(left: 5, top: 6),
                       child: Text(
                         widget.title,
-                        style: AppColors.fontStyle(fontSize: 14,
+                        style: AppColors.fontStyle(
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Colors.black),
                         softWrap: true,
@@ -77,7 +81,8 @@ class _BeritaCardState extends State<BeritaCard> {
                       children: [
                         Text(
                           widget.source,
-                          style: AppColors.fontStyle(fontSize: 10.5,
+                          style: AppColors.fontStyle(
+                              fontSize: 10.5,
                               fontWeight: FontWeight.w600,
                               color: const Color(0xFF646363)),
                         ),
@@ -93,4 +98,3 @@ class _BeritaCardState extends State<BeritaCard> {
     );
   }
 }
-

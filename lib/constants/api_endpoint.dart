@@ -22,8 +22,7 @@ class AuthEndPoints {
   final String deleteAlamatUser = "/api/user/delete-alamat/";
   final String tambahBankMetodeTransfer = "/api/user/tambah-bank/";
   final String getIklan = "/api/iklan";
-  final String getProdukRatingTertinggi =
-      "/api/produk/produk-rating-tertinggi-limit6";
+  final String getProdukRekomendasiPencarian = "/api/produk/rekomendasi-pencarian";
   final String getProduk = "/api/produk/";
   final String getProdukBottomSheet = "/api/produk/detail-keranjang-produk/";
   final String getDetailProduk = "/api/produk/detail-produk/";

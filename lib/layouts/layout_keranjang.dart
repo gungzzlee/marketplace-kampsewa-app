@@ -3,7 +3,6 @@ import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:project_camp_sewa/components/card/group_produk_keranjang.dart';
 import 'package:project_camp_sewa/components/dialog/alert_dialog.dart';
@@ -49,14 +48,15 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
             // ── Header ──
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.only(top: 8, bottom: 14, left: 4, right: 16),
+              padding:
+                  const EdgeInsets.only(top: 8, bottom: 14, left: 4, right: 16),
               child: Row(
                 children: [
                   IconButton(
                     onPressed: () => Get.back(),
                     icon: const Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xFF1AB783),
+                      color: Color(0xFF2C4E40),
                       size: 24,
                     ),
                   ),
@@ -64,9 +64,10 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                     child: Text(
                       'Keranjang',
                       textAlign: TextAlign.center,
-                      style: AppColors.fontStyle(fontSize: 20,
+                      style: AppColors.fontStyle(
+                        fontSize: 20,
                         fontWeight: FontWeight.w800,
-                        color: const Color(0xFF1AB783),
+                        color: const Color(0xFF2C4E40),
                         letterSpacing: -0.3,
                       ),
                     ),
@@ -85,7 +86,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                   return _buildEmptyState();
                 }
                 return ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     final store = stores[index];
@@ -94,7 +96,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                       idToko: store['id_toko'],
                     );
                   },
-                  separatorBuilder: (context, index) => const SizedBox(height: 12),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
                   itemCount: stores.length,
                 );
               }),
@@ -125,7 +128,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                     children: [
                       Text(
                         'Total Item',
-                        style: AppColors.fontStyle(fontSize: 14,
+                        style: AppColors.fontStyle(
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.black54,
                         ),
@@ -133,9 +137,10 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                       const Spacer(),
                       Obx(() => Text(
                             '${keranjangController.totalItemKeranjang.value} Item',
-                            style: AppColors.fontStyle(fontSize: 14,
+                            style: AppColors.fontStyle(
+                              fontSize: 14,
                               fontWeight: FontWeight.w700,
-                              color: const Color(0xFF1AB783),
+                              color: const Color(0xFF2C4E40),
                             ),
                           )),
                     ],
@@ -146,7 +151,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                     children: [
                       Text(
                         'Total Harga',
-                        style: AppColors.fontStyle(fontSize: 15,
+                        style: AppColors.fontStyle(
+                          fontSize: 15,
                           fontWeight: FontWeight.w700,
                           color: Colors.black87,
                         ),
@@ -154,14 +160,16 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                       const Spacer(),
                       Obx(() => Text(
                             'Rp ${formatCurrency(keranjangController.totalHargaKeranjang.value.toString())}',
-                            style: AppColors.fontStyle(fontSize: 17,
+                            style: AppColors.fontStyle(
+                              fontSize: 17,
                               fontWeight: FontWeight.w800,
-                              color: const Color(0xFF1AB783),
+                              color: const Color(0xFF2C4E40),
                             ),
                           )),
                       Text(
                         '/hari',
-                        style: AppColors.fontStyle(fontSize: 12,
+                        style: AppColors.fontStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.w500,
                           color: Colors.black45,
                         ),
@@ -172,7 +180,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                   // Checkout button
                   GestureDetector(
                     onTap: () async {
-                      await keranjangController.getSelectedTokoCheckout(context);
+                      await keranjangController
+                          .getSelectedTokoCheckout(context);
                       final int totalToko =
                           keranjangController.totalSelectedTokoCheckout.value;
                       if (totalToko == 1) {
@@ -185,7 +194,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                             content: CustomAlertDialog(
                               sukses: false,
                               title: 'Maaf Atas Ketidaknyamanannya',
-                              teks: 'Anda Hanya Bisa Checkout Produk Pada 1 Toko Yang Sama',
+                              teks:
+                                  'Anda Hanya Bisa Checkout Produk Pada 1 Toko Yang Sama',
                             ),
                           ),
                         );
@@ -196,10 +206,11 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFF1AB783),
+                        color: const Color(0xFF2C4E40),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF1AB783).withValues(alpha: 0.35),
+                            color:
+                                const Color(0xFF2C4E40).withValues(alpha: 0.35),
                             blurRadius: 16,
                             offset: const Offset(0, 6),
                           ),
@@ -208,7 +219,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
                       child: Center(
                         child: Text(
                           'Checkout',
-                          style: AppColors.fontStyle(fontSize: 16,
+                          style: AppColors.fontStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.w800,
                             color: Colors.white,
                             letterSpacing: 0.4,
@@ -235,19 +247,20 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
             width: 100,
             height: 100,
             decoration: BoxDecoration(
-              color: const Color(0xFF1AB783).withValues(alpha: 0.08),
+              color: const Color(0xFF2C4E40).withValues(alpha: 0.08),
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.shopping_cart_outlined,
               size: 50,
-              color: Color(0xFF1AB783),
+              color: Color(0xFF2C4E40),
             ),
           ),
           const SizedBox(height: 20),
           Text(
             'Keranjang Masih Kosong',
-            style: AppColors.fontStyle(fontSize: 18,
+            style: AppColors.fontStyle(
+              fontSize: 18,
               fontWeight: FontWeight.w700,
               color: Colors.black87,
             ),
@@ -256,7 +269,8 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
           Text(
             'Tambahkan produk ke keranjang\nuntuk mulai berbelanja',
             textAlign: TextAlign.center,
-            style: AppColors.fontStyle(fontSize: 13,
+            style: AppColors.fontStyle(
+              fontSize: 13,
               color: Colors.black45,
               height: 1.5,
             ),
@@ -268,11 +282,12 @@ class _LayoutKeranjangState extends State<LayoutKeranjang> {
               padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: const Color(0xFF1AB783),
+                color: const Color(0xFF2C4E40),
               ),
               child: Text(
                 'Cari Produk',
-                style: AppColors.fontStyle(fontSize: 14,
+                style: AppColors.fontStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),

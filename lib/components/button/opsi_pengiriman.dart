@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ButtonOpsiPengiriman extends StatefulWidget {
   final String? teksOpsi;
@@ -44,13 +43,15 @@ class _ButtonOpsiPengirimanState extends State<ButtonOpsiPengiriman> {
             ),
             Text(
               widget.teksOpsi!,
-              style: AppColors.fontStyle(fontSize: 12.5,
+              style: AppColors.fontStyle(
+                  fontSize: 12.5,
                   fontWeight: FontWeight.w700,
                   color: widget.teksColor),
             ),
             Text(
               widget.teksHarga!,
-              style: AppColors.fontStyle(fontSize: 10.5,
+              style: AppColors.fontStyle(
+                  fontSize: 10.5,
                   fontWeight: FontWeight.w500,
                   color: widget.teksColor),
             ),

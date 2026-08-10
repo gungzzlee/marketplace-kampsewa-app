@@ -1,3 +1,5 @@
+import 'package:project_camp_sewa/constants/constant_api.dart';
+
 class BeritaModel {
   final int id;
   final String judul;
@@ -15,11 +17,11 @@ class BeritaModel {
 
   factory BeritaModel.fromJson(Map<String, dynamic> json) {
     return BeritaModel(
-      id: json['id'],
-      judul: json['judul'],
-      image: json['image'],
-      source: json['source'],
-      link: json['link'],
+      id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+      judul: json['judul']?.toString() ?? '',
+      image: getImageUrl(json['image']),
+      source: json['source']?.toString() ?? '',
+      link: json['link']?.toString() ?? '',
     );
   }
 }

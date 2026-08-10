@@ -1,6 +1,5 @@
 import 'package:project_camp_sewa/theme_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RincianPesananProdukCard extends StatefulWidget {
   final String? image;
@@ -28,12 +27,14 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.symmetric(horizontal: BorderSide(color: Colors.black.withValues(alpha: 0.3), width: 0.6))
-      ),
+          border: Border.symmetric(
+              horizontal: BorderSide(
+                  color: Colors.black.withValues(alpha: 0.3), width: 0.6))),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+            padding:
+                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -42,7 +43,11 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                   width: 90,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(image: AssetImage(widget.image!)),
+                    image: DecorationImage(
+                      image: widget.image!.startsWith('http')
+                          ? NetworkImage(widget.image!) as ImageProvider
+                          : AssetImage(widget.image!),
+                    ),
                     boxShadow: [
                       BoxShadow(
                           color: const Color(0xFF646363).withValues(alpha: 0.2),
@@ -61,7 +66,8 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                           padding: const EdgeInsets.symmetric(vertical: 6),
                           child: Text(
                             widget.namaProduk!,
-                            style: AppColors.fontStyle(fontSize: 16,
+                            style: AppColors.fontStyle(
+                                fontSize: 16,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),
                           ),
@@ -75,20 +81,23 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                                   : widget.variasiUkuran != ""
                                       ? widget.variasiUkuran
                                       : widget.variasiWarna,
-                              style: AppColors.fontStyle(fontSize: 11,
+                              style: AppColors.fontStyle(
+                                  fontSize: 11,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
                             const Spacer(),
                             Text(
                               "X",
-                              style: AppColors.fontStyle(fontSize: 11,
+                              style: AppColors.fontStyle(
+                                  fontSize: 11,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
                             Text(
                               widget.qty!,
-                              style: AppColors.fontStyle(fontSize: 11,
+                              style: AppColors.fontStyle(
+                                  fontSize: 11,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             )
@@ -104,19 +113,22 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
                                 children: [
                                   Text(
                                     "IDR. ",
-                                    style: AppColors.fontStyle(fontSize: 12,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
                                   Text(
                                     widget.harga!,
-                                    style: AppColors.fontStyle(fontSize: 12,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
                                   Text(
                                     ",00/hari",
-                                    style: AppColors.fontStyle(fontSize: 12,
+                                    style: AppColors.fontStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
@@ -137,4 +149,3 @@ class _RincianPesananProdukCardState extends State<RincianPesananProdukCard> {
     );
   }
 }
-
