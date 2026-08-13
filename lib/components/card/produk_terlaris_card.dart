@@ -8,16 +8,26 @@ class ProdukTerlarisDashboard extends StatefulWidget {
   final String namaProduk;
   final String harga;
   final String rating;
+  final int stok;
+  final int jumlahReview;
+  final bool isFavorite;
   final Function() aksi;
   final Function() aksiKeranjang;
-  const ProdukTerlarisDashboard(
-      {super.key,
-      required this.image,
-      required this.namaProduk,
-      required this.harga,
-      required this.rating,
-      required this.aksi,
-      required this.aksiKeranjang});
+  final Function()? aksiFavorite;
+
+  const ProdukTerlarisDashboard({
+    super.key,
+    required this.image,
+    required this.namaProduk,
+    required this.harga,
+    required this.rating,
+    this.stok = 0,
+    this.jumlahReview = 0,
+    this.isFavorite = false,
+    required this.aksi,
+    required this.aksiKeranjang,
+    this.aksiFavorite,
+  });
 
   @override
   State<ProdukTerlarisDashboard> createState() =>
@@ -30,13 +40,13 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
   late Animation<double> _scaleAnim;
 
   String formatCurrency(String numberString) {
-    final number = int.parse(numberString);
+    final number = int.tryParse(numberString) ?? 0;
     final formatter = NumberFormat.decimalPattern('id');
     return formatter.format(number);
   }
 
   String formatRating(String numberString) {
-    final number = double.parse(numberString);
+    final number = double.tryParse(numberString) ?? 0.0;
     return number.toStringAsFixed(1);
   }
 
@@ -76,130 +86,92 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
         child: Container(
           width: 170, // Required for horizontal list view
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF2C4E40).withValues(alpha: 0.10),
-                offset: const Offset(0, 8),
-                blurRadius: 24,
-                spreadRadius: -2,
-              ),
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
-                offset: const Offset(0, 2),
-                blurRadius: 6,
+                color: Colors.black.withValues(alpha: 0.05),
+                offset: const Offset(0, 4),
+                blurRadius: 10,
               ),
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ── Image Section ──────────────────────────────────────
-                Expanded(
+                AspectRatio(
+                  aspectRatio: 1, // 1:1 image
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      // Product image
+                      // Product image without dark overlay
                       widget.image.startsWith('assets/')
                           ? Image.asset(
                               widget.image,
                               fit: BoxFit.cover,
                             )
                           : Image.network(
-                              ApiEndpoints.baseUrl +
-                                  ApiEndpoints.authendpoints.getImageProduk +
-                                  widget.image,
+                              widget.image.startsWith('http')
+                                  ? widget.image
+                                  : ApiEndpoints.baseUrl +
+                                      ApiEndpoints.authendpoints.getImageProduk +
+                                      widget.image,
                               fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Container(
-                                color: const Color(0xFFFFFFFF),
+                                color: const Color(0xFFF0F0F0),
                                 child: const Icon(
                                   Icons.image_rounded,
-                                  color: Color(0xFFFFFFFF),
+                                  color: Color(0xFFBDBDBD),
                                   size: 40,
                                 ),
                               ),
                             ),
 
-                      // Gradient overlay (bottom-to-mid)
-                      Positioned.fill(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.transparent,
-                                Colors.black.withValues(alpha: 0.38),
-                              ],
-                              stops: const [0.5, 1.0],
+                      // Favorite badge (top-right)
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: GestureDetector(
+                          onTap: widget.aksiFavorite,
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              widget.isFavorite
+                                  ? Icons.favorite_rounded
+                                  : Icons.favorite_border_rounded,
+                              size: 16,
+                              color: widget.isFavorite
+                                  ? Colors.red
+                                  : const Color(0xFFBDBDBD),
                             ),
                           ),
                         ),
                       ),
 
-                      // Rating badge (top-right)
+                      // Price badge (bottom-left)
                       Positioned(
-                        top: 10,
-                        right: 10,
+                        bottom: 8,
+                        left: 8,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
+                              horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.92),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.10),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(
-                                Icons.star_rounded,
-                                size: 13,
-                                color: Color(0xFFED6723),
-                              ),
-                              const SizedBox(width: 3),
-                              Text(
-                                formatRating(widget.rating),
-                                style: AppColors.fontStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xFF2F2828),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // "Sewa" label (top-left)
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF2C4E40), Color(0xFF2C4E40)],
-                            ),
-                            borderRadius: BorderRadius.circular(20),
+                            color: const Color(0xFF2C4E40), // Forest green
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                            'SEWA',
+                            "Rp${formatCurrency(widget.harga)}",
                             style: AppColors.fontStyle(
-                              fontSize: 9,
+                              fontSize: 11,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
-                              letterSpacing: 0.8,
                             ),
                           ),
                         ),
@@ -208,97 +180,65 @@ class _ProdukTerlarisDashboardState extends State<ProdukTerlarisDashboard>
                   ),
                 ),
 
-                // ── Content Section ────────────────────────────────────
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.namaProduk,
-                        style: AppColors.fontStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xFF2F2828),
-                          height: 1.3,
+                // ── Info Section ──────────────────────────────────────
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Row 1: Stock label
+                        Text(
+                          widget.stok > 0
+                              ? "${widget.stok} Stok Tersisa"
+                              : "Stok Habis",
+                          style: AppColors.fontStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: widget.stok > 0
+                                ? const Color(0xFFED6723)
+                                : const Color(0xFFEE2737),
+                          ),
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          // Price block
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ShaderMask(
-                                  shaderCallback: (bounds) =>
-                                      const LinearGradient(
-                                    colors: [
-                                      Color(0xFF2C4E40),
-                                      Color(0xFF2C4E40)
-                                    ],
-                                  ).createShader(bounds),
-                                  child: Text(
-                                    "Rp ${formatCurrency(widget.harga)}",
-                                    style: AppColors.fontStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "/hari",
-                                  style: AppColors.fontStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFFBDBDBD),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        const SizedBox(height: 4),
 
-                          // Add to cart button
-                          GestureDetector(
-                            onTap: widget.aksiKeranjang,
-                            child: Container(
-                              height: 36,
-                              width: 36,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF2C4E40),
-                                    Color(0xFF2C4E40),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF2C4E40)
-                                        .withValues(alpha: 0.4),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.add_shopping_cart_rounded,
-                                color: Colors.white,
-                                size: 18,
+                        // Row 2: Rating
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              size: 12,
+                              color: Color(0xFFFFC107), // Yellow
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              "${formatRating(widget.rating)} (${widget.jumlahReview})",
+                              style: AppColors.fontStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF8E8E8E), // Earthy muted
                               ),
                             ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+
+                        // Row 3: Product Name
+                        Expanded(
+                          child: Text(
+                            widget.namaProduk,
+                            style: AppColors.fontStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF2F2828),
+                              height: 1.3,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

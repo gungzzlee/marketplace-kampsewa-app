@@ -42,15 +42,17 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
   Widget _buildBottomNav() {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF2C4E40),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(28),
-          topRight: Radius.circular(28),
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey.shade200,
+            width: 1,
+          ),
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF2C4E40).withValues(alpha: 0.4),
-            blurRadius: 20,
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
             offset: const Offset(0, -4),
           ),
         ],
@@ -58,7 +60,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Obx(() {
             final selectedIndex = pageController.pageIndex.value;
             return Row(
@@ -70,42 +72,42 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   onTap: () =>
                       setState(() => pageController.setPageIndex(index)),
                   behavior: HitTestBehavior.opaque,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeOutCubic,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: isSelected ? 16 : 14,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? Colors.white.withValues(alpha: 0.15)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          item.icon,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Dot indicator
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: 4,
+                        height: 4,
+                        margin: const EdgeInsets.only(bottom: 4),
+                        decoration: BoxDecoration(
                           color: isSelected
-                              ? Colors.white
-                              : Colors.white.withValues(alpha: 0.45),
-                          size: 26,
+                              ? const Color(0xFF2C4E40)
+                              : Colors.transparent,
+                          shape: BoxShape.circle,
                         ),
-                        if (isSelected) ...[
-                          const SizedBox(width: 8),
-                          Text(
-                            item.label,
-                            style: AppColors.fontStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
+                      ),
+                      Icon(
+                        item.icon,
+                        color: isSelected
+                            ? const Color(0xFF2C4E40)
+                            : const Color(0xFFBDBDBD),
+                        size: 24,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item.label,
+                        style: AppColors.fontStyle(
+                          color: isSelected
+                              ? const Color(0xFF2C4E40)
+                              : const Color(0xFFBDBDBD),
+                          fontSize: 10,
+                          fontWeight:
+                              isSelected ? FontWeight.w700 : FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }),

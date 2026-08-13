@@ -15,6 +15,12 @@ class ApiProduk extends GetxController {
   Dio dio = Dio();
   final RxList<ProdukModel> listProdukRekomendasi = <ProdukModel>[].obs;
   final RxList<ProdukModel> listProduk = <ProdukModel>[].obs;
+  // Separate list for home featured products (uses rekomendasi endpoint
+  // which does NOT exclude the logged-in user's own products).
+  final RxList<ProdukModel> listProdukHome = <ProdukModel>[].obs;
+  final RxBool isLoadingHome = true.obs;
+  final RxList<ProdukModel> listUserProduk = <ProdukModel>[].obs;
+  final RxBool isLoadingUserProducts = true.obs;
   final Rx<DetailProdukModel?> detailProduk = Rx<DetailProdukModel?>(null);
   var groupedByColor = <String, List<Map<String, dynamic>>>{}.obs;
   var uniqueSizes = <String>[].obs;
@@ -67,6 +73,59 @@ class ApiProduk extends GetxController {
               );
             });
       }
+    }
+  }
+
+  /// Fetch products for the Home featured section.
+  /// Uses the rekomendasi endpoint which shows all products regardless of
+  /// whether they belong to the logged-in user.
+  Future<void> getFeaturedProduk(BuildContext context) async {
+    isLoadingHome.value = true;
+    try {
+      Authorization auth = Authorization();
+      String? token = await auth.getToken();
+      var header = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      var url = ApiEndpoints.baseUrl +
+          ApiEndpoints.authendpoints.getProdukRekomendasiPencarian;
+
+      final response = await dio.get(url,
+          options: Options(
+            headers: header,
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ));
+
+      final Map<String, dynamic> data =
+          response.data is String ? jsonDecode(response.data) : response.data;
+
+      if (response.statusCode == 200) {
+        var rawData = data['data_rekomendasi'] ?? data['data'] ?? [];
+        List<ProdukModel> produkList = List<ProdukModel>.from(
+            rawData.map((e) => ProdukModel.fromJson(e)).toList());
+        listProdukHome.assignAll(produkList);
+      } else {
+        listProdukHome.clear();
+      }
+    } on DioException catch (dioError) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.transparent,
+                content: CustomAlertDialog(
+                  sukses: false,
+                  teks: dioError.message ?? "An unknown error occurred",
+                ),
+              );
+            });
+      }
+    } finally {
+      isLoadingHome.value = false;
     }
   }
 
@@ -131,6 +190,58 @@ class ApiProduk extends GetxController {
               );
             });
       }
+    }
+  }
+
+  Future<void> getUserProducts(BuildContext context) async {
+    isLoadingUserProducts.value = true;
+    try {
+      Authorization auth = Authorization();
+      String? token = await auth.getToken();
+      var header = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      var url =
+          "${ApiEndpoints.baseUrl}${ApiEndpoints.authendpoints.getUserProducts}";
+
+      final response = await dio.get(url,
+          options: Options(
+            headers: header,
+            validateStatus: (status) {
+              return status! < 500; // Accept status codes less than 500
+            },
+          ));
+
+      final Map<String, dynamic> data =
+          response.data is String ? jsonDecode(response.data) : response.data;
+
+      if (response.statusCode == 200) {
+        var rawData = data['data'] ?? [];
+        List<ProdukModel> produkList = List<ProdukModel>.from(
+            rawData.map((e) => ProdukModel.fromJson(e)).toList());
+        listUserProduk.assignAll(produkList);
+      } else if (response.statusCode == 404) {
+        listUserProduk.clear();
+      } else {
+        listUserProduk.clear();
+      }
+    } on DioException catch (dioError) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.transparent,
+                content: CustomAlertDialog(
+                  sukses: false,
+                  teks: dioError.message ?? "An unknown error occurred",
+                ),
+              );
+            });
+      }
+    } finally {
+      isLoadingUserProducts.value = false;
     }
   }
 

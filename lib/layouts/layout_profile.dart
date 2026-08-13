@@ -7,11 +7,13 @@ import 'package:project_camp_sewa/layouts/layout_alamat.dart';
 import 'package:project_camp_sewa/layouts/layout_edit_profile.dart';
 import 'package:project_camp_sewa/layouts/layout_lupa_password_new_pass.dart';
 import 'package:project_camp_sewa/layouts/layout_tambah_data_toko.dart';
+import 'package:project_camp_sewa/layouts/layout_user_products.dart';
 import 'package:project_camp_sewa/screens/screen_login.dart';
 import 'package:project_camp_sewa/services/authorization_token.dart';
 import 'package:project_camp_sewa/services/controller_dashboard.dart';
 import 'package:project_camp_sewa/services/api_data_user.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:project_camp_sewa/constants/api_endpoint.dart';
 
 class LayoutProfile extends StatefulWidget {
@@ -46,7 +48,7 @@ class _LayoutProfileState extends State<LayoutProfile> {
         body: Obx(() {
           final user = apiDataUser.dataUser.value;
           if (user == null) {
-            return const Center(child: CircularProgressIndicator());
+            return _buildShimmerLoading();
           }
           return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -115,6 +117,275 @@ class _LayoutProfileState extends State<LayoutProfile> {
           ),
         );
         }),
+      ),
+    );
+  }
+
+  Widget _buildShimmerLoading() {
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Stack(
+        children: [
+          // Hero Background
+          Container(
+            height: 280,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Color(0xFF2C4E40),
+                  Color(0xFF2C4E40),
+                  Color(0xFF2C4E40),
+                ],
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
+              ),
+            ),
+          ),
+          // Decorative Circles
+          Positioned(
+            top: -50,
+            right: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withValues(alpha: 0.05),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            left: -30,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withValues(alpha: 0.05),
+              ),
+            ),
+          ),
+          // Content
+          Column(
+            children: [
+              const SizedBox(height: 70),
+              // Header Info Shimmer
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Shimmer.fromColors(
+                      baseColor: Colors.white.withValues(alpha: 0.4),
+                      highlightColor: Colors.white.withValues(alpha: 0.8),
+                      child: Container(
+                        width: 80,
+                        height: 80,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Shimmer.fromColors(
+                            baseColor: Colors.white.withValues(alpha: 0.4),
+                            highlightColor: Colors.white.withValues(alpha: 0.8),
+                            child: Container(
+                              width: 150,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Shimmer.fromColors(
+                            baseColor: Colors.white.withValues(alpha: 0.4),
+                            highlightColor: Colors.white.withValues(alpha: 0.8),
+                            child: Container(
+                              width: 200,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Shimmer.fromColors(
+                            baseColor: Colors.white.withValues(alpha: 0.4),
+                            highlightColor: Colors.white.withValues(alpha: 0.8),
+                            child: Container(
+                              width: 120,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Shimmer.fromColors(
+                      baseColor: Colors.white.withValues(alpha: 0.4),
+                      highlightColor: Colors.white.withValues(alpha: 0.8),
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 25),
+              // Stats Card Shimmer
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(
+                    3,
+                    (index) => Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 36,
+                            height: 36,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            width: 30,
+                            height: 16,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(height: 4),
+                          Container(
+                            width: 40,
+                            height: 12,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )..insert(1, _buildStatDivider())..insert(3, _buildStatDivider()),
+                ),
+              ),
+              const SizedBox(height: 25),
+              // Menu Section Shimmer
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 8, bottom: 12),
+                        width: 120,
+                        height: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Column(
+                        children: List.generate(4, (index) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 16),
+                                child: Row(
+                                  children: [
+                                    Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade300,
+                                      highlightColor: Colors.grey.shade100,
+                                      child: Container(
+                                        width: 46,
+                                        height: 46,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade300,
+                                            highlightColor: Colors.grey.shade100,
+                                            child: Container(
+                                              width: 120,
+                                              height: 14,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 6),
+                                          Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade300,
+                                            highlightColor: Colors.grey.shade100,
+                                            child: Container(
+                                              width: 180,
+                                              height: 12,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (index < 3) _buildDivider(),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -322,6 +593,15 @@ class _LayoutProfileState extends State<LayoutProfile> {
                   onTap: () {
                     pageController.setPageIndex(2);
                     Get.back();
+                  },
+                ),
+                _buildDivider(),
+                _buildMenuItem(
+                  icon: MdiIcons.packageVariantClosed,
+                  title: 'Produk Saya',
+                  subtitle: 'Lihat daftar produk Anda',
+                  onTap: () {
+                    Get.to(() => const LayoutUserProducts());
                   },
                 ),
                 _buildDivider(),

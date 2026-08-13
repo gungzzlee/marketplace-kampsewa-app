@@ -59,6 +59,7 @@ dependencies:
   permission_handler: ^13.0.0
   geocoding: ^5.0.0
   flutter_material_design_icons: ^3.1.0+7447
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

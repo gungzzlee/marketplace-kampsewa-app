@@ -18,8 +18,7 @@ class LayoutProduct extends StatefulWidget {
   State<LayoutProduct> createState() => _LayoutProductState();
 }
 
-class _LayoutProductState extends State<LayoutProduct>
-    with SingleTickerProviderStateMixin {
+class _LayoutProductState extends State<LayoutProduct> {
   ApiProduk apiProduk = Get.put(ApiProduk());
   TeksSearchController textSearchController = Get.put(TeksSearchController());
   TextEditingController searchController = TextEditingController();
@@ -47,16 +46,27 @@ class _LayoutProductState extends State<LayoutProduct>
         label: 'Peralatan', icon: Icons.build_rounded, param: 'peralatan'),
   ];
 
-  String filterKategoriLabel = "Semua";
-  String filterKategoriParam = "";
+  String filterKategoriLabel = 'Semua';
+  String filterKategoriParam = '';
 
-  final ScrollController _scrollController = ScrollController();
-  bool _isScrolled = false;
+  // Separate loading state for this page's product list
+  final RxBool _isLoading = true.obs;
+
   Timer? _debounce;
+  Worker? _searchWorker;
 
-  void _fetchData() {
-    apiProduk.getProduk(
-        context, textSearchController.searchTeks.value, filterKategoriParam);
+  // ── Data fetching ────────────────────────────────────────────────────────────
+
+  void _fetchData() async {
+    _isLoading.value = true;
+    await apiProduk.getProduk(
+      context,
+      textSearchController.searchTeks.value.isEmpty
+          ? null
+          : textSearchController.searchTeks.value,
+      filterKategoriParam.isEmpty ? null : filterKategoriParam,
+    );
+    _isLoading.value = false;
   }
 
   void _filterProduk(String label, String param) {
@@ -75,28 +85,18 @@ class _LayoutProductState extends State<LayoutProduct>
     });
   }
 
-  Worker? _searchWorker;
+  // ── Lifecycle ────────────────────────────────────────────────────────────────
 
   @override
   void initState() {
     super.initState();
     searchController.text = textSearchController.searchTeks.value;
 
-    // Listen to changes in search text from GetX
     _searchWorker = ever(textSearchController.searchTeks, (value) {
-      if (searchController.text != value) {
-        searchController.text = value;
-      }
+      if (searchController.text != value) searchController.text = value;
     });
 
     _fetchData();
-
-    _scrollController.addListener(() {
-      final scrolled = _scrollController.offset > 10;
-      if (scrolled != _isScrolled) {
-        setState(() => _isScrolled = scrolled);
-      }
-    });
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -108,11 +108,12 @@ class _LayoutProductState extends State<LayoutProduct>
   void dispose() {
     _debounce?.cancel();
     _searchWorker?.dispose();
-    _scrollController.dispose();
     searchController.dispose();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle());
     super.dispose();
   }
+
+  // ── Build ────────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -122,27 +123,26 @@ class _LayoutProductState extends State<LayoutProduct>
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: const Color(0xFFFFFFFF),
-        body: Stack(
+        backgroundColor: const Color(0xFFF8F9FA),
+        body: Column(
           children: [
-            _buildHeroBackground(),
-            SafeArea(
-              child: Column(
-                children: [
-                  _buildHeader(),
-                  Expanded(
-                    child: CustomScrollView(
-                      controller: _scrollController,
-                      physics: const BouncingScrollPhysics(),
-                      slivers: [
-                        SliverToBoxAdapter(child: _buildSearchBar()),
-                        SliverToBoxAdapter(child: _buildCategoryChips()),
-                        SliverToBoxAdapter(child: _buildResultsHeader()),
-                        _buildProductGrid(),
-                        const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                      ],
-                    ),
-                  ),
+            // ── 1. HEADER (green bar) ─────────────────────────────────
+            _buildHeader(),
+
+            // ── 2. SEARCH BAR ─────────────────────────────────────────
+            _buildSearchBar(),
+
+            // ── 3. CATEGORY CHIPS ─────────────────────────────────────
+            _buildCategoryChips(),
+
+            // ── 4. RESULTS HEADER + 5. PRODUCT GRID (scrollable) ──────
+            Expanded(
+              child: CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  SliverToBoxAdapter(child: _buildResultsHeader()),
+                  _buildProductGrid(),
+                  const SliverToBoxAdapter(child: SizedBox(height: 40)),
                 ],
               ),
             ),
@@ -152,99 +152,50 @@ class _LayoutProductState extends State<LayoutProduct>
     );
   }
 
-  Widget _buildHeroBackground() {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      height: 220,
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFF2C4E40), Color(0xFF2C4E40), Color(0xFF2C4E40)],
-            stops: [0.0, 0.55, 1.0],
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -30,
-              right: -30,
-              child: Container(
-                width: 160,
-                height: 160,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.06),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: -40,
-              child: Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.05),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 40,
-              right: 80,
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.07),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // ══════════════════════════════════════════════════════════════════════════════
+  // 1. HEADER
+  // ══════════════════════════════════════════════════════════════════════════════
 
   Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    return Container(
+      color: const Color(0xFF2C4E40),
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + 12,
+        left: 20,
+        right: 16,
+        bottom: 16,
+      ),
       child: Row(
         children: [
-          const SizedBox(width: 40), // Placeholder to keep title centered
-          const Spacer(),
-          Column(
-            children: [
-              Text(
-                "Produk",
-                style: AppColors.fontStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  letterSpacing: -0.3,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Produk",
+                  style: AppColors.fontStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -0.4,
+                  ),
                 ),
-              ),
-              Text(
-                "Peralatan Camping Terlengkap",
-                style: AppColors.fontStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white.withValues(alpha: 0.75),
+                Text(
+                  "Peralatan Camping Terlengkap",
+                  style: AppColors.fontStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withValues(alpha: 0.65),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const Spacer(),
           Material(
             color: Colors.white.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(12),
             child: InkWell(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(12),
               onTap: () => Get.to(const LayoutKeranjang()),
               child: const Padding(
                 padding: EdgeInsets.all(10),
@@ -258,43 +209,49 @@ class _LayoutProductState extends State<LayoutProduct>
     );
   }
 
+  // ══════════════════════════════════════════════════════════════════════════════
+  // 2. SEARCH BAR  (below header, above chips)
+  // ══════════════════════════════════════════════════════════════════════════════
+
   Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+    return Container(
+      // Continues the green background behind the search bar
+      color: const Color(0xFF2C4E40),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF2C4E40).withValues(alpha: 0.12),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
-              spreadRadius: -4,
+              color: Colors.black.withValues(alpha: 0.12),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
             ),
           ],
         ),
         child: Row(
           children: [
             Container(
-              width: 36,
-              height: 36,
+              width: 44,
+              height: 44,
+              margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xFF2C4E40), Color(0xFF2C4E40)]),
+                color: const Color(0xFF2C4E40),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(Icons.search_rounded,
                   color: Colors.white, size: 20),
             ),
-            const SizedBox(width: 14),
             Expanded(
               child: TextField(
                 controller: searchController,
                 onChanged: _onSearchChanged,
                 style: AppColors.fontStyle(
-                    fontSize: 14, fontWeight: FontWeight.w500),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF2F2828),
+                ),
                 decoration: InputDecoration(
                   hintText: "Cari peralatan camping...",
                   hintStyle: AppColors.fontStyle(
@@ -303,6 +260,7 @@ class _LayoutProductState extends State<LayoutProduct>
                     fontWeight: FontWeight.w500,
                   ),
                   border: InputBorder.none,
+                  contentPadding: EdgeInsets.zero,
                 ),
               ),
             ),
@@ -315,11 +273,11 @@ class _LayoutProductState extends State<LayoutProduct>
                             size: 20, color: Color(0xFFBDBDBD)),
                         onPressed: () {
                           searchController.clear();
-                          textSearchController.searchTeks.value = "";
+                          textSearchController.searchTeks.value = '';
                           _fetchData();
                         },
                       )
-                    : const SizedBox();
+                    : const SizedBox(width: 16);
               },
             ),
           ],
@@ -328,67 +286,76 @@ class _LayoutProductState extends State<LayoutProduct>
     );
   }
 
+  // ══════════════════════════════════════════════════════════════════════════════
+  // 3. CATEGORY CHIPS  (below search bar, above grid)
+  // ══════════════════════════════════════════════════════════════════════════════
+
   Widget _buildCategoryChips() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 20, 0, 8),
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: SizedBox(
-        height: 44,
+        height: 36,
         child: ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           scrollDirection: Axis.horizontal,
+          // clipBehavior: Clip.none so shadows are not cut off
+          clipBehavior: Clip.none,
           itemCount: _kategoriList.length,
-          separatorBuilder: (_, __) => const SizedBox(width: 10),
+          separatorBuilder: (_, __) => const SizedBox(width: 8),
           itemBuilder: (context, index) {
             final item = _kategoriList[index];
             final isSelected = filterKategoriLabel == item.label;
             return GestureDetector(
               onTap: () => _filterProduk(item.label, item.param),
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 180),
                 curve: Curves.easeOutCubic,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  gradient: isSelected
-                      ? LinearGradient(colors: [
-                          AppColors.orange,
-                          AppColors.orange.withValues(alpha: 0.7)
-                        ])
-                      : null,
-                  color: isSelected ? null : Colors.white,
-                  borderRadius: BorderRadius.circular(22),
+                  color: isSelected
+                      ? const Color(0xFF2C4E40)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: isSelected
+                        ? const Color(0xFF2C4E40)
+                        : Colors.grey.shade300,
+                    width: 1.2,
+                  ),
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
-                              color: AppColors.orange.withValues(alpha: 0.35),
-                              blurRadius: 12,
-                              offset: const Offset(0, 4))
+                            color:
+                                const Color(0xFF2C4E40).withValues(alpha: 0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          )
                         ]
-                      : [
-                          BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.06),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2))
-                        ],
+                      : null,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
                       item.icon,
-                      size: 15,
-                      color:
-                          isSelected ? Colors.white : const Color(0xFFBDBDBD),
+                      size: 13,
+                      color: isSelected
+                          ? Colors.white
+                          : const Color(0xFF9E9E9E),
                     ),
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 5),
                     Text(
                       item.label,
                       style: AppColors.fontStyle(
-                        fontSize: 13,
-                        fontWeight:
-                            isSelected ? FontWeight.w700 : FontWeight.w600,
-                        color:
-                            isSelected ? Colors.white : const Color(0xFFBDBDBD),
+                        fontSize: 12,
+                        fontWeight: isSelected
+                            ? FontWeight.w700
+                            : FontWeight.w600,
+                        color: isSelected
+                            ? Colors.white
+                            : const Color(0xFF9E9E9E),
                       ),
                     ),
                   ],
@@ -401,9 +368,13 @@ class _LayoutProductState extends State<LayoutProduct>
     );
   }
 
+  // ══════════════════════════════════════════════════════════════════════════════
+  // 4. RESULTS HEADER  (count + sort button)
+  // ══════════════════════════════════════════════════════════════════════════════
+
   Widget _buildResultsHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -415,19 +386,22 @@ class _LayoutProductState extends State<LayoutProduct>
                     ? 'Semua Produk'
                     : filterKategoriLabel,
                 style: AppColors.fontStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w800,
                   color: const Color(0xFF2F2828),
                 ),
               ),
-              Obx(() => Text(
-                    "${apiProduk.listProduk.length} produk tersedia",
-                    style: AppColors.fontStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFFBDBDBD),
-                    ),
-                  )),
+              Obx(() {
+                final count = apiProduk.listProduk.length;
+                return Text(
+                  "$count produk tersedia",
+                  style: AppColors.fontStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFFBDBDBD),
+                  ),
+                );
+              }),
             ],
           ),
           Container(
@@ -437,16 +411,17 @@ class _LayoutProductState extends State<LayoutProduct>
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2)),
+                  color: Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
               ],
             ),
             child: Row(
               children: [
                 const Icon(Icons.swap_vert_rounded,
                     size: 16, color: Color(0xFFBDBDBD)),
-                const SizedBox(width: 6),
+                const SizedBox(width: 5),
                 Text(
                   "Urutkan",
                   style: AppColors.fontStyle(
@@ -463,25 +438,95 @@ class _LayoutProductState extends State<LayoutProduct>
     );
   }
 
+  // ══════════════════════════════════════════════════════════════════════════════
+  // 5. PRODUCT GRID
+  // ══════════════════════════════════════════════════════════════════════════════
+
   Widget _buildProductGrid() {
     return Obx(() {
+      // Show shimmer while loading
+      if (_isLoading.value) {
+        return SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          sliver: SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.70,
+              crossAxisSpacing: 14,
+              mainAxisSpacing: 14,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (_, __) => _ShimmerCard(),
+              childCount: 6,
+            ),
+          ),
+        );
+      }
+
       final listProduk = apiProduk.listProduk;
+
+      // Empty state — only shown after loading completes
       if (listProduk.isEmpty) {
         return SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.only(top: 60),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 60),
             child: Center(
               child: Column(
                 children: [
-                  Icon(Icons.search_off_rounded,
-                      size: 60, color: Colors.grey.shade300),
+                  Container(
+                    width: 90,
+                    height: 90,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF0F0F0),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.search_off_rounded,
+                      size: 44,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     "Produk tidak ditemukan",
                     style: AppColors.fontStyle(
-                        color: Colors.grey.shade500,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16),
+                      color: const Color(0xFF2F2828),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    "Coba kata kunci atau kategori lain",
+                    style: AppColors.fontStyle(
+                      color: Colors.grey.shade400,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      searchController.clear();
+                      textSearchController.searchTeks.value = '';
+                      _filterProduk('Semua', '');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2C4E40),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        "Reset Filter",
+                        style: AppColors.fontStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -490,8 +535,9 @@ class _LayoutProductState extends State<LayoutProduct>
         );
       }
 
+      // Product grid
       return SliverPadding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         sliver: SliverGrid(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -507,6 +553,9 @@ class _LayoutProductState extends State<LayoutProduct>
                 namaProduk: p.namaProduk,
                 harga: p.harga.toString(),
                 rating: p.rating.toString(),
+                stok: p.stok,
+                jumlahReview: p.jumlahReview,
+                isFavorite: p.isFavorite,
                 aksi: () {
                   Get.to(const LayoutDetailProduct(), arguments: {
                     'idToko': p.idUser,
@@ -541,6 +590,60 @@ class _LayoutProductState extends State<LayoutProduct>
     });
   }
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Shimmer card placeholder
+// ══════════════════════════════════════════════════════════════════════════════
+
+class _ShimmerCard extends StatefulWidget {
+  @override
+  State<_ShimmerCard> createState() => _ShimmerCardState();
+}
+
+class _ShimmerCardState extends State<_ShimmerCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+  late Animation<double> _anim;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1100),
+    )..repeat(reverse: true);
+    _anim = Tween<double>(begin: 0.25, end: 0.9).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _anim,
+      builder: (_, __) => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Color.lerp(
+            Colors.grey.shade200,
+            Colors.grey.shade100,
+            _anim.value,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Kategori item model
+// ══════════════════════════════════════════════════════════════════════════════
 
 class _KategoriItem {
   final String label;

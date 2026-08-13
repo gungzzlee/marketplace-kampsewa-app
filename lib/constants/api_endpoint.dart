@@ -26,6 +26,7 @@ class AuthEndPoints {
   final String getProduk = "/api/produk/";
   final String getProdukBottomSheet = "/api/produk/detail-keranjang-produk/";
   final String getDetailProduk = "/api/produk/detail-produk/";
+  final String getUserProducts = "/api/produk/user-products";
   final String insertRiwayatCari = "/api/riwayat-pencarian/insert/";
   final String showRiwayatCari = "/api/riwayat-pencarian/show/";
   final String deleteRiwayatCari = "/api/riwayat-pencarian/delete/";

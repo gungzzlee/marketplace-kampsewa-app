@@ -313,39 +313,27 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
         );
       }
       
-      return ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      return GridView.builder(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
         physics: const BouncingScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.70,
+          crossAxisSpacing: 14,
+          mainAxisSpacing: 14,
+        ),
         itemCount: results.length,
-        separatorBuilder: (context, index) => const Divider(height: 1, color: Colors.black12),
         itemBuilder: (context, index) {
           final p = results[index];
-          return ListTile(
-            contentPadding: const EdgeInsets.symmetric(vertical: 8),
-            leading: Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade200),
-                image: DecorationImage(
-                  image: NetworkImage(p.image),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            title: Text(
-              p.namaProduk, 
-              style: AppColors.fontStyle(fontWeight: FontWeight.w700, fontSize: 15, color: const Color(0xFF2F2828)),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            subtitle: Text(
-              "Rp ${p.harga} / Hari", 
-              style: AppColors.fontStyle(color: AppColors.orange, fontWeight: FontWeight.w600, fontSize: 13),
-            ),
-            trailing: const Icon(Icons.chevron_right_rounded, color: Colors.grey),
-            onTap: () => _goToDetail(p),
+          return RekomendasiCariCard(
+            image: p.image,
+            namaProduk: p.namaProduk,
+            rating: p.rating,
+            harga: p.harga.toString(),
+            stok: p.stok,
+            jumlahReview: p.jumlahReview,
+            isFavorite: p.isFavorite,
+            aksi: () => _goToDetail(p),
           );
         },
       );
@@ -546,7 +534,7 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.740,
+                childAspectRatio: 0.70,
                 crossAxisSpacing: 14,
                 mainAxisSpacing: 14,
               ),
@@ -555,22 +543,15 @@ class _LayoutSearchScreenState extends State<LayoutSearchScreen> {
               itemCount: listProduk.length,
               itemBuilder: (context, index) {
                 ProdukModel list = listProduk[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.04),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      )
-                    ],
-                  ),
-                  child: RekomendasiCariCard(
-                    image: list.image,
-                    namaProduk: list.namaProduk,
-                    rating: list.rating,
-                    aksi: () => _goToDetail(list), // Pergi ke halaman detail!
-                  ),
+                return RekomendasiCariCard(
+                  image: list.image,
+                  namaProduk: list.namaProduk,
+                  rating: list.rating,
+                  harga: list.harga.toString(),
+                  stok: list.stok,
+                  jumlahReview: list.jumlahReview,
+                  isFavorite: list.isFavorite,
+                  aksi: () => _goToDetail(list),
                 );
               },
             );

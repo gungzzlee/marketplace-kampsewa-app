@@ -4,17 +4,21 @@ import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:project_camp_sewa/components/bottomsheet/bottom_sheet_produk.dart';
 import 'package:project_camp_sewa/components/card/berita_dash_card.dart';
-import 'package:project_camp_sewa/components/button/icon_kategori.dart';
 import 'package:project_camp_sewa/components/card/produk_terlaris_card.dart';
 import 'package:project_camp_sewa/components/card/wisata_dash_card.dart';
-import 'package:project_camp_sewa/components/dialog/snackbar.dart';
+import 'package:project_camp_sewa/constants/api_endpoint.dart';
 import 'package:project_camp_sewa/layouts/layout_detail_product.dart';
 import 'package:project_camp_sewa/layouts/layout_keranjang.dart';
 import 'package:project_camp_sewa/layouts/layout_search_screen.dart';
 import 'package:project_camp_sewa/models/api_response.dart';
 import 'package:project_camp_sewa/models/berita_model.dart';
+import 'package:project_camp_sewa/models/iklan_model.dart';
 import 'package:project_camp_sewa/models/wisata_model.dart';
+import 'package:project_camp_sewa/services/api_data_user.dart';
+import 'package:project_camp_sewa/services/api_iklan.dart';
+import 'package:project_camp_sewa/services/api_produk.dart';
 import 'package:project_camp_sewa/services/controller_dashboard.dart';
+import 'package:project_camp_sewa/services/controller_keranjang.dart';
 import 'package:project_camp_sewa/theme_colors.dart';
 
 class LayoutDashboard extends StatefulWidget {
@@ -26,463 +30,94 @@ class LayoutDashboard extends StatefulWidget {
 
 class _LayoutDashboardState extends State<LayoutDashboard> {
   DashboardController pageController = Get.put(DashboardController());
+  ApiDataUser apiDataUser = Get.put(ApiDataUser());
+  ApiIklan apiIklan = Get.put(ApiIklan());
+  ApiProduk apiProduk = Get.put(ApiProduk());
+  KeranjangController keranjangController = Get.put(KeranjangController());
 
-  // Dummy data
-  final String dummyUserName = 'Agung Pratama';
-  final String dummyUserLocation = 'Sumbersari, Jember';
-
-  final List<Map<String, dynamic>> dummyProduk = [
+  // Fallback promo banners used when API returns no iklan
+  final List<Map<String, dynamic>> _fallbackBanners = [
     {
-      'namaProduk': 'Tenda Dome Coleman',
-      'harga': '75000',
-      'rating': 4.8,
-      'image': 'assets/images/tenda-dome-coleman.jpg'
+      'title': 'Sewa Peralatan\nCamping Mudah',
+      'subtitle': 'Ribuan pilihan alat camping berkualitas tersedia.',
+      'image': 'assets/images/tenda-dome-coleman.jpg',
     },
     {
-      'namaProduk': 'Sleeping Bag',
-      'harga': '35000',
-      'rating': 4.5,
-      'image': 'assets/images/slepping-bag.jpg'
+      'title': 'Diskon Tenda 20%',
+      'subtitle': 'Promo spesial minggu ini untuk semua jenis tenda.',
+      'image': 'assets/images/slepping-bag.jpg',
     },
-    {
-      'namaProduk': 'Kompor Portable',
-      'harga': '25000',
-      'rating': 4.7,
-      'image': 'assets/images/kompor-portable.jpg'
-    },
-    {
-      'namaProduk': 'Set Alat Masak',
-      'harga': '40000',
-      'rating': 4.6,
-      'image': 'assets/images/set-alat-masak.jpg'
-    },
-    {
-      'namaProduk': 'Kursi Lipat',
-      'harga': '20000',
-      'rating': 4.3,
-      'image': 'assets/images/kursi-lipat.jpg'
-    },
-  ];
-
-  final List<String> dummyIklan = [
-    'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800',
-    'https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=800',
-    'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=800',
   ];
 
   late List<WisataModel> wisataList;
   late List<BeritaModel> beritaList;
-  List kategoriIcon = ["Tenda", "Pakaian", "Tas & Sepatu", "Perlengkapan"];
+
+  final List<Map<String, dynamic>> kategori = [
+    {"title": "Semua Produk", "icon": Icons.category_rounded, "param": ""},
+    {"title": "Tenda", "icon": Icons.house_rounded, "param": "tenda"},
+    {"title": "Pakaian", "icon": Icons.checkroom_rounded, "param": "pakaian"},
+    {"title": "Tas & Sepatu", "icon": Icons.backpack_outlined, "param": "tas"},
+    {
+      "title": "Peralatan",
+      "icon": Icons.build_outlined,
+      "param": "peralatan"
+    },
+  ];
+  int selectedCategoryIndex = 0;
+
   final CarouselSliderController carouselController =
       CarouselSliderController();
-  int currentIndex = 0;
+  int currentBannerIndex = 0;
 
   @override
   void initState() {
     super.initState();
     wisataList = DummyProductApiResponse.getDataWisata();
     beritaList = DummyProductApiResponse.getDataBerita();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      apiDataUser.getDataUser(context);
+      apiIklan.getIklan(context);
+      // Use getFeaturedProduk (rekomendasi endpoint) so products always
+      // appear on Home — getProduk excludes the logged-in user's own products.
+      apiProduk.getFeaturedProduk(context);
+      keranjangController.updateTotalItemKeranjang(context);
+    });
   }
 
-  Widget _buildSectionLabel(String title, {Widget? trailing}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 4,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF2C4E40),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                margin: const EdgeInsets.only(right: 8),
-              ),
-              Text(
-                title,
-                style: AppColors.fontStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: const Color(0xFF2C4E40),
-                ),
-              ),
-            ],
-          ),
-          if (trailing != null) trailing,
-        ],
-      ),
-    );
+  void _filterByKategori(int index) {
+    setState(() => selectedCategoryIndex = index);
+    // Re-fetch home products with category filter
+    apiProduk.getFeaturedProduk(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark,
-        ),
-        child: Scaffold(
-          backgroundColor: const Color(0xFFFFFFFF), // Light gray background
-          body: SingleChildScrollView(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF8F9FA),
+        body: SafeArea(
+          child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header Section with Gradient & Decorations
-                Stack(
-                  children: [
-                    // Abstract decorative background
-                    Positioned.fill(
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xFF2C4E40),
-                              Color(0xFF2C4E40),
-                              Color(0xFF2C4E40),
-                            ],
-                            stops: [0.0, 0.4, 1.0],
-                          ),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(32),
-                            bottomRight: Radius.circular(32),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Decorative shape 1 (Top Right)
-                    Positioned(
-                      top: -40,
-                      right: -20,
-                      child: Transform.rotate(
-                        angle: 0.5,
-                        child: Container(
-                          width: 150,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.05),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Decorative shape 2 (Bottom Left)
-                    Positioned(
-                      bottom: -20,
-                      left: -50,
-                      child: Transform.rotate(
-                        angle: -0.2,
-                        child: Container(
-                          width: 180,
-                          height: 180,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.04),
-                            borderRadius: BorderRadius.circular(60),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Decorative shape 3 (Top Left)
-                    Positioned(
-                      top: 20,
-                      left: 40,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white.withValues(alpha: 0.06),
-                        ),
-                      ),
-                    ),
-                    // Header Content
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, top: 60, bottom: 25),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              const CircleAvatar(
-                                radius: 28,
-                                backgroundImage:
-                                    AssetImage("assets/images/error-pp.jpg"),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      dummyUserName,
-                                      style: AppColors.fontStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.location_on_rounded,
-                                          color: Colors.white70,
-                                          size: 16,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          dummyUserLocation,
-                                          style: AppColors.fontStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white70,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              _buildHeaderIcon(
-                                icon: Icons.notifications_none_rounded,
-                                onTap: () {
-                                  const snackBar = SnackBar(
-                                    elevation: 0,
-                                    behavior: SnackBarBehavior.floating,
-                                    backgroundColor: Colors.transparent,
-                                    content: CustomSnackBar(
-                                      sukses: false,
-                                      title: "Coming Soon",
-                                      teks:
-                                          "Fitur Notification Akan Tersedia Segera",
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                    ..hideCurrentSnackBar()
-                                    ..showSnackBar(snackBar);
-                                },
-                              ),
-                              const SizedBox(width: 10),
-                              _buildHeaderIcon(
-                                icon: Icons.shopping_bag_outlined,
-                                onTap: () => Get.to(const LayoutKeranjang()),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 25),
-                          // Glassmorphism Search Bar
-                          InkWell(
-                            onTap: () => Get.to(const LayoutSearchScreen()),
-                            borderRadius: BorderRadius.circular(16),
-                            child: Container(
-                              height: 52,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.2),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.search_rounded,
-                                    color: Colors.white.withValues(alpha: 0.8),
-                                    size: 26,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Text(
-                                    "Cari Perlengkapan Camping...",
-                                    style: AppColors.fontStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          Colors.white.withValues(alpha: 0.8),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                const SizedBox(height: 16),
+                _buildHeader(),
                 const SizedBox(height: 20),
-
-                // Banner Carousel
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      CarouselSlider(
-                        items: dummyIklan.map((url) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.1),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 5),
-                                )
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                url,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        carouselController: carouselController,
-                        options: CarouselOptions(
-                          scrollPhysics: const BouncingScrollPhysics(),
-                          autoPlay: true,
-                          aspectRatio: 2.2,
-                          viewportFraction: 1,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              currentIndex = index;
-                            });
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 12,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: dummyIklan.asMap().entries.map((entry) {
-                            return GestureDetector(
-                              onTap: () =>
-                                  carouselController.animateToPage(entry.key),
-                              child: Container(
-                                width: currentIndex == entry.key ? 20 : 8,
-                                height: 8,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: currentIndex == entry.key
-                                      ? Colors.white
-                                      : Colors.white.withValues(alpha: 0.5),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 25),
-
-                // Kategori
-                _buildSectionLabel("Kategori"),
-                const SizedBox(height: 12),
-                SizedBox(
-                  height: 55,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => KategoriIcon(
-                      title: kategoriIcon[index],
-                      selected: true,
-                      activeColor: AppColors.orange,
-                      aksi: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  'Kategori ${kategoriIcon[index]} diklik')),
-                        );
-                      },
-                    ),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(width: 8),
-                    itemCount: kategoriIcon.length,
-                  ),
-                ),
-                const SizedBox(height: 25),
-
-                // Produk Terlaris
-                _buildSectionLabel(
-                  "Terlaris",
-                  trailing: InkWell(
-                    onTap: () => pageController.setPageIndex(1),
-                    child: Text(
-                      "Lihat Semua",
-                      style: AppColors.fontStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFF2C4E40),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                SizedBox(
-                  height: 270,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final produk = dummyProduk[index];
-                      return ProdukTerlarisDashboard(
-                        image: produk['image'],
-                        namaProduk: produk['namaProduk'],
-                        harga: produk['harga'],
-                        rating: produk['rating'].toString(),
-                        aksi: () {
-                          Get.to(const LayoutDetailProduct(), arguments: {
-                            'idToko': 1,
-                            'idProduk': index + 1,
-                            'namaProduk': produk['namaProduk'],
-                            'fotoProduk': produk['image'],
-                            'namaToko': 'Toko Camping',
-                          });
-                        },
-                        aksiKeranjang: () {
-                          showModalBottomSheet(
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (BuildContext context) {
-                              return BottomSheetProduk(
-                                image: produk['image'],
-                                namaProduk: produk['namaProduk'],
-                                harga: produk['harga'],
-                                idProduk: index + 1,
-                                idToko: 1,
-                                namaToko: 'Toko Camping',
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(width: 15),
-                    itemCount: dummyProduk.length,
-                  ),
-                ),
-                const SizedBox(height: 25),
-
-                // Rekomendasi Wisata
+                _buildSearchBar(),
+                const SizedBox(height: 20),
+                _buildCategories(),
+                const SizedBox(height: 20),
+                _buildPromoBanner(),
+                const SizedBox(height: 24),
+                _buildFeaturedProducts(),
+                const SizedBox(height: 24),
                 _buildSectionLabel("Rekomendasi Wisata"),
                 const SizedBox(height: 12),
                 SizedBox(
@@ -506,14 +141,12 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                     itemCount: wisataList.length,
                   ),
                 ),
-                const SizedBox(height: 25),
-
-                // Berita Terkini
+                const SizedBox(height: 24),
                 _buildSectionLabel("Berita Terkini"),
                 const SizedBox(height: 12),
                 ListView.separated(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 5),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
@@ -529,31 +162,792 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                       const SizedBox(height: 12),
                   itemCount: beritaList.length,
                 ),
-                const SizedBox(height: 100), // Bottom padding for nav bar
+                const SizedBox(height: 40),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
-  Widget _buildHeaderIcon(
-      {required IconData icon, required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        width: 42,
-        height: 42,
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+  // ── Header ──────────────────────────────────────────────────────────────────
+
+  Widget _buildHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          // Profile photo (dynamic)
+          Obx(() {
+            final user = apiDataUser.dataUser.value;
+            final imageUrl = user?.image ?? '';
+            return Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color(0xFF2C4E40).withValues(alpha: 0.3),
+                  width: 2,
+                ),
+              ),
+              child: ClipOval(child: _buildProfileImage(imageUrl)),
+            );
+          }),
+          const SizedBox(width: 12),
+
+          // Greeting text (dynamic)
+          Expanded(
+            child: Obx(() {
+              final user = apiDataUser.dataUser.value;
+              final name = user?.name ?? '---';
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Welcome Back 👋",
+                    style: AppColors.fontStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF8E8E8E),
+                    ),
+                  ),
+                  Text(
+                    name,
+                    style: AppColors.fontStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xFF2F2828),
+                      letterSpacing: -0.3,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              );
+            }),
+          ),
+
+          // Cart icon with red dot badge
+          Obx(() {
+            final itemCount = keranjangController.totalItemKeranjang.value;
+            return InkWell(
+              onTap: () => Get.to(const LayoutKeranjang()),
+              borderRadius: BorderRadius.circular(24),
+              child: Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border:
+                      Border.all(color: Colors.grey.shade200, width: 1.5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Color(0xFF2F2828),
+                      size: 22,
+                    ),
+                    if (itemCount > 0)
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFEE2737),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileImage(String imageUrl) {
+    if (imageUrl.isEmpty) {
+      return Image.asset(
+        'assets/images/error-pp.jpg',
+        fit: BoxFit.cover,
+        width: 48,
+        height: 48,
+      );
+    }
+    final fullUrl = imageUrl.startsWith('http')
+        ? imageUrl
+        : ApiEndpoints.baseUrl +
+            ApiEndpoints.authendpoints.getFotoProfile +
+            imageUrl;
+    return Image.network(
+      fullUrl,
+      fit: BoxFit.cover,
+      width: 48,
+      height: 48,
+      errorBuilder: (_, __, ___) => Image.asset(
+        'assets/images/error-pp.jpg',
+        fit: BoxFit.cover,
+        width: 48,
+        height: 48,
+      ),
+    );
+  }
+
+  // ── Search Bar ───────────────────────────────────────────────────────────────
+
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: InkWell(
+              onTap: () => Get.to(const LayoutSearchScreen()),
+              borderRadius: BorderRadius.circular(30),
+              child: Container(
+                height: 52,
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: Colors.grey.shade200),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.search_rounded,
+                      color: Color(0xFF2C4E40),
+                      size: 22,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      "Cari alat camping...",
+                      style: AppColors.fontStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFFBDBDBD),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2C4E40),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF2C4E40).withValues(alpha: 0.35),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.tune_rounded,
+                  color: Colors.white, size: 22),
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Category Chips ───────────────────────────────────────────────────────────
+
+  Widget _buildCategories() {
+    return SizedBox(
+      height: 40,
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        itemCount: kategori.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 10),
+        itemBuilder: (context, index) {
+          final isSelected = index == selectedCategoryIndex;
+          final cat = kategori[index];
+          return GestureDetector(
+            onTap: () => _filterByKategori(index),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOutCubic,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected ? const Color(0xFF2C4E40) : Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected
+                      ? const Color(0xFF2C4E40)
+                      : Colors.grey.shade300,
+                  width: 1,
+                ),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFF2C4E40)
+                              .withValues(alpha: 0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.04),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    cat['icon'] as IconData,
+                    size: 14,
+                    color:
+                        isSelected ? Colors.white : const Color(0xFF8E8E8E),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    cat['title'] as String,
+                    style: AppColors.fontStyle(
+                      fontSize: 13,
+                      fontWeight:
+                          isSelected ? FontWeight.w700 : FontWeight.w600,
+                      color: isSelected
+                          ? Colors.white
+                          : const Color(0xFF8E8E8E),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // ── Promo Banner Carousel ────────────────────────────────────────────────────
+
+  Widget _buildPromoBanner() {
+    return Obx(() {
+      final iklanList = apiIklan.listIklan;
+      final bool useApi = iklanList.isNotEmpty;
+      final int bannerCount =
+          useApi ? iklanList.length : _fallbackBanners.length;
+
+      return Column(
+        children: [
+          CarouselSlider(
+            carouselController: carouselController,
+            options: CarouselOptions(
+              scrollPhysics: const BouncingScrollPhysics(),
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 4),
+              aspectRatio: 2.1,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                setState(() => currentBannerIndex = index);
+              },
+            ),
+            items: List.generate(bannerCount, (index) {
+              if (useApi) {
+                return _buildApiBannerItem(iklanList[index]);
+              } else {
+                return _buildFallbackBannerItem(_fallbackBanners[index]);
+              }
+            }),
+          ),
+          if (bannerCount > 1) ...[
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(bannerCount, (i) {
+                return GestureDetector(
+                  onTap: () => carouselController.animateToPage(i),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    width: currentBannerIndex == i ? 20 : 7,
+                    height: 7,
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: currentBannerIndex == i
+                          ? const Color(0xFF2C4E40)
+                          : Colors.grey.shade300,
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ],
+        ],
+      );
+    });
+  }
+
+  /// Banner dari API iklan (full poster image + title overlay)
+  Widget _buildApiBannerItem(IklanModel iklan) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF2C4E40).withValues(alpha: 0.25),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Poster image
+            Image.network(
+              iklan.poster.startsWith('http')
+                  ? iklan.poster
+                  : ApiEndpoints.baseUrl +
+                      ApiEndpoints.authendpoints.getImageIklan +
+                      iklan.poster,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF2C4E40), Color(0xFF1E352B)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              ),
+            ),
+            // Left gradient for legibility
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerRight,
+                  end: Alignment.centerLeft,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.55),
+                  ],
+                ),
+              ),
+            ),
+            // Title + CTA
+            Positioned(
+              left: 20,
+              bottom: 20,
+              right: 60,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    iklan.judul,
+                    style: AppColors.fontStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      height: 1.3,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 7),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFC107),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      "Belanja Sekarang",
+                      style: AppColors.fontStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        color: const Color(0xFF2F2828),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 22,
+      ),
+    );
+  }
+
+  /// Fallback banner with brand gradient + local asset image
+  Widget _buildFallbackBannerItem(Map<String, dynamic> banner) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF2C4E40), Color(0xFF1E352B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF2C4E40).withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: -20,
+            bottom: -20,
+            child: Container(
+              width: 140,
+              height: 140,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.08),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 40,
+            top: -30,
+            child: Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        banner['title'] as String,
+                        style: AppColors.fontStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          height: 1.25,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        banner['subtitle'] as String,
+                        style: AppColors.fontStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white.withValues(alpha: 0.75),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 7),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFC107),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          "Belanja Sekarang",
+                          style: AppColors.fontStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF2F2828),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                  child: ShaderMask(
+                    shaderCallback: (rect) {
+                      return const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [Colors.transparent, Colors.black],
+                        stops: [0.0, 0.4],
+                      ).createShader(rect);
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: Image.asset(
+                      banner['image'] as String,
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Featured Products ────────────────────────────────────────────────────────
+
+  Widget _buildFeaturedProducts() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Featured Products",
+                style: AppColors.fontStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: const Color(0xFF2F2828),
+                  letterSpacing: -0.3,
+                ),
+              ),
+              InkWell(
+                onTap: () => pageController.setPageIndex(1),
+                borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8, vertical: 4),
+                  child: Text(
+                    "Lihat Semua",
+                    style: AppColors.fontStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF2C4E40),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+
+        // Reactive grid — uses listProdukHome (rekomendasi endpoint)
+        Obx(() {
+          if (apiProduk.isLoadingHome.value) {
+            return _buildProductShimmer();
+          }
+
+          final listProduk = apiProduk.listProdukHome;
+
+          if (listProduk.isEmpty) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              child: Center(
+                child: Column(
+                  children: [
+                    Icon(Icons.inventory_2_outlined,
+                        size: 56, color: Colors.grey.shade300),
+                    const SizedBox(height: 12),
+                    Text(
+                      "Belum ada produk tersedia",
+                      style: AppColors.fontStyle(
+                        color: Colors.grey.shade500,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          final displayCount = listProduk.length > 6 ? 6 : listProduk.length;
+
+          return GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.70,
+              crossAxisSpacing: 14,
+              mainAxisSpacing: 14,
+            ),
+            itemCount: displayCount,
+            itemBuilder: (context, index) {
+              final p = listProduk[index];
+              return ProdukTerlarisDashboard(
+                image: p.image,
+                namaProduk: p.namaProduk,
+                harga: p.harga.toString(),
+                rating: p.rating.toString(),
+                stok: p.stok,
+                jumlahReview: p.jumlahReview,
+                isFavorite: p.isFavorite,
+                aksi: () {
+                  Get.to(const LayoutDetailProduct(), arguments: {
+                    'idToko': p.idUser,
+                    'idProduk': p.idProduk,
+                    'namaProduk': p.namaProduk,
+                    'fotoProduk': p.image,
+                    'namaToko': p.namaToko,
+                  });
+                },
+                aksiKeranjang: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    builder: (BuildContext context) {
+                      return BottomSheetProduk(
+                        image: p.image,
+                        namaProduk: p.namaProduk,
+                        harga: p.harga.toString(),
+                        idProduk: p.idProduk,
+                        idToko: p.idUser,
+                        namaToko: p.namaToko,
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          );
+        }),
+      ],
+    );
+  }
+
+  /// Skeleton shimmer untuk grid produk saat loading
+  Widget _buildProductShimmer() {
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.70,
+        crossAxisSpacing: 14,
+        mainAxisSpacing: 14,
+      ),
+      itemCount: 4,
+      itemBuilder: (context, index) =>
+          _ShimmerBox(borderRadius: BorderRadius.circular(16)),
+    );
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────────────────────
+
+  Widget _buildSectionLabel(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
+        title,
+        style: AppColors.fontStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
+          color: const Color(0xFF2F2828),
+          letterSpacing: -0.3,
+        ),
+      ),
+    );
+  }
+}
+
+// ── Shimmer placeholder ────────────────────────────────────────────────────────
+
+class _ShimmerBox extends StatefulWidget {
+  final BorderRadius borderRadius;
+  const _ShimmerBox({required this.borderRadius});
+
+  @override
+  State<_ShimmerBox> createState() => _ShimmerBoxState();
+}
+
+class _ShimmerBoxState extends State<_ShimmerBox>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+  late Animation<double> _anim;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat(reverse: true);
+    _anim = Tween<double>(begin: 0.3, end: 0.9).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _anim,
+      builder: (context, _) => Container(
+        decoration: BoxDecoration(
+          borderRadius: widget.borderRadius,
+          color: Color.lerp(
+            Colors.grey.shade200,
+            Colors.grey.shade100,
+            _anim.value,
           ),
         ),
       ),
