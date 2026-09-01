@@ -1,15 +1,3 @@
-buildscript {
-    ext.kotlin_version = '2.0.0'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 allprojects {
     repositories {
         google()
@@ -21,8 +9,25 @@ rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
-    project.evaluationDependsOn(':app')
+    def p = project
+    p.afterEvaluate {
+        if (p.plugins.hasPlugin('com.android.library') || p.plugins.hasPlugin('com.android.application')) {
+            p.android.compileSdk = 36
+        }
+    }
+    p.evaluationDependsOn(':app')
+}
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion '2.3.20'
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {

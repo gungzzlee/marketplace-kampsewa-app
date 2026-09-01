@@ -1,6 +1,6 @@
 ﻿// ignore_for_file: avoid_print
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart' hide CarouselController;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +20,8 @@ class LayoutDetailProduct extends StatefulWidget {
 
 class _LayoutDetailProductState extends State<LayoutDetailProduct> {
   ApiProduk apiProduk = Get.put(ApiProduk());
-  final CarouselController carouselController = CarouselController();
+  final CarouselSliderController carouselController =
+      CarouselSliderController();
   int currentIndex = 0;
   String? selectedWarna;
   String? selectedUkuran;
@@ -157,7 +158,8 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
                     topRight: Radius.circular(15)),
                 border: Border(
                     top: BorderSide(
-                        color: Colors.black.withValues(alpha: 0.25), width: 2.5),
+                        color: Colors.black.withValues(alpha: 0.25),
+                        width: 2.5),
                     left: BorderSide(
                         color: Colors.black.withValues(alpha: 0.25), width: 2),
                     right: BorderSide(
@@ -517,4 +519,3 @@ class _LayoutDetailProductState extends State<LayoutDetailProduct> {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart' hide CarouselController;
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -39,7 +39,8 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
   late List<WisataModel> wisataList;
   late List<BeritaModel> beritaList;
   List kategoriIcon = ["Tenda", "Pakaian", "Tas & Sepatu", "Perlengkapan"];
-  final CarouselController carouselController = CarouselController();
+  final CarouselSliderController carouselController =
+      CarouselSliderController();
   int currentIndex = 0;
 
   @override
@@ -238,7 +239,8 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.black.withValues(alpha: 0.45)),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.45)),
                                 ),
                               ],
                             ),
@@ -548,4 +550,3 @@ class _LayoutDashboardState extends State<LayoutDashboard> {
     );
   }
 }
-
